@@ -19,24 +19,28 @@ public class Patient {
         return patientId;
     }
 
-    public String getInterventionTime() {
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+    public List<String> getInterventionTime() {
+        List<Map<String, Object>> data = dbHelper.retrieveData("interventionHistory");
+        List<String> interventionTimes = new ArrayList<>();
+
         for (Map<String, Object> row : data) {
-            if (row.get("id") != null && row.get("id").equals(patientId)) {
-                return (String) row.get("interventionTime");
+            if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
+                interventionTimes.add((String) row.get("intervention_time"));
             }
         }
-        return null;
+        return interventionTimes;
     }
 
-    public String getInterventionHandledBy() {
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+    public List<String> getInterventionHandledBy() {
+        List<Map<String, Object>> data = dbHelper.retrieveData("interventionHistory");
+        List<String> handledByList = new ArrayList<>();
+
         for (Map<String, Object> row : data) {
-            if (row.get("id") != null && row.get("id").equals(patientId)) {
-                return (String) row.get("interventionHandledBy");
+            if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
+                handledByList.add((String) row.get("handled_by"));
             }
         }
-        return null;
+        return handledByList;
     }
 
     public String getSchedule() {
