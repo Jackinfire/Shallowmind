@@ -1,5 +1,3 @@
-package Shallowmind.frontend.src.main.java;
-
 import javafx.application.*;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
@@ -11,8 +9,15 @@ public class PatientMonitorApp extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        // Create borderpane root
-        HBox root = new HBox();
+        // Create VBox root
+        VBox root = new VBox(20);
+        root.setPadding(new Insets(30,100,30,100));
+
+        // Create HBox which will contain upper panels
+        HBox upperPanels = new HBox(20);
+        upperPanels.setAlignment(Pos.TOP_CENTER);
+        root.getChildren().addAll(upperPanels); // Add to root
+
 
         // Set background color
         root.setStyle("-fx-background-color: #081c44;");
@@ -30,19 +35,25 @@ public class PatientMonitorApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        // Add Navigation Panel to the left region of the BorderPane
-        NavigationPane navigationPane = new NavigationPane(); // Create instance of NavigationPane
-        navigationPane.setAlignment(Pos.CENTER_LEFT); // Set NavigationPane as the left region
-
         // Add Status panel to top region
         StatusPanel statusPanel = new StatusPanel();
         statusPanel.setAlignment(Pos.TOP_CENTER);
-        statusPanel.setMaxSize(350,100);
+        statusPanel.setMaxSize(600,110);
+        root.setMargin(statusPanel, new Insets(20, 0, 0, 100)); // Margin: top, right, bottom, left
+
+        // Add Alerts panel to top region
+        AlertsPanel alertsPanel = new AlertsPanel();
+        alertsPanel.setAlignment(Pos.TOP_CENTER);
+        alertsPanel.setMaxSize(600,110);
+        root.setMargin(alertsPanel, new Insets(20, 0, 0, 100)); // Margin: top, right, bottom, left
 
 
 
-        // Add components
-        root.getChildren().addAll(navigationPane, statusPanel);
+        // Add status panel and alerts panel to upper HBox
+        upperPanels.getChildren().addAll(statusPanel, alertsPanel);
+
+        PatientsPanel patientspanel = new PatientsPanel();
+        root.getChildren().addAll(patientspanel);
 
 
 
