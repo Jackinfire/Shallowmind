@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +13,7 @@ public class Patient {
         this.dbHelper = new DatabaseLookup();
     }
 
-    /** Get methods **/
+    /*** Get methods **/
 
     public Integer getPatientId() {
         return patientId;
@@ -171,51 +173,46 @@ public class Patient {
                 "Emergency Contact Number: " + getContactNumber() + "\n" +
                 "Doctor in charge: " + getDocInCharge();
     }
-}
-    /*** Set methods ***/:
+
+    /*** Set methods ***/
 
     public void setName(String name) {
-        this.name = name;
+        dbHelper.updateField(tableName, "name", name, "id", patientId);
     }
-    public void setImagePath() {
-        this.imagePath = imagePath;
+
+    public void setImagePath(String imagePath) {
+        dbHelper.updateField(tableName, "imagePath", imagePath, "id", patientId);
     }
 
     public void setAge(int age) {
-        this.age = age;
+        dbHelper.updateField(tableName, "age", age, "id", patientId);
     }
 
     public void setGender(String gender) {
-        this.gender = gender;
+        dbHelper.updateField(tableName, "gender", gender, "id", patientId);
     }
 
     public void setDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
-    }
-
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
+        dbHelper.updateField(tableName, "diagnosis", diagnosis, "id", patientId);
     }
 
     public void setPosture(String posture) {
-        this.posture = posture;
+        dbHelper.updateField(tableName, "posture", posture, "id", patientId);
     }
 
     public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
+        dbHelper.updateField(tableName, "roomNumber", roomNumber, "id", patientId);
     }
 
     public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
+        dbHelper.updateField(tableName, "emergencyContact", contactNumber, "id", patientId);
     }
 
+    /** Other methods **/
 
-    /*** Other methods ***/
     public void updatePosture(String newPosture) {
-        this.posture = newPosture;
+        setPosture(newPosture); // Reuse setter method
     }
 
-    public void printPatientDetails() {
-        System.out.println(getPatientDetails());
-    }
+
 }
