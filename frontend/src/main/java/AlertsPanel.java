@@ -1,9 +1,7 @@
-package Shallowmind.frontend.src.main.java;
-
 import javafx.geometry.Pos;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
-public class AlertsPanel extends UpperPanel {
+public class AlertsPanel extends UpperPanel{
     public AlertsPanel(){
         super("Posture Monitoring Alerts");
 

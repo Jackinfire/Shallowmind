@@ -2,7 +2,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 
-public class StatusPanel extends UpperPanel {
+public class StatusPanel extends UpperPanel{
     public StatusPanel(){
         super("You currently have 0 patients");
 
