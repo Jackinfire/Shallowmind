@@ -4,7 +4,7 @@ plugins {
 
 application {
     // Specify the fully qualified main class
-    mainClass = 'PatientMonitorApp'
+    mainClass = 'Overview.PatientMonitorApp'
 }
 
 java {
