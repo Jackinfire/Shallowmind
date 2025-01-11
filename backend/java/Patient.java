@@ -2,6 +2,7 @@ public class Patient {
     // Attributes
     private int patientId;
     private String name;
+    private String imagePath;
     private int age;
     private String gender;
     private String diagnosis;
@@ -12,9 +13,10 @@ public class Patient {
     private String Docincharge;
 
 
-    public Patient(int patientId, String name, int age, String gender, String diagnosis,String diagnosis_date, String posture, String roomNumber, String contactNumber,String docincharge, boolean isCritical) {
+    public Patient(int patientId, String name, String imagePath, int age, String gender, String diagnosis,String diagnosis_date, String posture, String roomNumber, String contactNumber,String docincharge, boolean isCritical) {
         this.patientId = patientId;
         this.name = name;
+        this.imagePath = imagePath;
         this.age = age;
         this.gender = gender;
         this.diagnosis = diagnosis;
@@ -41,6 +43,10 @@ public class Patient {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getImagePath() { return imagePath; }
+
+    public void setImagePath() { this.imagePath = imagePath; }
 
     public int getAge() {
         return age;
