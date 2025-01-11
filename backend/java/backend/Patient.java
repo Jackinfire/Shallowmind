@@ -1,3 +1,5 @@
+package backend;
+
 public class Patient {
     // Attributes
     private int patientId;
@@ -27,7 +29,7 @@ public class Patient {
         this.roomNumber = roomNumber;
         this.contactNumber = contactNumber;
         this.docInCharge= docincharge;
-        this.diagnosisDate=diagnosis_date;
+        this.diagnosisDate= diagnosisDate;
         this.medication=medication;
         this.schedule= schedule;
         this.interventionTime=interventionTime;
@@ -132,7 +134,7 @@ public class Patient {
         return  "Age: " + age + "\n" +
                 "Gender: " + gender + "\n" +
                 "Diagnosis: " + diagnosis + "\n" +
-                "Diagnosis Date:"+diagnosis_date+
+                "Diagnosis Date:"+ diagnosisDate+
                 "Posture: " + posture + "\n" +
                 "Emergency Contact Number: " + contactNumber + "\n"+
                 "Doctor in charge: "+ docInCharge;
