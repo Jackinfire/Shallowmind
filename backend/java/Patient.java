@@ -6,14 +6,17 @@ public class Patient {
     private int age;
     private String gender;
     private String diagnosis;
-    private String diagnosis_date;
+    private String diagnosisDate;
     private String posture;
     private String roomNumber;
     private String contactNumber;
-    private String Docincharge;
+    private String docInCharge;
+    private String medication;
+    private String schedule;
+    private String interventionTime;
+    private String interventionHandledBy;
 
-
-    public Patient(int patientId, String name, String imagePath, int age, String gender, String diagnosis,String diagnosis_date, String posture, String roomNumber, String contactNumber,String docincharge, boolean isCritical) {
+    public Patient(int patientId, String name, String imagePath, int age, String gender, String diagnosis,String diagnosisDate, String posture, String roomNumber, String contactNumber,String docincharge,String medication,String schedule,String interventionHandledBy,String interventionTime, boolean isCritical) {
         this.patientId = patientId;
         this.name = name;
         this.imagePath = imagePath;
@@ -23,13 +26,27 @@ public class Patient {
         this.posture = posture;
         this.roomNumber = roomNumber;
         this.contactNumber = contactNumber;
-        this.Docincharge= docincharge;
-        this.diagnosis_date=diagnosis_date;
+        this.docInCharge= docincharge;
+        this.diagnosisDate=diagnosis_date;
+        this.medication=medication;
+        this.schedule= schedule;
+        this.interventionTime=interventionTime;
+        this.interventionHandledBy=interventionHandledBy;
     }
 
     // Getters and Setters
     public int getPatientId() {
         return patientId;
+    }
+    public String getInterventiontime(){
+        return interventionTime;
+    }
+    public String getInterventionHandledBy(){
+        return interventionHandledBy;
+    }
+
+    public String getSchedule(){
+        return schedule;
     }
 
     public void setPatientId(int patientId) {
@@ -96,15 +113,19 @@ public class Patient {
         this.contactNumber = contactNumber;
     }
 
+    public String getMedication(){
+        return medication;
+    }
+
 
     public void updatePosture(String newPosture) {
         this.posture = newPosture;
     }
     public String getDocincharge(){
-        return Docincharge;
+        return docInCharge;
     }
-    public String  getDiagnosis_date(){
-        return diagnosis_date;
+    public String  getDiagnosisdate(){
+        return diagnosisDate;
     }
 
     public String getPatientDetails() {
@@ -114,8 +135,9 @@ public class Patient {
                 "Diagnosis Date:"+diagnosis_date+
                 "Posture: " + posture + "\n" +
                 "Emergency Contact Number: " + contactNumber + "\n"+
-                "Doctor in charge: "+ Docincharge;
+                "Doctor in charge: "+ docInCharge;
     }
+
 
     public void printPatientDetails() {
         System.out.println(getPatientDetails());
