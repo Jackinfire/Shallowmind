@@ -4,7 +4,7 @@ plugins {
 }
 
 application {
-    mainClass = 'PatientMonitorApp'
+    mainClass = 'Main'
 }
 
 group 'org.example'
@@ -21,7 +21,7 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 
-    // * Move the SQLite JDBC dependency into the dependencies block *
+    // ** Move the SQLite JDBC dependency into the dependencies block **
     implementation 'org.xerial:sqlite-jdbc:3.42.0.0'
 }
 
