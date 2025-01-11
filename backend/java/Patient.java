@@ -1,109 +1,177 @@
-public class Patient {
-    // Attributes
-    private int patientId;
-    private String name;
-    private String imagePath;
-    private int age;
-    private String gender;
-    private String diagnosis;
-    private String diagnosisDate;
-    private String posture;
-    private String roomNumber;
-    private String contactNumber;
-    private String docInCharge;
-    private String medication;
-    private String schedule;
-    private String interventionTime;
-    private String interventionHandledBy;
+import java.util.List;
+import java.util.Map;
 
-    public Patient(int patientId, String name, String imagePath, int age, String gender, String diagnosis,String diagnosisDate, String posture, String roomNumber, String contactNumber,String docincharge,String medication,String schedule,String interventionHandledBy,String interventionTime, boolean isCritical) {
+public class Patient {
+    private int patientId;
+    private DatabaseLookup dbHelper;
+    private String tableName = "patientData";
+
+    public Patient(int patientId) {
         this.patientId = patientId;
-        this.name = name;
-        this.imagePath = imagePath;
-        this.age = age;
-        this.gender = gender;
-        this.diagnosis = diagnosis;
-        this.posture = posture;
-        this.roomNumber = roomNumber;
-        this.contactNumber = contactNumber;
-        this.docInCharge= docincharge;
-        this.diagnosisDate=diagnosis_date;
-        this.medication=medication;
-        this.schedule= schedule;
-        this.interventionTime=interventionTime;
-        this.interventionHandledBy=interventionHandledBy;
+        this.dbHelper = new DatabaseLookup();
     }
 
-    // Getters and Setters
+    /** Get methods **/
 
-    /*** Get methods ***/:
-    public int getPatientId() {
+    public Integer getPatientId() {
         return patientId;
     }
-    public String getInterventiontime(){
-        return interventionTime;
-    }
-    public String getInterventionHandledBy(){
-        return interventionHandledBy;
+
+    public String getInterventionTime() {
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        for (Map<String, Object> row : data) {
+            if (row.get("id") != null && row.get("id").equals(patientId)) {
+                return (String) row.get("interventionTime");
+            }
+        }
+        return null;
     }
 
-    public String getSchedule(){
-        return schedule;
+    public String getInterventionHandledBy() {
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        for (Map<String, Object> row : data) {
+            if (row.get("id") != null && row.get("id").equals(patientId)) {
+                return (String) row.get("interventionHandledBy");
+            }
+        }
+        return null;
+    }
+
+    public String getSchedule() {
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        for (Map<String, Object> row : data) {
+            if (row.get("id") != null && row.get("id").equals(patientId)) {
+                return (String) row.get("schedule");
+            }
+        }
+        return null;
     }
 
     public String getName() {
-        return name;
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        for (Map<String, Object> row : data) {
+            if (row.get("id") != null && row.get("id").equals(patientId)) {
+                return (String) row.get("name");
+            }
+        }
+        return null;
     }
 
     public String getImagePath() {
-        return imagePath;
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        for (Map<String, Object> row : data) {
+            if (row.get("id") != null && row.get("id").equals(patientId)) {
+                return (String) row.get("imagePath");
+            }
+        }
+        return null;
     }
 
-    public int getAge() {
-        return age;
+    public Integer getAge() {
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        for (Map<String, Object> row : data) {
+            if (row.get("id") != null && row.get("id").equals(patientId)) {
+                return (Integer) row.get("age");
+            }
+        }
+        return null;
     }
 
     public String getGender() {
-        return gender;
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        for (Map<String, Object> row : data) {
+            if (row.get("id") != null && row.get("id").equals(patientId)) {
+                return (String) row.get("gender");
+            }
+        }
+        return null;
     }
 
     public String getDiagnosis() {
-        return diagnosis;
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        for (Map<String, Object> row : data) {
+            if (row.get("id") != null && row.get("id").equals(patientId)) {
+                return (String) row.get("diagnosis");
+            }
+        }
+        return null;
     }
 
     public String getPosture() {
-        return posture;
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        for (Map<String, Object> row : data) {
+            if (row.get("id") != null && row.get("id").equals(patientId)) {
+                return (String) row.get("posture");
+            }
+        }
+        return null;
     }
 
-    public String getMedication(){
-        return medication;
+    public String getMedication() {
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        for (Map<String, Object> row : data) {
+            if (row.get("id") != null && row.get("id").equals(patientId)) {
+                return (String) row.get("medication");
+            }
+        }
+        return null;
     }
 
     public String getRoomNumber() {
-        return roomNumber;
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        for (Map<String, Object> row : data) {
+            if (row.get("id") != null && row.get("id").equals(patientId)) {
+                return (String) row.get("roomNumber");
+            }
+        }
+        return null;
     }
 
     public String getContactNumber() {
-        return contactNumber;
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        for (Map<String, Object> row : data) {
+            if (row.get("id") != null && row.get("id").equals(patientId)) {
+                // Retrieve the contact number and convert it to a String
+                Object contactNumber = row.get("emergencyContact");
+                if (contactNumber != null) {
+                    return contactNumber.toString(); // Convert to String
+                }
+            }
+        }
+        return null; // Return null if patient not found or contact is null
     }
 
-    public String getDocincharge(){
-        return docInCharge;
+
+    public String getDocInCharge() {
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        for (Map<String, Object> row : data) {
+            if (row.get("id") != null && row.get("id").equals(patientId)) {
+                return (String) row.get("doctorInCharge");
+            }
+        }
+        return null;
     }
-    public String  getDiagnosisdate(){
-        return diagnosisDate;
+
+    public String getDiagnosisDate() {
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        for (Map<String, Object> row : data) {
+            if (row.get("id") != null && row.get("id").equals(patientId)) {
+                return (String) row.get("diagnosisDate");
+            }
+        }
+        return null;
     }
 
     public String getPatientDetails() {
-        return  "Age: " + age + "\n" +
-                "Gender: " + gender + "\n" +
-                "Diagnosis: " + diagnosis + "\n" +
-                "Diagnosis Date:"+diagnosis_date+
-                "Posture: " + posture + "\n" +
-                "Emergency Contact Number: " + contactNumber + "\n"+
-                "Doctor in charge: "+ docInCharge;
+        return "Age: " + getAge() + "\n" +
+                "Gender: " + getGender() + "\n" +
+                "Diagnosis: " + getDiagnosis() + "\n" +
+                "Diagnosis Date: " + getDiagnosisDate() + "\n" +
+                "Posture: " + getPosture() + "\n" +
+                "Emergency Contact Number: " + getContactNumber() + "\n" +
+                "Doctor in charge: " + getDocInCharge();
     }
-
+}
     /*** Set methods ***/:
 
     public void setName(String name) {

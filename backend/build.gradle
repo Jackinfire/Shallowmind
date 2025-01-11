@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'application' // This tells Gradle it's a Java app
+}
+
+application {
+    mainClass = 'Main'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Test libraries
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // * Move the SQLite JDBC dependency into the dependencies block *
+    implementation 'org.xerial:sqlite-jdbc:3.42.0.0'
+}
+
+test {
+    useJUnitPlatform()
+}
