@@ -35,6 +35,8 @@ public class Patient {
     }
 
     // Getters and Setters
+
+    /*** Get methods ***/:
     public int getPatientId() {
         return patientId;
     }
@@ -49,78 +51,42 @@ public class Patient {
         return schedule;
     }
 
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getImagePath() {
+        return imagePath;
     }
-
-    public String getImagePath() { return imagePath; }
-
-    public void setImagePath() { this.imagePath = imagePath; }
 
     public int getAge() {
         return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public String getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
     public String getDiagnosis() {
         return diagnosis;
-    }
-
-    public void setDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
     }
 
     public String getPosture() {
         return posture;
     }
 
-    public void setPosture(String posture) {
-        this.posture = posture;
+    public String getMedication(){
+        return medication;
     }
 
     public String getRoomNumber() {
         return roomNumber;
     }
 
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
-    }
-
     public String getContactNumber() {
         return contactNumber;
     }
 
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-    }
-
-    public String getMedication(){
-        return medication;
-    }
-
-
-    public void updatePosture(String newPosture) {
-        this.posture = newPosture;
-    }
     public String getDocincharge(){
         return docInCharge;
     }
@@ -138,6 +104,48 @@ public class Patient {
                 "Doctor in charge: "+ docInCharge;
     }
 
+    /*** Set methods ***/:
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setImagePath() {
+        this.imagePath = imagePath;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
+    }
+
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
+    }
+
+    public void setPosture(String posture) {
+        this.posture = posture;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+
+    /*** Other methods ***/
+    public void updatePosture(String newPosture) {
+        this.posture = newPosture;
+    }
 
     public void printPatientDetails() {
         System.out.println(getPatientDetails());
