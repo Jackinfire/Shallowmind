@@ -1,5 +1,6 @@
 plugins {
     id 'application'
+    id("org.openjfx.javafxplugin") version "0.0.13"
 }
 
 application {
@@ -19,6 +20,9 @@ repositories {
 dependencies {
     // Add other dependencies (e.g., testing frameworks) if needed
     testImplementation 'junit:junit:4.13.2'
+
+    implementation 'org.xerial:sqlite-jdbc:3.42.0.0'
+
 }
 
 run {
@@ -27,3 +31,8 @@ run {
             "-Djava.library.path=${System.properties['java.home']}/bin"
     ]
 }
+
+javafx {
+    version = "21.0.2"
+}
+
