@@ -1,4 +1,3 @@
-package view.details;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -11,7 +10,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+
 public class PatientProfile extends Application {
+    private Patient patient;
+
+
+    public PatientProfile(int patientID){
+        this.patient = new Patient (patientID);
+
+
+    }
     @Override
     public void start(Stage stage) {
         // Root AnchorPane
@@ -191,9 +199,5 @@ public class PatientProfile extends Application {
         Label label = new Label(text);
         stackPane.getChildren().addAll(background, label);
         return stackPane;
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
