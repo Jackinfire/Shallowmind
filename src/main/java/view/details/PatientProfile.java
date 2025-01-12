@@ -154,10 +154,9 @@ public class PatientProfile extends Stage {
         VBox proceduresContent = new VBox();
         proceduresContent.setSpacing(5);
         proceduresContent.getChildren().addAll(
-                createRoundedLabel(this.patient.getProcedureName()),
-                createRoundedLabel(this.patient.getProcedureName()),
-                createRoundedLabel(this.patient.getProcedureName())
-        );
+                createRoundedLabel(this.patient.getProcedureName().get(0)),
+                createRoundedLabel(this.patient.getProcedureName().get(1)));
+
 
         proceduresSection.getChildren().addAll(proceduresLabel, proceduresContent);
         GridPane.setRowIndex(proceduresSection, 10);
@@ -173,9 +172,8 @@ public class PatientProfile extends Stage {
         medicationContent.setSpacing(5);
 
         medicationContent.getChildren().addAll(
-                createRoundedLabel(this.patient.getMedicationDetails()),
-                createRoundedLabel(this.patient.getMedicationDetails(),
-        );
+                createRoundedLabel(this.patient.getMedicationDetails().get(0)),
+                createRoundedLabel(this.patient.getMedicationDetails().get(1)));
 
         medicationSection.getChildren().addAll(MedicationLabel, medicationContent);
         GridPane.setRowIndex(medicationSection, 5);
