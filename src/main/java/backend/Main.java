@@ -8,7 +8,6 @@ public class Main {
         // 2. Create the backend.AlertSystem object
         AlertSystem alertSystem = new AlertSystem(dbLookup);
 
-
         // Patient ID to fetch
         int patientId = 3;
 
@@ -25,10 +24,22 @@ public class Main {
             System.out.println("Patient with ID " + patientId + " not found.");
         }
 
+        Clock clock = new Clock();
+        clock.start();
 
-        System.out.println(patient.getPatientDetails());
-        exportToPdf pdfGenerator = new exportToPdf();
-        pdfGenerator.generatePatientDetailsPDF("patient_details.pdf", patient);
+        // Example: Another thread accessing the counter
+        Thread otherClassThread = new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(10000); // Access the counter every 10 seconds
+                    System.out.println("Current Counter: " + clock.getTime());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        otherClassThread.start();
+
     }
 }
 
