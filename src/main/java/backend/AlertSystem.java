@@ -117,4 +117,37 @@ public class AlertSystem {
         return alertStatuses;
     }
 
+//    public String monitorLivePatientPosture(int patientId, String currentPosture, LocalDateTime currentTimestamp) {
+//
+//        // Retrieve or initialize the patient's state
+//        PatientState state = patientStates.computeIfAbsent(patientId, k -> new PatientState());
+//
+//        // Check if the posture has changed
+//        if (!currentPosture.equals(state.lastPosture)) {
+//            // Posture has changed, reset state
+//            state.lastPosture = currentPosture;
+//            state.lastPostureChangeTimestamp = currentTimestamp;
+//            state.consecutiveChecks = 1;
+//            state.alertStatus = "green";
+//        } else {
+//            // Posture is the same, increment consecutive checks
+//            state.consecutiveChecks++;
+//
+//            if ("green".equals(state.alertStatus) && state.consecutiveChecks >= 5) {
+//                state.alertStatus = "amber";
+//            } else if ("amber".equals(state.alertStatus) && state.consecutiveChecks >= 20) {
+//                state.alertStatus = "red";
+//            }
+//        }
+//
+//        return state.alertStatus;
+//    }
+//
+//    private static class PatientState {
+//        String lastPosture = null;
+//        LocalDateTime lastPostureChangeTimestamp = null;
+//        int consecutiveChecks = 0;
+//        String alertStatus = "green";
+//    }
+
 }
