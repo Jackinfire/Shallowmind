@@ -78,4 +78,24 @@ public class DatabaseLookup {
             System.err.println("Error while updating field: " + e.getMessage());
         }
     }
+
+    public int getNumberOfPatients() {
+        String query = "SELECT COUNT(*) AS total FROM patientData";
+        int totalPatients = 0;
+
+        try (
+                Connection connection = connect();
+                PreparedStatement statement = connection.prepareStatement(query);
+                ResultSet resultSet = statement.executeQuery()
+        ) {
+            if (resultSet.next()) {
+                totalPatients = resultSet.getInt("total");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error while retrieving the number of patients: " + e.getMessage());
+        }
+
+        return totalPatients;
+
+    }
 }
