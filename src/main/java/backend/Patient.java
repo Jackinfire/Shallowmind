@@ -1,5 +1,11 @@
 package backend;
 
+import java.awt.Image;
+import javax.imageio.ImageIO;
+import java.io.ByteArrayInputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -110,15 +116,24 @@ public class Patient {
         return null;
     }
 
-    public String getImagePath() {
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
-        for (Map<String, Object> row : data) {
-            if (row.get("id") != null && row.get("id").equals(patientId)) {
-                return (String) row.get("imagePath");
+    public byte[] getImageAsBytes() {
+        String query = "SELECT image FROM " + tableName + " WHERE id = ?";
+        try (
+                Connection connection = dbHelper.connect();
+                PreparedStatement statement = connection.prepareStatement(query)
+        ) {
+            statement.setInt(1, patientId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getBytes("image");
             }
+        } catch (Exception e) {
+            System.err.println("Error retrieving image: " + e.getMessage());
         }
         return null;
     }
+
 
     public Integer getAge() {
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
