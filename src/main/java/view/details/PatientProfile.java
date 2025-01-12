@@ -31,7 +31,6 @@ public class PatientProfile extends Stage {
         this.setHeight(550);
 
         this.setTitle("Patient's Profile");
-
         this.show();
 
         // GridPane
