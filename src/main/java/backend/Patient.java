@@ -251,27 +251,25 @@ public class Patient {
      *
      * @return the medication details as a string, or null if not found
      */
-    public String getMedicationDetails() {
+    public List<String> getMedicationDetails() {
         tableName = "medicationData";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
-        StringBuilder medicationDetails = new StringBuilder();
-        boolean medicationFound = false;
+        List<String> medicationDetailsList = new ArrayList<>();
+
         for (Map<String, Object> row : data) {
             if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
-                medicationFound = true;
-                medicationDetails.append(row.get("medication"))
-                        .append(", ")
-                        .append(row.get("dose_mg"))
-                        .append(" mg, ")
-                        .append(row.get("dose_frequency_daily"))
-                        .append("xDaily (")
-                        .append(row.get("start_date"))
-                        .append(")\n");
-                return medicationDetails.toString();
+                String medicationDetail = row.get("medication") + ", "
+                        + row.get("dose_mg") + " mg, "
+                        + row.get("dose_frequency_daily") + "xDaily ("
+                        + row.get("start_date") + ")";
+                medicationDetailsList.add(medicationDetail);
             }
         }
-        return null;
+
+        // Return the list, which will be empty if no medications are found
+        return medicationDetailsList;
     }
+
 
     /**
      * Retrieves the patient's room number.
