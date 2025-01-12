@@ -43,12 +43,13 @@ public class PatientsPanel extends ScrollPane {
 
             panel.getChildren().addAll(hBox1);
 
-
         }
         panel.setPadding(new Insets(20,20,20,20));
 
         this.setContent(panel);
         this.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // Remove horizontal scroll bar
+
+
 
 
     }

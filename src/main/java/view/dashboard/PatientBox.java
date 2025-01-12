@@ -1,5 +1,7 @@
 package view.dashboard;
 
+import backend.AlertSystem;
+import backend.DatabaseLookup;
 import backend.Patient;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -9,10 +11,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import view.utils.WindowDimensions;
 
+import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
+
 
 public class PatientBox extends HBox {
 
     private String alertColor = "#328D40"; // Class-level variable to store the color, default is green
+    private ScheduledExecutorService scheduler;
 
     public PatientBox(Patient patient){
 
@@ -46,6 +52,10 @@ public class PatientBox extends HBox {
         detailsBox.getChildren().addAll(nameLabel,locationLabel,lastUpdatedLabel);
         this.getChildren().addAll(detailsBox);
 
+        DatabaseLookup databaseLookup = new DatabaseLookup();
+        AlertSystem alertSystem = new AlertSystem(databaseLookup);
+        System.out.println(alertSystem.monitorPatientPosture(patient.getPatientId()));
+
     }
 
     // Fetches patient image and returns
@@ -76,6 +86,18 @@ public class PatientBox extends HBox {
 //        return imageView;
 //
 //    }
+    public void setAlertColor(String alertColor){
+        this.alertColor = alertColor;
+        this.setStyle("-fx-background-color: " + alertColor + ";");
+    }
+
+    public void runStatusUpdates(int patientID){
+        List<String> statuses = new List<String>() {
+        }
+    }
+
+
+
 
 }
 
