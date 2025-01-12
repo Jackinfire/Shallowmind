@@ -38,7 +38,7 @@ public class AlertSystem {
 
         // If the table is empty or doesn't exist
         if (allRows.isEmpty()) {
-            return List.of("No posture history table found or table is empty.");
+            throw new IllegalStateException("No posture history table found or table is empty.");
         }
 
         // 2. Filter rows for the SPECIFIC patient
@@ -54,7 +54,7 @@ public class AlertSystem {
                 .collect(Collectors.toList());
 
         if (patientRows.isEmpty()) {
-            return List.of("No posture history found for Patient " + patientId);
+            throw new IllegalStateException("No posture history table found or table is empty.");
         }
 
         // 3. Convert 'time' (String) to LocalDateTime; sort in ascending order of time
