@@ -22,12 +22,15 @@ public class Patient {
 
     /*** Get methods **/
 
+    // function to get patient id
     public Integer getPatientId() {
         return patientId;
     }
 
+    //Function that creates a list of type string containing all the intervention times from the intervention history
     public List<String> getInterventionTime() {
-        List<Map<String, Object>> data = dbHelper.retrieveData("interventionHistory");
+        tableName="interventionHistory";
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         List<String> interventionTimes = new ArrayList<>();
 
         for (Map<String, Object> row : data) {
@@ -38,7 +41,7 @@ public class Patient {
         return interventionTimes;
     }
 
-
+    //Function that creates a list of type string containing all nurse's names who intervened from the intervention history
     public List<String> getInterventionHandledBy() {
         tableName = "interventionHistory";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
@@ -52,9 +55,10 @@ public class Patient {
         return handledByList;
     }
 
-
+    //Function that creates a list of type string containing all positions when intervened from the intervention history
     public List<String> getInterventionPosition() {
-        List<Map<String, Object>> data = dbHelper.retrieveData("interventionHistory");
+        tableName="interventionHistory";
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         List<String> interventionPosition = new ArrayList<>();
 
         for (Map<String, Object> row : data) {
@@ -65,7 +69,7 @@ public class Patient {
         return interventionPosition;
     }
 
-
+    //Function that creates a list of type Integer containing duration of position before intervention from the intervention history
     public List<Integer> getInterventionLength() {
         List<Map<String, Object>> data = dbHelper.retrieveData("interventionHistory");
         List<Integer> interventionLength = new ArrayList<>();
@@ -78,7 +82,7 @@ public class Patient {
         return interventionLength;
     }
 
-
+    //Function that creates a list of type string containing schedule of procedure from the procedure history
     public List<String> getProcedureTime() {
         tableName = "procedureHistory";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
@@ -92,7 +96,7 @@ public class Patient {
         return procedureTime;
     }
 
-
+    //Function that creates a list of type string containing all names of procedure from the procedure history
     public List<String> getProcedureName() {
         tableName = "procedureHistory";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
@@ -106,6 +110,7 @@ public class Patient {
         return procedureName;
     }
 
+    //Function to get the name
     public String getName() {
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         for (Map<String, Object> row : data) {
@@ -116,6 +121,7 @@ public class Patient {
         return null;
     }
 
+    //Function to get the image of the patient as a byte file from sql
     public byte[] getImageAsBytes() {
         String query = "SELECT image FROM " + tableName + " WHERE id = ?";
         try (
@@ -134,7 +140,7 @@ public class Patient {
         return null;
     }
 
-
+    //function to get patient age as an integer
     public Integer getAge() {
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         for (Map<String, Object> row : data) {
@@ -145,6 +151,7 @@ public class Patient {
         return null;
     }
 
+    //Function to get gender as a String
     public String getGender() {
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         for (Map<String, Object> row : data) {
@@ -155,6 +162,7 @@ public class Patient {
         return null;
     }
 
+    //Function to get diagnosis name as String
     public String getDiagnosis() {
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         for (Map<String, Object> row : data) {
@@ -165,17 +173,21 @@ public class Patient {
         return null;
     }
 
-    public String getPosture(String time) {
+    //Function to get current posture position as String, after entering the current time
+    public List <String> getPosture(String time) {
         tableName="postureHistory";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        List <String> posturePositions=new ArrayList<>();
+
         for (Map<String, Object> row : data) {
-            if (row.get("id") != null && row.get("id").equals(patientId) && row.get("time").equals(time)) {
-                return (String) row.get("posture_position");
+            if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
+                 posturePositions.add((String) row.get("posture_position"));
             }
         }
-        return null;
+        return posturePositions;
     }
 
+    // function to return medication details as a string
     public String getMedicationDetails() {
         tableName = "medicationData";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
@@ -199,6 +211,7 @@ public class Patient {
 
     }
 
+    //function to give you room number of the patient
     public int getRoomNumber() {
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         for (Map<String, Object> row : data) {
@@ -209,6 +222,7 @@ public class Patient {
         return 0;
     }
 
+    //function to give you the ward of the patient
     public String getWard() {
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         for (Map<String, Object> row : data) {
@@ -219,8 +233,7 @@ public class Patient {
         return null;
     }
 
-
-
+    // Function to give emergency contact number
     public String getContactNumber() {
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         for (Map<String, Object> row : data) {
@@ -236,6 +249,7 @@ public class Patient {
     }
 
 
+    //Function to give doctor in charge's name
     public String getDocInCharge() {
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         for (Map<String, Object> row : data) {
@@ -246,6 +260,7 @@ public class Patient {
         return null;
     }
 
+    //Function to give the date of diagnosis
     public String getDiagnosisDate() {
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         for (Map<String, Object> row : data) {
@@ -256,6 +271,7 @@ public class Patient {
         return null;
     }
 
+    //function to give all patient details
     public String getPatientDetails() {
         return "Age: " + getAge() + "\n" +
                 "Gender: " + getGender() + "\n" +
@@ -267,38 +283,48 @@ public class Patient {
 
     /*** Set methods ***/
 
+    //Function to update name of patient
     public void setName(String name) {
         dbHelper.updateField(tableName, "name", name, "id", patientId);
     }
 
+    //Function to update image path of patient
     public void setImagePath(String imagePath) {
         dbHelper.updateField(tableName, "imagePath", imagePath, "id", patientId);
     }
 
+    //function to update patient age
     public void setAge(int age) {
         dbHelper.updateField(tableName, "age", age, "id", patientId);
     }
 
+    //function to update gender of patient
     public void setGender(String gender) {
         dbHelper.updateField(tableName, "gender", gender, "id", patientId);
     }
 
+    //function to update diagnosis of patient
     public void setDiagnosis(String diagnosis) {
         dbHelper.updateField(tableName, "diagnosis", diagnosis, "id", patientId);
     }
 
+    //function to update posture position of patient
     public void setPosture(String posture) {
         tableName="postureHistory";
         dbHelper.updateField(tableName, "posture_position", posture, "id", patientId);
     }
 
+    //function to update room number of the patient
     public void setRoomNumber(int roomNumber) {
         dbHelper.updateField(tableName, "roomNum", roomNumber, "id", patientId);
     }
 
+    //function to update ward of patient
     public void setWard(String roomNumber) {
         dbHelper.updateField(tableName, "ward", roomNumber, "id", patientId);
     }
+
+    //function to update emergency contact number of patient
     public void setContactNumber(String contactNumber) {
         dbHelper.updateField(tableName, "emergencyContact", contactNumber, "id", patientId);
     }
