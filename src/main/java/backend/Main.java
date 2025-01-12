@@ -24,22 +24,6 @@ public class Main {
             System.out.println("Patient with ID " + patientId + " not found.");
         }
 
-        Clock clock = new Clock();
-        clock.start();
-
-        // Example: Another thread accessing the counter
-        Thread otherClassThread = new Thread(() -> {
-            while (true) {
-                try {
-                    Thread.sleep(10000); // Access the counter every 10 seconds
-                    System.out.println("Current Counter: " + clock.getTime());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        otherClassThread.start();
-
     }
 }
 
