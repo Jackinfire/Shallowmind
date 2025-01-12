@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import view.utils.WindowDimensions;
+import java.io.ByteArrayInputStream;
 
 
 public class PatientBox extends HBox {
@@ -27,57 +28,53 @@ public class PatientBox extends HBox {
         this.setPadding(new Insets(10,20,10,20));
         this.setSpacing(20);
 
-//        ImageView patientImage = addPatientImage(patient);
+        HBox imageAndDetailsBox = new HBox(20);
+        // Add the patient image to the PatientBox
+        ImageView patientImage = addPatientImage(patient);
 
         // Add label to display patient's name
         Label nameLabel = new Label(patient.getName());
         nameLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 18; -fx-text-fill: black; -fx-font-weight: bold");
 
         // Add label to display patient's Location
-        Label locationLabel = new Label("Ward " + patient.getWard() + ", Room " + patient.getRoomNumber());
+        Label locationLabel = new Label("Ward Null, "+ "Room " + patient.getRoomNumber());
         locationLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 18; -fx-text-fill: black;");
 
         // Add label to display time since last update
         Label lastUpdatedLabel = new Label("Last updated: null");
         lastUpdatedLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 14; -fx-text-fill: black;");
 
+        // Add the image and the labels to the details box
+        detailsBox.getChildren().addAll(patientImage, nameLabel, locationLabel, lastUpdatedLabel);
 
-
-        detailsBox.getChildren().addAll(nameLabel,locationLabel,lastUpdatedLabel);
-        this.getChildren().addAll(detailsBox);
-
+        imageAndDetailsBox.getChildren().addAll(patientImage, detailsBox);
+        // Add the details box to the PatientBox
+        this.getChildren().addAll(imageAndDetailsBox);
     }
 
     // Fetches patient image and returns
-//    private ImageView addPatientImage(Patient patient){
-//        ImageView imageView = new ImageView();
-//        try {
-//            System.out.println("Attempting to load patient image: " + patient.getImagePath());
-//            // Load image from classpath
-//            Image image = new Image(getClass().getResourceAsStream(patient.getImagePath()));
-//            imageView.setImage(image); // Set patient image
-//        } catch (Exception e) {
-//            System.out.println("Failed to load image: " + patient.getImagePath() + ". Loading default image.");
-//            try {
-//                // Load default image from classpath
-//                Image defaultImage = new Image(getClass().getResourceAsStream("/default_pfp.jpg"));
-//                imageView.setImage(defaultImage); // Set default image
-//            } catch (Exception ex) {
-//                System.out.println("Failed to load default image: " + ex.getMessage());
-//            }
-//        }
-//
-//        imageView.setFitWidth(65);  // Set the desired width
-//        imageView.setFitHeight(65); // Set the desired height
-//        imageView.setPreserveRatio(true); // Preserve the aspect ratio of the image
-//
-//
-//
-//        return imageView;
-//
-//    }
+    private ImageView addPatientImage(Patient patient){
+        ImageView imageView = new ImageView();
+        try {
+            byte[] imageBytes = patient.getImageAsBytes(); // Get the image as bytes from database from Patients class
+            if (imageBytes != null) {
+                // Convert byte[] to Image
+                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
+                Image image = new Image(byteArrayInputStream);
+                imageView.setImage(image);
+            } else {
+                // No image if you can't get
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to load patient image: " + e.getMessage());
+            // Load no image if any error occurs
+        }
 
+
+        imageView.setFitWidth(65);  // Set the desired width
+        imageView.setFitHeight(65); // Set the desired height
+        imageView.setPreserveRatio(true); // Preserve the aspect ratio of the image
+
+        return imageView;
+    }
 }
-
-
-
