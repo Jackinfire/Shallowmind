@@ -4,6 +4,7 @@ import backend.Patient;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,6 +12,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class PatientProfile extends Stage {
@@ -53,12 +57,7 @@ public class PatientProfile extends Stage {
         // Profile Picture Section
         VBox profilePicture = new VBox();
         profilePicture.setPadding(new Insets(10));
-
-        Image image = new Image(getClass().getResource("/Patient_Profile_Samplejpeg.jpeg").toExternalForm());
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(150);
-        imageView.setFitWidth(175);
-        imageView.setPreserveRatio(true);
+        ImageView imageView = addPatientImage(this.patient);
 
         profilePicture.getChildren().add(imageView);
         GridPane.setColumnIndex(profilePicture, 0);
@@ -69,10 +68,10 @@ public class PatientProfile extends Stage {
         VBox patientDetails = new VBox();
         patientDetails.setSpacing(5);
 
-        Label nameLabel = new Label("John Doe");
+        Label nameLabel = new Label(this.patient.getName());
         nameLabel.setFont(new javafx.scene.text.Font(30));
-        Label idLabel = new Label("Patient ID: 21411231");
-        Label wardLabel = new Label("Ward D, Room 204");
+        Label idLabel = new Label("Patient ID: " + this.patient.getPatientId().toString());
+        Label wardLabel = new Label("Ward " + this.patient.getWard() + ", Room " + this.patient.getRoomNumber());
         Label updateLabel = new Label("Last Updated: 13:26 GMT");
         Label dateLabel = new Label("28/11/2024");
 
@@ -111,13 +110,8 @@ public class PatientProfile extends Stage {
         detailsContent.setSpacing(10);
         detailsContent.setPadding(new Insets(10,0,0,35));
         detailsContent.getChildren().addAll(
-                new Label("Age: 67"),
-                new Label("Gender: Male"),
-                new Label("Emergency Contact: 07481751739"),
-                new Label("Diagnosis: Type 2 Diabetes"),
-                new Label("Doctor in Charge: Dr. Charlie James")
-        );
-
+                new Label(this.patient.getPatientDetails())
+                );
         detailsPane.getChildren().addAll(detailsRectangle, detailsContent);
         detailsSection.getChildren().addAll(detailsLabel, detailsPane);
         GridPane.setRowIndex(detailsSection, 6);
@@ -125,22 +119,32 @@ public class PatientProfile extends Stage {
         gridPane.getChildren().add(detailsSection);
 
         // Posture Intervention History Section
+// Posture Intervention History Section
         VBox postureHistory = new VBox();
         Label postureHistoryLabel = new Label("Posture Intervention History");
         postureHistoryLabel.setFont(new javafx.scene.text.Font(17));
 
-        VBox postureContent = new VBox();
-        postureContent.setSpacing(5);
-        postureContent.getChildren().addAll(
-                createRoundedLabel("12/11: Poor Posture Left: 22 Minutes"),
-                createRoundedLabel("8/11: Poor Posture Left: 45 Minutes"),
-                createRoundedLabel("6/11: Poor Posture Left: 23 Minutes")
-        );
+// Create a central button
+        Button viewHistoryButton = new Button("View History");
+        viewHistoryButton.setFont(new javafx.scene.text.Font(14));
+        viewHistoryButton.setOnAction(e -> {
+            // Action to perform when the button is clicked
+            System.out.println("Posture intervention history button clicked!");
+        });
 
-        postureHistory.getChildren().addAll(postureHistoryLabel, postureContent);
+// Center the button horizontally
+        StackPane buttonContainer = new StackPane(viewHistoryButton);
+        buttonContainer.setPadding(new Insets(10)); // Optional padding for aesthetics
+
+// Add the label and button container to the VBox
+        postureHistory.getChildren().addAll(postureHistoryLabel, buttonContainer);
+        postureHistory.setSpacing(10);
+
+// Add the VBox to the GridPane
         GridPane.setRowIndex(postureHistory, 10);
         GridPane.setColumnSpan(postureHistory, 2);
         gridPane.getChildren().add(postureHistory);
+
 
         // Procedures Section
         VBox proceduresSection = new VBox();
@@ -150,9 +154,9 @@ public class PatientProfile extends Stage {
         VBox proceduresContent = new VBox();
         proceduresContent.setSpacing(5);
         proceduresContent.getChildren().addAll(
-                createRoundedLabel("20/11 Foot Exam"),
-                createRoundedLabel("29/11 Meet Dietician"),
-                createRoundedLabel("13/21 Pancreas Transplant")
+                createRoundedLabel(this.patient.getProcedureName()),
+                createRoundedLabel(this.patient.getProcedureName()),
+                createRoundedLabel(this.patient.getProcedureName())
         );
 
         proceduresSection.getChildren().addAll(proceduresLabel, proceduresContent);
@@ -167,9 +171,10 @@ public class PatientProfile extends Stage {
 
         VBox medicationContent = new VBox();
         medicationContent.setSpacing(5);
+
         medicationContent.getChildren().addAll(
-                createRoundedLabel("Metformin, Tablet 500mg 2x Daily (3.3.2022)"),
-                createRoundedLabel("Insulin Glargine, 10 units 1x Daily (23.3.2024)")
+                createRoundedLabel(this.patient.getMedicationDetails()),
+                createRoundedLabel(this.patient.getMedicationDetails(),
         );
 
         medicationSection.getChildren().addAll(MedicationLabel, medicationContent);
@@ -184,8 +189,8 @@ public class PatientProfile extends Stage {
         AnchorPane.setRightAnchor(gridPane, 10.0);
         root.getChildren().add(gridPane);
 
-    }
 
+}
     private StackPane createRoundedLabel(String text) {
         StackPane stackPane = new StackPane();
         Rectangle background = new Rectangle(300, 30, Color.WHITE);
@@ -197,5 +202,31 @@ public class PatientProfile extends Stage {
         stackPane.getChildren().addAll(background, label);
         return stackPane;
     }
+
+    private ImageView addPatientImage(Patient patient){
+        ImageView imageView = new ImageView();
+        try {
+            byte[] imageBytes = patient.getImageAsBytes(); // Get the image as bytes from database from Patients class
+            if (imageBytes != null) {
+                // Convert byte[] to Image
+                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
+                Image image = new Image(byteArrayInputStream);
+                imageView.setImage(image);
+            } else {
+                // No image if you can't get
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to load patient image: " + e.getMessage());
+            // Load no image if any error occurs
+        }
+
+
+        imageView.setFitWidth(150);  // Set the desired width
+        imageView.setFitHeight(175); // Set the desired height
+        imageView.setPreserveRatio(true); // Preserve the aspect ratio of the image
+
+        return imageView;
     }
+}
+
 
