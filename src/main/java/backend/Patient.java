@@ -188,13 +188,14 @@ public class Patient {
     }
 
     // function to return medication details as a string
-    public String getMedicationDetails() {
-        tableName = "medicationData";
+    public List <String> getMedicationDetails(){
+        tableName="medicationData";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
-        StringBuilder medicationDetails = new StringBuilder();
+        List <String> medicationDetailsList =new ArrayList<>();
         boolean medicationFound = false;
         for (Map<String, Object> row : data) {
             if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
+                StringBuilder medicationDetails = new StringBuilder();
                 medicationFound = true;
                 medicationDetails.append(row.get("medication"))
                         .append(", ")
@@ -204,11 +205,10 @@ public class Patient {
                         .append("xDaily (")
                         .append(row.get("start_date"))
                         .append(")\n");
-                return medicationDetails.toString();
+                medicationDetailsList.add(medicationDetails.toString());
             }
         }
-        return null;
-
+        return medicationDetailsList;
     }
 
     //function to give you room number of the patient
