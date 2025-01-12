@@ -27,7 +27,7 @@ public class PatientBox extends HBox {
         this.setPadding(new Insets(10,20,10,20));
         this.setSpacing(20);
 
-        ImageView patientImage = addPatientImage(patient);
+//        ImageView patientImage = addPatientImage(patient);
 
         // Add label to display patient's name
         Label nameLabel = new Label(patient.getName());
@@ -44,38 +44,38 @@ public class PatientBox extends HBox {
 
 
         detailsBox.getChildren().addAll(nameLabel,locationLabel,lastUpdatedLabel);
-        this.getChildren().addAll(patientImage,detailsBox);
+        this.getChildren().addAll(detailsBox);
 
     }
 
     // Fetches patient image and returns
-    private ImageView addPatientImage(Patient patient){
-        ImageView imageView = new ImageView();
-        try {
-            System.out.println("Attempting to load patient image: " + patient.getImagePath());
-            // Load image from classpath
-            Image image = new Image(getClass().getResourceAsStream(patient.getImagePath()));
-            imageView.setImage(image); // Set patient image
-        } catch (Exception e) {
-            System.out.println("Failed to load image: " + patient.getImagePath() + ". Loading default image.");
-            try {
-                // Load default image from classpath
-                Image defaultImage = new Image(getClass().getResourceAsStream("/default_pfp.jpg"));
-                imageView.setImage(defaultImage); // Set default image
-            } catch (Exception ex) {
-                System.out.println("Failed to load default image: " + ex.getMessage());
-            }
-        }
-
-        imageView.setFitWidth(65);  // Set the desired width
-        imageView.setFitHeight(65); // Set the desired height
-        imageView.setPreserveRatio(true); // Preserve the aspect ratio of the image
-
-
-
-        return imageView;
-
-    }
+//    private ImageView addPatientImage(Patient patient){
+//        ImageView imageView = new ImageView();
+//        try {
+//            System.out.println("Attempting to load patient image: " + patient.getImagePath());
+//            // Load image from classpath
+//            Image image = new Image(getClass().getResourceAsStream(patient.getImagePath()));
+//            imageView.setImage(image); // Set patient image
+//        } catch (Exception e) {
+//            System.out.println("Failed to load image: " + patient.getImagePath() + ". Loading default image.");
+//            try {
+//                // Load default image from classpath
+//                Image defaultImage = new Image(getClass().getResourceAsStream("/default_pfp.jpg"));
+//                imageView.setImage(defaultImage); // Set default image
+//            } catch (Exception ex) {
+//                System.out.println("Failed to load default image: " + ex.getMessage());
+//            }
+//        }
+//
+//        imageView.setFitWidth(65);  // Set the desired width
+//        imageView.setFitHeight(65); // Set the desired height
+//        imageView.setPreserveRatio(true); // Preserve the aspect ratio of the image
+//
+//
+//
+//        return imageView;
+//
+//    }
 
 }
 
