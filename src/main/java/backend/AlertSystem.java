@@ -3,6 +3,7 @@ package backend;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -30,14 +31,14 @@ public class AlertSystem {
      * @return The final alert status ("green", "amber", or "red"),
      *         or a message if no data for that patient.
      */
-    public String monitorPatientPosture(int patientId) {
+    public List<String> monitorPatientPosture(int patientId) {
 
         // 1. Retrieve ALL rows from the postureHistory table
         List<Map<String, Object>> allRows = databaseLookup.retrieveData("postureHistory");
 
         // If the table is empty or doesn't exist
         if (allRows.isEmpty()) {
-            return "No posture history table found or table is empty.";
+            return List.of("No posture history table found or table is empty.");
         }
 
         // 2. Filter rows for the SPECIFIC patient
@@ -53,7 +54,7 @@ public class AlertSystem {
                 .collect(Collectors.toList());
 
         if (patientRows.isEmpty()) {
-            return "No posture history found for Patient " + patientId;
+            return List.of("No posture history found for Patient " + patientId);
         }
 
         // 3. Convert 'time' (String) to LocalDateTime; sort in ascending order of time
@@ -74,6 +75,8 @@ public class AlertSystem {
         LocalDateTime currentPostureStartTime = null;
         String alertStatus = "green";
 
+        List<String> alertStatuses = new ArrayList<>(); // List to store alert statuses
+
         // 5. Iterate over rows in chronological order
         for (Map<String, Object> row : patientRows) {
             // Extract posture_position
@@ -88,9 +91,8 @@ public class AlertSystem {
                 currentPosture = posture;
                 currentPostureStartTime = timestamp;
                 alertStatus = "green";
-                System.out.println("Patient " + patientId + " posture changed to '"
-                        + posture + "' at " + timestamp
-                        + " → resetting status to GREEN");
+                alertStatuses.add(alertStatus); // Append the status for this timestamp
+
             } else {
                 // Same posture, calculate how long we've been in it
                 Duration duration = Duration.between(currentPostureStartTime, timestamp);
@@ -99,19 +101,20 @@ public class AlertSystem {
                 // If GREEN and we've hit >= 5 minutes, go AMBER
                 if ("green".equals(alertStatus) && minutes >= 5) {
                     alertStatus = "amber";
-                    System.out.println("Patient " + patientId + " remains '" + posture
-                            + "' for 5+ minutes → status AMBER at " + timestamp);
+
                 }
                 // If AMBER and we've hit >= 20 minutes, go RED
                 else if ("amber".equals(alertStatus) && minutes >= 20) {
                     alertStatus = "red";
-                    System.out.println("Patient " + patientId + " remains '" + posture
-                            + "' for 20+ minutes → status RED at " + timestamp);
+
                 }
+
+                alertStatuses.add(alertStatus); // Append the status for this timestamp
             }
         }
-        // Return the final alert status after processing all posture records
-        return alertStatus;
+
+        // Return the list of alert statuses after processing all posture records
+        return alertStatuses;
     }
 
 }
