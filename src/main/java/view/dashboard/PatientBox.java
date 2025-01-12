@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import view.utils.WindowDimensions;
 
 
 public class PatientBox extends HBox {
@@ -21,8 +22,8 @@ public class PatientBox extends HBox {
         this.setStyle("-fx-background-color:" + alertColor +
                 "; -fx-background-radius: 15;");
 
-        this.setPrefSize(380,78);
-        this.setMaxSize(380,78);
+        this.setMinSize(WindowDimensions.windowWidth* 0.4 -10,WindowDimensions.windowHeight * 0.125);
+        this.setMaxSize(WindowDimensions.windowWidth* 0.4 - 10,WindowDimensions.windowHeight * 0.125);
         this.setPadding(new Insets(10,20,10,20));
         this.setSpacing(20);
 

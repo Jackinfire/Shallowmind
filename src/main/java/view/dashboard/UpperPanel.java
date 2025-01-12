@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import view.utils.WindowDimensions;
 
 
 public class UpperPanel extends VBox {
@@ -15,8 +16,9 @@ public class UpperPanel extends VBox {
         this.setStyle("-fx-background-color: linear-gradient(to right, #707070, #9a9a9a);" +
                 "-fx-background-radius: 15;");
 
-        // Set panel size
-        this.setPrefSize(400,200);
+        // Set fixed panel size
+        this.setMaxSize(WindowDimensions.windowWidth*0.4,WindowDimensions.windowWidth*0.1);
+        this.setMinSize(WindowDimensions.windowWidth*0.4,WindowDimensions.windowWidth*0.1);
 
         // Customise title
         title = new Label(panelTitle);
