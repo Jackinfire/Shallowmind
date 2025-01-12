@@ -1,5 +1,6 @@
 plugins {
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 application {
@@ -8,11 +9,14 @@ application {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
-sourceCompatibility = 1.8
+javafx {
+    version = "16"
+    modules = ['javafx.controls','javafx.fxml',]
+}
 
 
 repositories {
@@ -27,11 +31,6 @@ dependencies {
     implementation 'com.itextpdf:itext7-core:7.2.5'
 }
 
-run {
-    // Tell Gradle to use JDK 8’s built-in JavaFX libraries
-    jvmArgs = [
-            "-Djava.library.path=${System.properties['java.home']}/bin"
-    ]
-}
+
 
 
