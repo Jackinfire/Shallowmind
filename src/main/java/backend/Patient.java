@@ -114,7 +114,7 @@ public class Patient {
      * @return a list of procedure times
      */
     public List<String> getProcedureTime() {
-        tableName = "procedureHistory";
+        tableName = "procedureHistorySchedule";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         List<String> procedureTime = new ArrayList<>();
 
@@ -132,7 +132,7 @@ public class Patient {
      * @return a list of procedure names
      */
     public List<String> getProcedureName() {
-        tableName = "procedureHistory";
+        tableName = "procedureHistorySchedule";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         List<String> procedureName = new ArrayList<>();
 
