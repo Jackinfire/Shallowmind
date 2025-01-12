@@ -33,6 +33,8 @@ public class Main {
 
 
         System.out.println(patient.getPatientDetails());
+        exportToPdf pdfGenerator = new exportToPdf();
+        pdfGenerator.generatePatientDetailsPDF("patient_details.pdf", patient);a
     }
 }
 
