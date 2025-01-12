@@ -8,11 +8,6 @@ public class Main {
         // 2. Create the backend.AlertSystem object
         AlertSystem alertSystem = new AlertSystem(dbLookup);
 
-        // 3. Check the posture status for patient ID = 1
-        String finalStatus = alertSystem.monitorPatientPosture(4);
-
-        // 4. Print the resulting status
-        System.out.println("Final alert status for Patient 4: " + finalStatus);
 
 
         // Patient ID to fetch

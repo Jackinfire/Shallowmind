@@ -1,5 +1,6 @@
 package view.dashboard;
 
+import backend.DatabaseLookup;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
@@ -8,8 +9,9 @@ import javafx.scene.layout.VBox;
 
 public class StatusPanel extends UpperPanel {
     public StatusPanel(){
-        super("You currently have 0 patients");
 
+        // Call the UpperPanel constructor with the appropriate string
+        super("You currently have " + new DatabaseLookup().getNumberOfPatients() + " patients");
         // Create horizontal box to put traffic light system in
         HBox trafficLights = new HBox();
         trafficLights.setAlignment(Pos.CENTER);
