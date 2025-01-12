@@ -1,6 +1,5 @@
 package backend;
-import java.sql.*;
-import java.util.*;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,11 +12,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The {@code DatabaseLookup} class provides methods to interact with a SQLite database that will be from the device
+ * It allows connecting to the database, retrieving data from tables, updating fields,
+ * and retrieving the number of patients.
+ */
 public class DatabaseLookup {
 
+    /**
+     * The location for the SQLite database on the specific device it is running on.
+     */
     private static final String DB_URL = "jdbc:sqlite:/Users/divijvhanda/Desktop/patients.db";
 
-    // Establish connection to the database
+    /**
+     * Establishes a connection to the SQLite database.
+     *
+     * @return A {@link Connection} object representing the database connection,
+     *         or {@code null} if the connection fails.
+     */
     public Connection connect() {
         Connection connection = null;
         try {
@@ -29,7 +41,13 @@ public class DatabaseLookup {
         return connection;
     }
 
-    // Retrieve data from any table
+    /**
+     * Retrieves all rows from the specified table in the database.
+     *
+     * @param tableName The name of the table to retrieve data from.
+     * @return A list of maps, where each map represents a row in the table. Each map contains
+     *         column names as keys and their corresponding values as map values.
+     */
     public List<Map<String, Object>> retrieveData(String tableName) {
         String query = "SELECT * FROM " + tableName; // Build the query dynamically
         List<Map<String, Object>> results = new ArrayList<>();
@@ -59,7 +77,15 @@ public class DatabaseLookup {
         return results;
     }
 
-    // Update a specific field in a table
+    /**
+     * Updates a specific field in a table based on a condition.
+     *
+     * @param tableName       The name of the table to update.
+     * @param columnName      The name of the column to update.
+     * @param newValue        The new value to set.
+     * @param conditionColumn The column to match for the condition.
+     * @param conditionValue  The value to match for the condition.
+     */
     public void updateField(String tableName, String columnName, Object newValue, String conditionColumn, Object conditionValue) {
         String query = "UPDATE " + tableName + " SET " + columnName + " = ? WHERE " + conditionColumn + " = ?";
 
@@ -79,6 +105,11 @@ public class DatabaseLookup {
         }
     }
 
+    /**
+     * Retrieves the total number of patients in the {@code patientData} table.
+     *
+     * @return The total number of rows in the {@code patientData} table.
+     */
     public int getNumberOfPatients() {
         String query = "SELECT COUNT(*) AS total FROM patientData";
         int totalPatients = 0;
@@ -96,6 +127,5 @@ public class DatabaseLookup {
         }
 
         return totalPatients;
-
     }
 }
