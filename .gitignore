@@ -2,6 +2,7 @@
 .gradle/
 build/
 
+
 # IntelliJ IDEA files
 .idea/
 *.iml
@@ -13,7 +14,7 @@ Thumbs.db
 # Log files
 *.log
 
-# Java compiled files
+# Java compiled filesgit stash
 *.class
 
 # Output directories
