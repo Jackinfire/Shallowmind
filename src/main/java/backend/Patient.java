@@ -1,5 +1,6 @@
 package backend;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,24 +20,84 @@ public class Patient {
         return patientId;
     }
 
-    public String getInterventionTime() {
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+    public List<String> getInterventionTime() {
+        List<Map<String, Object>> data = dbHelper.retrieveData("interventionHistory");
+        List<String> interventionTimes = new ArrayList<>();
+
         for (Map<String, Object> row : data) {
-            if (row.get("id") != null && row.get("id").equals(patientId)) {
-                return (String) row.get("interventionTime");
+            if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
+                interventionTimes.add((String) row.get("intervention_time"));
             }
         }
-        return null;
+        return interventionTimes;
     }
 
-    public String getInterventionHandledBy() {
+
+    public List<String> getInterventionHandledBy() {
+        tableName = "interventionHistory";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        List<String> handledByList = new ArrayList<>();
+
         for (Map<String, Object> row : data) {
-            if (row.get("id") != null && row.get("id").equals(patientId)) {
-                return (String) row.get("interventionHandledBy");
+            if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
+                handledByList.add((String) row.get("handled_by"));
             }
         }
-        return null;
+        return handledByList;
+    }
+
+
+    public List<String> getInterventionPosition() {
+        List<Map<String, Object>> data = dbHelper.retrieveData("interventionHistory");
+        List<String> interventionPosition = new ArrayList<>();
+
+        for (Map<String, Object> row : data) {
+            if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
+                interventionPosition.add((String) row.get("position"));
+            }
+        }
+        return interventionPosition;
+    }
+
+
+    public List<Integer> getInterventionLength() {
+        List<Map<String, Object>> data = dbHelper.retrieveData("interventionHistory");
+        List<Integer> interventionLength = new ArrayList<>();
+
+        for (Map<String, Object> row : data) {
+            if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
+                interventionLength.add((Integer) row.get("timeMinutes"));
+            }
+        }
+        return interventionLength;
+    }
+
+
+    public List<String> getProcedureTime() {
+        tableName = "procedureHistory";
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        List<String> procedureTime = new ArrayList<>();
+
+        for (Map<String, Object> row : data) {
+            if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
+                procedureTime.add((String) row.get("time"));
+            }
+        }
+        return procedureTime;
+    }
+
+
+    public List<String> getProcedureName() {
+        tableName = "procedureHistory";
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        List<String> procedureName = new ArrayList<>();
+
+        for (Map<String, Object> row : data) {
+            if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
+                procedureName.add((String) row.get("procedure"));
+            }
+        }
+        return procedureName;
     }
 
     public String getSchedule() {

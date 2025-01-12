@@ -9,7 +9,7 @@ import java.util.Map;
 public class DatabaseLookup {
 
 
-    private static final String DB_URL = "jdbc:sqlite:C:/Users/joesr/Downloads/patients.db";
+    private static final String DB_URL = "jdbc:sqlite:C:/Users/yuichirominamikawa/Desktop/shallowmind/Shallowmind/src/main";
 
 
     public Connection connect() {
