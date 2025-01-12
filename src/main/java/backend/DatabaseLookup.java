@@ -22,7 +22,7 @@ public class DatabaseLookup {
     /**
      * The location for the SQLite database on the specific device it is running on.
      */
-    private static final String DB_URL = "jdbc:sqlite:/Users/divijvhanda/Desktop/patients.db";
+    private static final String DB_URL = "jdbc:sqlite:src/main/patients.db";
 
     /**
      * Establishes a connection to the SQLite database.
