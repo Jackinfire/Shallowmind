@@ -1,5 +1,6 @@
 package view.dashboard;
 
+import backend.DatabaseLookup;
 import backend.Patient;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,27 +26,25 @@ public class PatientsPanel extends ScrollPane {
                 "-fx-background-radius: 15;");
 
         panel.setAlignment(Pos.CENTER);
-        Patient patient1 = new Patient(1);
-        PatientBox patientBox1 = new PatientBox(patient1);
 
-        Patient patient2 = new Patient(2);
-        PatientBox patientBox2 = new PatientBox(patient2);
+        DatabaseLookup databaseLookup = new DatabaseLookup();
 
-        Patient patient3 = new Patient(3);
-        PatientBox patientBox3 = new PatientBox(patient3);
+        int numberOfPatients = databaseLookup.getNumberOfPatients();
+        for (int i = 1; i <= numberOfPatients; i = i+2) {
+            Patient patient1 = new Patient(i); // Create a new Patient with ID 'i'
+            PatientBox patientBox1 = new PatientBox(patient1);
+            Patient patient2 = new Patient(i+1);
+            PatientBox patientBox2 = new PatientBox(patient2);
 
-        Patient patient4 = new Patient(4);
-        PatientBox patientBox4 = new PatientBox(patient4);
 
-        HBox hBox1 = new HBox();
-        hBox1.getChildren().addAll(patientBox1,patientBox2);
-        hBox1.setSpacing(10);
+            HBox hBox1 = new HBox();
+            hBox1.getChildren().addAll(patientBox1,patientBox2);
+            hBox1.setSpacing(10);
 
-        HBox hBox2 = new HBox();
-        hBox2.getChildren().addAll(patientBox3,patientBox4);
-        hBox2.setSpacing(10);
+            panel.getChildren().addAll(hBox1);
 
-        panel.getChildren().addAll(hBox1,hBox2);
+
+        }
         panel.setPadding(new Insets(20,20,20,20));
 
         this.setContent(panel);

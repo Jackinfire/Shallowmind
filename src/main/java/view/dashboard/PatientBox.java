@@ -34,7 +34,7 @@ public class PatientBox extends HBox {
         nameLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 18; -fx-text-fill: black; -fx-font-weight: bold");
 
         // Add label to display patient's Location
-        Label locationLabel = new Label("Ward Null, "+ "Room " + patient.getRoomNumber());
+        Label locationLabel = new Label("Ward " + patient.getWard() + ", Room " + patient.getRoomNumber());
         locationLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 18; -fx-text-fill: black;");
 
         // Add label to display time since last update
