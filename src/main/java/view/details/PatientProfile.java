@@ -1,4 +1,6 @@
+package view.details;
 
+import backend.Patient;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -11,30 +13,26 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 
-public class PatientProfile extends Application {
-    private Patient patient;
+public class PatientProfile extends Stage {
+    private  Patient patient;
 
 
     public PatientProfile(int patientID){
         this.patient = new Patient (patientID);
 
-
-    }
-    @Override
-    public void start(Stage stage) {
         // Root AnchorPane
         AnchorPane root = new AnchorPane();
         root.setPrefSize(600, 500);
 
         Scene scene = new Scene(root, 800,600);
-        stage.setScene(scene);
+        this.setScene(scene);
 
-        stage.setWidth(750);
-        stage.setHeight(550);
+        this.setWidth(750);
+        this.setHeight(550);
 
-        stage.setTitle("Patient's Profile");
+        this.setTitle("Patient's Profile");
 
-        stage.show();
+        this.show();
 
         // GridPane
         GridPane gridPane = new GridPane();
@@ -200,4 +198,5 @@ public class PatientProfile extends Application {
         stackPane.getChildren().addAll(background, label);
         return stackPane;
     }
-}
+    }
+

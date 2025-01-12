@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import view.utils.WindowDimensions;
+import view.details.*;
 
 
 public class PatientBox extends HBox {
@@ -50,6 +51,8 @@ public class PatientBox extends HBox {
         // Add a click listener to the HBox
         this.setOnMouseClicked(event -> {
             System.out.println("HBox clicked!");
+            PatientProfile patientPopup = new PatientProfile(patient.getPatientId());
+            patientPopup.show();
             // Perform any action, such as opening a pop-up or navigating
         });
 
