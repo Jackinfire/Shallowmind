@@ -12,8 +12,13 @@ import java.io.File;
 import java.nio.file.Paths;
 
 public class exportToPdf {
+    private Patient patient;
 
-    public void generatePatientDetailsPDF(String fileName, Patient patient) {
+    public exportToPdf(Patient patient){
+        this.patient = patient;
+    }
+
+    public void generatePatientDetailsPDF(String fileName) {
         try {
             String userHome = System.getProperty("user.home");
             File downloadsFolder = new File(userHome, "Downloads");
@@ -24,8 +29,8 @@ public class exportToPdf {
             PdfWriter writer = new PdfWriter(outputFile);
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
-            addPersonalDetails(document, patient);
-            addInterventionHistory(document, patient);
+            addPersonalDetails(document);
+            addInterventionHistory(document);
 
             document.close();
             System.out.println("PDF created successfully.");
@@ -34,7 +39,7 @@ public class exportToPdf {
         }
     }
 
-    private void addPersonalDetails(Document document, Patient patient) {
+    private void addPersonalDetails(Document document) {
         Text boldText = new Text("Patient Details:").setBold();
         document.add(new Paragraph(boldText));
         document.add(new Paragraph("ID: " + patient.getPatientId()));
@@ -45,7 +50,7 @@ public class exportToPdf {
         document.add(new Paragraph("Doctor in Charge: " + patient.getDocInCharge()));
     }
 
-    private void addInterventionHistory(Document document, Patient patient) {
+    private void addInterventionHistory(Document document) {
         Text boldText = new Text("Intervention History:").setBold();
         document.add(new Paragraph(boldText));
 
