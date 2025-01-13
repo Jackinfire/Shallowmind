@@ -1,6 +1,7 @@
 package view.dashboard;
 
 import backend.AlertSystem;
+import backend.CurrentTime;
 import backend.DatabaseLookup;
 import backend.Patient;
 import javafx.geometry.Insets;
@@ -43,8 +44,14 @@ public class PatientBox extends HBox {
         locationLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 18; -fx-text-fill: black;");
 
         // Add label to display time since last update
-        Label lastUpdatedLabel = new Label("Last updated: null");
+
+        Label lastUpdatedLabel = new Label("Last updated:"+ CurrentTime.getCurrentTime());
         lastUpdatedLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 14; -fx-text-fill: black;");
+
+        CurrentTime.startUpdatingLabel(lastUpdatedLabel);
+
+
+
 
 
 
