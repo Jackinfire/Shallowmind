@@ -9,6 +9,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+
+
+import java.awt.*;
 
 public class PatientEditor extends BasePatientForm {
 
@@ -183,20 +189,60 @@ public class PatientEditor extends BasePatientForm {
         GridPane.setColumnSpan(submitButton,10);
         gridPane.getChildren().add(submitButton);
 
+        Label notificationLabel = new Label();
+        notificationLabel.setFont(new Font(14));
+        notificationLabel.setStyle("-fx-text-fill: red;");
+
+
         // Action on Submit Button
         submitButton.setOnAction(event -> {
+            notificationLabel.setText("");
             if (patient != null) {
-                patient.setName(nameField.getText());
-                patient.setWard(wardField.getText());
-                patient.setRoomNumber(Integer.valueOf(roomField.getText()));
-                patient.setAge(Integer.valueOf(ageField.getText()));
-                patient.setContactNumber(contactField.getText());
-                patient.setDiagnosis(diagnosisField.getText());
-                patient.setDocInCharge(doctorField.getText());
+                try {
+                    String name = nameField.getText();
+                    if (name.isEmpty()) throw new IllegalArgumentException("Name cannot be empty.");
+                    String ward = wardField.getText();
+                    if (ward.isEmpty()) throw new IllegalArgumentException("Ward cannot be empty.");
+                    String roomText = roomField.getText();
+                    int roomNumber = Integer.parseInt(roomText);
+                    if (roomNumber <= 0) throw new IllegalArgumentException("Room number must be a positive integer.");
+                    String ageText = ageField.getText();
+                    int age = Integer.parseInt(ageText);
+                    if (age <= 0) throw new IllegalArgumentException("Age must be a positive integer.");
+                    String contactNumber = contactField.getText();
+                    if (contactNumber.isEmpty()) throw new IllegalArgumentException("Contact number cannot be empty.");
+                    String diagnosis = diagnosisField.getText();
+                    if (diagnosis.isEmpty()) throw new IllegalArgumentException("Diagnosis cannot be empty.");
+                    String doctor = doctorField.getText();
+                    if (doctor.isEmpty()) throw new IllegalArgumentException("Doctor in charge cannot be empty.");
+                    patient.setName(name);
+                    patient.setWard(ward);
+                    patient.setRoomNumber(roomNumber);
+                    patient.setAge(age);
+                    patient.setContactNumber(contactNumber);
+                    patient.setDiagnosis(diagnosis);
+                    patient.setDocInCharge(doctor);
+                    notificationLabel.setText("Patient data saved successfully.");
+                    notificationLabel.setStyle("-fx-text-fill: green;");
+
+                    }catch (NumberFormatException e) {
+                    notificationLabel.setText("Room, phone number and/or age must be a number");
+                    }catch(IllegalArgumentException e){
+                        notificationLabel.setText(e.getMessage());
+                    }
+                } else {
+                notificationLabel.setText("No patient data to save. Fetch the patient first.");
             }
-            else {
-                System.out.println("No patient data to save. Fetch the patient first.");
-            }
+                if (!gridPane.getChildren().contains(notificationLabel)) {
+                    gridPane.add(notificationLabel, 5, 12);
+                    GridPane.setColumnSpan(notificationLabel, 10);// Add the label at a new row
+                }
+
+                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), e -> {
+                    gridPane.getChildren().remove(notificationLabel); // Remove the notification label
+                }));
+                timeline.setCycleCount(1);
+                timeline.play();
         });
 
     }
