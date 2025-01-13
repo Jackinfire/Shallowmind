@@ -44,7 +44,7 @@ public class PatientEditor extends BasePatientForm {
         gridPane.getChildren().add(idField);
 
         //Submit button to fetch patient data
-        Button fetchButton = new Button("Submit Patient ID to fetch data");
+        Button fetchButton = new Button("Submit Patient details");
         GridPane.setColumnIndex(fetchButton, 11);
         GridPane.setRowIndex(fetchButton, 3);
         GridPane.setColumnSpan(fetchButton,10);
@@ -177,7 +177,7 @@ public class PatientEditor extends BasePatientForm {
         });
 
         // Submit Button
-        Button submitButton = new Button("Submit to update patient details");
+        Button submitButton = new Button("Save patient details");
         GridPane.setColumnIndex(submitButton, 5);
         GridPane.setRowIndex(submitButton, 10);
         GridPane.setColumnSpan(submitButton,10);
