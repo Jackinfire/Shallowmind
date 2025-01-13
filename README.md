@@ -4,10 +4,6 @@
 1. [Introduction](#introduction)
 2. [Features](#features)
 3. [Installation](#installation)
-4. [Usage](#usage)
-5. [Contributing](#contributing)
-6. [License](#license)
-7. [Contact](#contact)
 
 ---
 
@@ -39,4 +35,4 @@
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/your-username/moppu.git
+   git clone https://github.com/Jackinfire/Shallowmind.git
