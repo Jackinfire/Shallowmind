@@ -2,6 +2,8 @@ package view.details;
 
 import backend.Patient;
 import backend.exportToPdf;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -13,6 +15,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -128,11 +132,22 @@ public class PatientProfile extends Stage {
 // Create a central button
         Button viewHistoryButton = new Button("View History");
         viewHistoryButton.setFont(new javafx.scene.text.Font(14));
+        Label noNotification = new Label(""); // No notification when nothing is clicked (ensures that adding a notification doesn't cause everything to shift)
         viewHistoryButton.setOnAction(e -> {
             // Action to perform when the button is clicked
             System.out.println("Posture intervention history button clicked!");
             exportToPdf PdfExporter = new exportToPdf(patient);
             PdfExporter.generatePatientDetailsPDF("patient_" + patient.getPatientId() + "_details.pdf");
+            Label downloadedNotification = new Label("patient_" + patient.getPatientId() + "_details.pdf exported to Downloads Folder");
+            postureHistory.getChildren().remove(noNotification);
+            postureHistory.getChildren().add(downloadedNotification); // Notification that pdf is saved replaces noNotification
+            Timeline timeline = new Timeline(new KeyFrame(
+                    Duration.seconds(3),
+                    event -> {postureHistory.getChildren().remove(downloadedNotification);
+                        postureHistory.getChildren().add(noNotification);} // noNotification replaces the PDF notification
+            ));
+            timeline.setCycleCount(1); // Run the timeline only once
+            timeline.play();
         });
 
 // Center the button horizontally
@@ -140,7 +155,7 @@ public class PatientProfile extends Stage {
         buttonContainer.setPadding(new Insets(10)); // Optional padding for aesthetics
 
 // Add the label and button container to the VBox
-        postureHistory.getChildren().addAll(postureHistoryLabel, buttonContainer);
+        postureHistory.getChildren().addAll(postureHistoryLabel, buttonContainer, noNotification);
         postureHistory.setSpacing(10);
 
 // Add the VBox to the GridPane
