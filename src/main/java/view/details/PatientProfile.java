@@ -112,7 +112,7 @@ public class PatientProfile extends Stage {
         detailsContent.setPadding(new Insets(10,0,0,35));
         detailsContent.getChildren().addAll(
                 new Label(this.patient.getPatientDetails())
-                );
+        );
         detailsPane.getChildren().addAll(detailsRectangle, detailsContent);
         detailsSection.getChildren().addAll(detailsLabel, detailsPane);
         GridPane.setRowIndex(detailsSection, 6);
@@ -191,7 +191,7 @@ public class PatientProfile extends Stage {
         root.getChildren().add(gridPane);
 
 
-}
+    }
     private StackPane createRoundedLabel(String text) {
         StackPane stackPane = new StackPane();
         Rectangle background = new Rectangle(300, 30, Color.WHITE);
@@ -229,5 +229,3 @@ public class PatientProfile extends Stage {
         return imageView;
     }
 }
-
-
