@@ -1,5 +1,8 @@
 package view.dashboard;
 
+import backend.AlertSystem;
+import backend.CurrentTime;
+import backend.DatabaseLookup;
 import backend.Patient;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -7,8 +10,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import view.details.PatientProfile;
 import view.utils.WindowDimensions;
-import view.details.*;
+import java.io.ByteArrayInputStream;
+
+import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
 
 
 public class PatientBox extends HBox {
@@ -23,34 +30,38 @@ public class PatientBox extends HBox {
         this.setStyle("-fx-background-color:" + alertColor +
                 "; -fx-background-radius: 15;");
 
-        this.setMinSize(WindowDimensions.windowWidth* 0.4 -10,WindowDimensions.windowHeight * 0.125);
-        this.setMaxSize(WindowDimensions.windowWidth* 0.4 - 10,WindowDimensions.windowHeight * 0.125);
+        this.setMinSize(WindowDimensions.windowWidth* 0.4 - 20,WindowDimensions.windowHeight * 0.125);
+        this.setMaxSize(WindowDimensions.windowWidth* 0.4 - 20,WindowDimensions.windowHeight * 0.125);
         this.setPadding(new Insets(10,20,10,20));
         this.setSpacing(20);
-
-//        ImageView patientImage = addPatientImage(patient);
 
         // Add label to display patient's name
         Label nameLabel = new Label(patient.getName());
         nameLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 18; -fx-text-fill: black; -fx-font-weight: bold");
 
         // Add label to display patient's Location
-        Label locationLabel = new Label("Ward Null, "+ "Room " + patient.getRoomNumber());
+        Label locationLabel = new Label("Ward " + patient.getWard() + ", Room " + patient.getRoomNumber());
         locationLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 18; -fx-text-fill: black;");
 
         // Add label to display time since last update
-        Label lastUpdatedLabel = new Label("Last updated: null");
+
+        Label lastUpdatedLabel = new Label("Last updated:"+ CurrentTime.getCurrentTime());
         lastUpdatedLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 14; -fx-text-fill: black;");
+
+        CurrentTime.updateLabel(lastUpdatedLabel);
+
+
+
 
 
 
         detailsBox.getChildren().addAll(nameLabel,locationLabel,lastUpdatedLabel);
-//        this.getChildren().addAll(patientImage,detailsBox);
-        this.getChildren().addAll(detailsBox);
+
+        ImageView patientImage = addPatientImage(patient);
+        this.getChildren().addAll(patientImage,detailsBox);
 
         // Add a click listener to the HBox
         this.setOnMouseClicked(event -> {
-            System.out.println("HBox clicked!");
             PatientProfile patientPopup = new PatientProfile(patient.getPatientId());
             patientPopup.show();
             // Perform any action, such as opening a pop-up or navigating
@@ -60,35 +71,33 @@ public class PatientBox extends HBox {
     }
 
     // Fetches patient image and returns
-//    private ImageView addPatientImage(Patient patient){
-//        ImageView imageView = new ImageView();
-//        try {
-//            System.out.println("Attempting to load patient image: " + patient.getImagePath());
-//            // Load image from classpath
-//            Image image = new Image(getClass().getResourceAsStream(patient.getImagePath()));
-//            imageView.setImage(image); // Set patient image
-//        } catch (Exception e) {
-//            System.out.println("Failed to load image: " + patient.getImagePath() + ". Loading default image.");
-//            try {
-//                // Load default image from classpath
-//                Image defaultImage = new Image(getClass().getResourceAsStream("/default_pfp.jpg"));
-//                imageView.setImage(defaultImage); // Set default image
-//            } catch (Exception ex) {
-//                System.out.println("Failed to load default image: " + ex.getMessage());
-//            }
-//        }
+    private ImageView addPatientImage(Patient patient){
+        ImageView imageView = new ImageView();
+        try {
+            byte[] imageBytes = patient.getImageAsBytes(); // Get the image as bytes from database from Patients class
+            if (imageBytes != null) {
+                // Convert byte[] to Image
+                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
+                Image image = new Image(byteArrayInputStream);
+                imageView.setImage(image);
+            } else {
+                // No image if you can't get
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to load patient image: " + e.getMessage());
+            // Load no image if any error occurs
+        }
 
-//        imageView.setFitWidth(65);  // Set the desired width
-//        imageView.setFitHeight(65); // Set the desired height
-//        imageView.setPreserveRatio(true); // Preserve the aspect ratio of the image
-//
-//
-//
-//        return imageView;
 
-//    }
+        imageView.setFitWidth(65);  // Set the desired width
+        imageView.setFitHeight(65); // Set the desired height
+        imageView.setPreserveRatio(true); // Preserve the aspect ratio of the image
 
+        return imageView;
+    }
+
+    public void setAlertColor(String alertColor){
+        this.alertColor = alertColor;
+        this.setStyle("-fx-background-color: " + alertColor + ";-fx-background-radius: 15;");
+    }
 }
-
-
-

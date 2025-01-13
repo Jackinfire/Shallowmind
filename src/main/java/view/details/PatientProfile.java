@@ -1,6 +1,9 @@
 package view.details;
 
 import backend.Patient;
+import backend.exportToPdf;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -12,6 +15,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +116,7 @@ public class PatientProfile extends Stage {
         detailsContent.setPadding(new Insets(10,0,0,35));
         detailsContent.getChildren().addAll(
                 new Label(this.patient.getPatientDetails())
-                );
+        );
         detailsPane.getChildren().addAll(detailsRectangle, detailsContent);
         detailsSection.getChildren().addAll(detailsLabel, detailsPane);
         GridPane.setRowIndex(detailsSection, 6);
@@ -127,9 +132,22 @@ public class PatientProfile extends Stage {
 // Create a central button
         Button viewHistoryButton = new Button("View History");
         viewHistoryButton.setFont(new javafx.scene.text.Font(14));
+        Label noNotification = new Label(""); // No notification when nothing is clicked (ensures that adding a notification doesn't cause everything to shift)
         viewHistoryButton.setOnAction(e -> {
             // Action to perform when the button is clicked
             System.out.println("Posture intervention history button clicked!");
+            exportToPdf PdfExporter = new exportToPdf(patient);
+            PdfExporter.generatePatientDetailsPDF("patient_" + patient.getPatientId() + "_details.pdf");
+            Label downloadedNotification = new Label("patient_" + patient.getPatientId() + "_details.pdf exported to Downloads Folder");
+            postureHistory.getChildren().remove(noNotification);
+            postureHistory.getChildren().add(downloadedNotification); // Notification that pdf is saved replaces noNotification
+            Timeline timeline = new Timeline(new KeyFrame(
+                    Duration.seconds(3),
+                    event -> {postureHistory.getChildren().remove(downloadedNotification);
+                        postureHistory.getChildren().add(noNotification);} // noNotification replaces the PDF notification
+            ));
+            timeline.setCycleCount(1); // Run the timeline only once
+            timeline.play();
         });
 
 // Center the button horizontally
@@ -137,7 +155,7 @@ public class PatientProfile extends Stage {
         buttonContainer.setPadding(new Insets(10)); // Optional padding for aesthetics
 
 // Add the label and button container to the VBox
-        postureHistory.getChildren().addAll(postureHistoryLabel, buttonContainer);
+        postureHistory.getChildren().addAll(postureHistoryLabel, buttonContainer, noNotification);
         postureHistory.setSpacing(10);
 
 // Add the VBox to the GridPane
@@ -153,10 +171,10 @@ public class PatientProfile extends Stage {
 
         VBox proceduresContent = new VBox();
         proceduresContent.setSpacing(5);
-        proceduresContent.getChildren().addAll(
-                createRoundedLabel(this.patient.getProcedureName().get(0)),
-                createRoundedLabel(this.patient.getProcedureName().get(1)));
-
+        int lenProc = this.patient.getProcedureName().size();
+        for (int i = 0; i < lenProc; i++) {
+            proceduresContent.getChildren().add(createRoundedLabel(this.patient.getProcedureName().get(i)));
+        }
 
         proceduresSection.getChildren().addAll(proceduresLabel, proceduresContent);
         GridPane.setRowIndex(proceduresSection, 10);
@@ -170,10 +188,11 @@ public class PatientProfile extends Stage {
 
         VBox medicationContent = new VBox();
         medicationContent.setSpacing(5);
+        int lenMed = this.patient.getMedicationDetails().size();
 
-        medicationContent.getChildren().addAll(
-                createRoundedLabel(this.patient.getMedicationDetails().get(0)),
-                createRoundedLabel(this.patient.getMedicationDetails().get(1)));
+        for (int i = 0; i < lenMed; i++) {
+            medicationContent.getChildren().add(createRoundedLabel(this.patient.getMedicationDetails().get(i)));
+        }
 
         medicationSection.getChildren().addAll(MedicationLabel, medicationContent);
         GridPane.setRowIndex(medicationSection, 5);
@@ -188,7 +207,7 @@ public class PatientProfile extends Stage {
         root.getChildren().add(gridPane);
 
 
-}
+    }
     private StackPane createRoundedLabel(String text) {
         StackPane stackPane = new StackPane();
         Rectangle background = new Rectangle(300, 30, Color.WHITE);
@@ -226,5 +245,3 @@ public class PatientProfile extends Stage {
         return imageView;
     }
 }
-
-

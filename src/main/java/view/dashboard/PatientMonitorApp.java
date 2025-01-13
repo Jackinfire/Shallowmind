@@ -44,9 +44,10 @@ public class PatientMonitorApp extends Application {
         UpperBox upperPanelBox = new UpperBox();
         root.getChildren().addAll(upperPanelBox); // Add to scene
         VBox.setVgrow(upperPanelBox, Priority.ALWAYS);
+        StatusPanel statusPanel = upperPanelBox.getStatusPanel();
 
         // Create panel containing patients and their details
-        PatientsPanel patientsPanel = new PatientsPanel();
+        PatientsPanel patientsPanel = new PatientsPanel(statusPanel);
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
         vbox.getChildren().addAll(patientsPanel);
