@@ -132,7 +132,7 @@ public class PatientProfile extends Stage {
             // Action to perform when the button is clicked
             System.out.println("Posture intervention history button clicked!");
             exportToPdf PdfExporter = new exportToPdf(patient);
-            PdfExporter.generatePatientDetailsPDF("patient_details");
+            PdfExporter.generatePatientDetailsPDF("patient_" + patient.getPatientId() + "_details.pdf");
         });
 
 // Center the button horizontally
