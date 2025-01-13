@@ -1,6 +1,6 @@
 # MOPPU: Managing Orientation for Preventing Pressure Ulcers
 
-![App Screenshot](Screenshot 2025-01-13 at 21.48.34.png)
+![App Screenshot](HomePage.png)
 
 
 ## Table of Contents
