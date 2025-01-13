@@ -1,21 +1,39 @@
 plugins {
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+application {
+    // Specify the fully qualified main class
+    mainClass = 'Overview.PatientMonitorApp'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 repositories {
-    mavenCentral()
+    mavenCentral() // Add Maven repository for any additional dependencies
 }
-
-javafx {
-    version = "21"
-    modules = [ 'javafx.controls' ]
-}
-
 
 dependencies {
+    // Add other dependencies (e.g., testing frameworks) if needed
+    testImplementation 'junit:junit:4.13.2'
 
     implementation 'org.xerial:sqlite-jdbc:3.42.0.0'
     implementation 'com.itextpdf:itext7-core:7.2.5'
+
+    // Add JavaFX dependencies
+    implementation 'org.openjfx:javafx-controls:11'
+    implementation 'org.openjfx:javafx-fxml:11'
+    implementation 'org.openjfx:javafx-base:11'
+    implementation 'org.openjfx:javafx-graphics:11'
 }
 
+run {
+    // JavaFX requires additional VM options for modules
+    jvmArgs = [
+            '--module-path', '/path/to/javafx-sdk/lib',
+            '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
+}
