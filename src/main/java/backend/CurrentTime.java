@@ -14,7 +14,7 @@ public class CurrentTime {
      *
      * @return Formatted current date and time as a String.
      */
-    public String getCurrentTime() {
+    public static String getCurrentTime() {
         // Get the current date-time in the specified time zone
         LocalDateTime now = LocalDateTime.now(ZoneId.of(DEFAULT_TIME_ZONE));
         // Format the date-time

@@ -1,5 +1,6 @@
 package backend;
 
+import backend.DatabaseLookup;
 import java.awt.Image;
 import javax.imageio.ImageIO;
 import java.io.ByteArrayInputStream;
@@ -36,6 +37,61 @@ public class Patient {
     public Integer getPatientId() {
         return patientId;
     }
+    private <T> List<T> getDataList(String tableName, String dataName, Class<T> type) {
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        List<T> resultList = new ArrayList<>();
+        boolean patientFound = false;
+        for (Map<String, Object> row : data) {
+            if (row.get("patient_id") != null && row.get("patient_id").equals(this.patientId)) {
+                patientFound = true; // Patient ID exists
+                Object value = row.get(dataName);
+                if (value != null) {
+                    // Check if the value matches the desired type
+                    if (type.isInstance(value)) {
+                        resultList.add(type.cast(value)); // Safely cast and add to the list
+                    }
+                    else if (type == String.class) {
+                        // Convert to String if requested
+                        resultList.add(type.cast(value.toString()));
+                    }
+                }
+                else {
+                    System.err.println("Patient ID " + this.patientId + " found, but data for '" + dataName + "' is missing.");
+                }
+            }
+        }
+
+        // If no matching patient ID is found
+        if (!patientFound) {
+            System.err.println("Patient ID " + this.patientId + " not found in table '" + tableName + "'.");
+        }
+
+        return resultList;
+    }
+
+
+    private <T> T getData(String tableName, String dataName, Class<T> type) {
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        for (Map<String, Object> row : data) {
+            if (row.get("id") != null && row.get("id").equals(patientId)) {
+                Object value = row.get(dataName);
+                if (value != null) {
+                    if (type.isInstance(value)) {
+                        return type.cast(value);
+                    }
+                    if (type == String.class) {
+                        return type.cast(value.toString());
+                    }
+                }
+                else {
+                    throw new IllegalStateException("Patient ID " + patientId + " found, but data for '" + dataName + "' is not available.");
+                }
+            }
+        }
+
+        throw new IllegalArgumentException("Patient ID " + patientId + " not found in table.");
+    }
+
 
     /**
      * Retrieves a list of all intervention times from the intervention history.
@@ -43,16 +99,7 @@ public class Patient {
      * @return a list of intervention times
      */
     public List<String> getInterventionTime() {
-        tableName = "interventionHistory";
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
-        List<String> interventionTimes = new ArrayList<>();
-
-        for (Map<String, Object> row : data) {
-            if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
-                interventionTimes.add((String) row.get("intervention_time"));
-            }
-        }
-        return interventionTimes;
+        return getDataList("InterventionHistory","intervention_time",String.class);
     }
 
     /**
@@ -61,16 +108,7 @@ public class Patient {
      * @return a list of nurse names
      */
     public List<String> getInterventionHandledBy() {
-        tableName = "interventionHistory";
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
-        List<String> handledByList = new ArrayList<>();
-
-        for (Map<String, Object> row : data) {
-            if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
-                handledByList.add((String) row.get("handled_by"));
-            }
-        }
-        return handledByList;
+        return getDataList("interventionHistory","handled_by",String.class);
     }
 
     /**
@@ -79,16 +117,7 @@ public class Patient {
      * @return a list of intervention positions
      */
     public List<String> getInterventionPosition() {
-        tableName = "interventionHistory";
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
-        List<String> interventionPosition = new ArrayList<>();
-
-        for (Map<String, Object> row : data) {
-            if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
-                interventionPosition.add((String) row.get("position"));
-            }
-        }
-        return interventionPosition;
+        return getDataList("interventionHistory","position",String.class);
     }
 
     /**
@@ -97,15 +126,7 @@ public class Patient {
      * @return a list of durations in minutes
      */
     public List<Integer> getInterventionLength() {
-        List<Map<String, Object>> data = dbHelper.retrieveData("interventionHistory");
-        List<Integer> interventionLength = new ArrayList<>();
-
-        for (Map<String, Object> row : data) {
-            if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
-                interventionLength.add((Integer) row.get("timeMinutes"));
-            }
-        }
-        return interventionLength;
+        return getDataList("interventionHistory","timeMinutes",Integer.class);
     }
 
     /**
@@ -114,16 +135,7 @@ public class Patient {
      * @return a list of procedure times
      */
     public List<String> getProcedureTime() {
-        tableName = "procedureHistorySchedule";
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
-        List<String> procedureTime = new ArrayList<>();
-
-        for (Map<String, Object> row : data) {
-            if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
-                procedureTime.add((String) row.get("time"));
-            }
-        }
-        return procedureTime;
+        return getDataList("procedureHistorySchedule","time",String.class);
     }
 
     /**
@@ -132,16 +144,7 @@ public class Patient {
      * @return a list of procedure names
      */
     public List<String> getProcedureName() {
-        tableName = "procedureHistorySchedule";
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
-        List<String> procedureName = new ArrayList<>();
-
-        for (Map<String, Object> row : data) {
-            if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
-                procedureName.add((String) row.get("procedure"));
-            }
-        }
-        return procedureName;
+        return getDataList("procedureHistorySchedule","procedure",String.class);
     }
 
     /**
@@ -150,14 +153,7 @@ public class Patient {
      * @return the patient's name, or null if not found
      */
     public String getName() {
-        tableName = "patientData";
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
-        for (Map<String, Object> row : data) {
-            if (row.get("id") != null && row.get("id").equals(patientId)) {
-                return (String) row.get("name");
-            }
-        }
-        return null;
+        return getData("patientData","name",String.class);
     }
 
     /**
@@ -166,8 +162,7 @@ public class Patient {
      * @return the patient's image as a byte array, or null if not found
      */
     public byte[] getImageAsBytes() {
-        tableName = "patientData";
-        String query = "SELECT image FROM " + tableName + " WHERE id = ?";
+        String query = "SELECT image FROM " + "patientData" + " WHERE id = ?";
         try (
                 Connection connection = dbHelper.connect();
                 PreparedStatement statement = connection.prepareStatement(query)
@@ -190,14 +185,7 @@ public class Patient {
      * @return the patient's age, or null if not found
      */
     public Integer getAge() {
-        tableName = "patientData";
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
-        for (Map<String, Object> row : data) {
-            if (row.get("id") != null && row.get("id").equals(patientId)) {
-                return (Integer) row.get("age");
-            }
-        }
-        return null;
+        return getData("patientData","age",Integer.class);
     }
 
     /**
@@ -206,14 +194,7 @@ public class Patient {
      * @return the patient's gender, or null if not found
      */
     public String getGender() {
-        tableName = "patientData";
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
-        for (Map<String, Object> row : data) {
-            if (row.get("id") != null && row.get("id").equals(patientId)) {
-                return (String) row.get("gender");
-            }
-        }
-        return null;
+        return getData("patientData","gender",String.class);
     }
 
     /**
@@ -222,14 +203,7 @@ public class Patient {
      * @return the patient's diagnosis, or null if not found
      */
     public String getDiagnosis() {
-        tableName = "patientData";
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
-        for (Map<String, Object> row : data) {
-            if (row.get("id") != null && row.get("id").equals(patientId)) {
-                return (String) row.get("diagnosis");
-            }
-        }
-        return null;
+        return getData("patientData","diagnosis",String.class);
     }
 
     /**
@@ -239,16 +213,7 @@ public class Patient {
      * @return a list of posture positions
      */
     public List<String> getPosture() {
-        tableName = "postureHistory";
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
-        List<String> posturePositions = new ArrayList<>();
-
-        for (Map<String, Object> row : data) {
-            if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
-                posturePositions.add((String) row.get("posture_position"));
-            }
-        }
-        return posturePositions;
+        return getDataList("postureHistory","posture_position",String.class);
     }
 
     /**
@@ -282,14 +247,7 @@ public class Patient {
      * @return the room number, or 0 if not found
      */
     public int getRoomNumber() {
-        tableName = "patientData";
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
-        for (Map<String, Object> row : data) {
-            if (row.get("id") != null && row.get("id").equals(patientId)) {
-                return (int) row.get("roomNum");
-            }
-        }
-        return 0;
+        return getData("patientData","roomNum",Integer.class);
     }
 
     /**
@@ -298,14 +256,7 @@ public class Patient {
      * @return the ward, or null if not found
      */
     public String getWard() {
-        tableName = "patientData";
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
-        for (Map<String, Object> row : data) {
-            if (row.get("id") != null && row.get("id").equals(patientId)) {
-                return (String) row.get("ward");
-            }
-        }
-        return null;
+        return getData("patientData","ward",String.class);
     }
 
     /**
@@ -314,17 +265,7 @@ public class Patient {
      * @return the emergency contact number as a string, or null if not found
      */
     public String getContactNumber() {
-        tableName = "patientData";
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
-        for (Map<String, Object> row : data) {
-            if (row.get("id") != null && row.get("id").equals(patientId)) {
-                Object contactNumber = row.get("emergencyContact");
-                if (contactNumber != null) {
-                    return contactNumber.toString();
-                }
-            }
-        }
-        return null;
+        return getData("patientData","emergencyContact",String.class);
     }
 
     /**
@@ -333,14 +274,7 @@ public class Patient {
      * @return the doctor's name, or null if not found
      */
     public String getDocInCharge() {
-        tableName = "patientData";
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
-        for (Map<String, Object> row : data) {
-            if (row.get("id") != null && row.get("id").equals(patientId)) {
-                return (String) row.get("doctorInCharge");
-            }
-        }
-        return null;
+        return getData("patientData","doctorInCharge",String.class);
     }
 
     /**
@@ -349,14 +283,7 @@ public class Patient {
      * @return the diagnosis date, or null if not found
      */
     public String getDiagnosisDate() {
-        tableName = "patientData";
-        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
-        for (Map<String, Object> row : data) {
-            if (row.get("id") != null && row.get("id").equals(patientId)) {
-                return (String) row.get("diagnosisDate");
-            }
-        }
-        return null;
+        return getData("patientData","diagnosisDate",String.class);
     }
 
     /**
@@ -380,17 +307,10 @@ public class Patient {
      *
      * @param name the new name of the patient
      */
-    public void setName(String name) {
-        dbHelper.updateField(tableName, "name", name, "id", patientId);
-    }
 
-    /**
-     * Updates the patient's image path.
-     *
-     * @param imagePath the new image path
-     */
-    public void setImagePath(String imagePath) {
-        dbHelper.updateField(tableName, "imagePath", imagePath, "id", patientId);
+    public void setName(String name) {
+        tableName="patientData";
+        dbHelper.updateField(tableName, "name", name, "id", patientId);
     }
 
     /**
@@ -399,6 +319,7 @@ public class Patient {
      * @param age the new age of the patient
      */
     public void setAge(int age) {
+        tableName="patientData";
         dbHelper.updateField(tableName, "age", age, "id", patientId);
     }
 
@@ -408,6 +329,7 @@ public class Patient {
      * @param gender the new gender of the patient
      */
     public void setGender(String gender) {
+        tableName="patientData";
         dbHelper.updateField(tableName, "gender", gender, "id", patientId);
     }
 
@@ -417,6 +339,7 @@ public class Patient {
      * @param diagnosis the new diagnosis
      */
     public void setDiagnosis(String diagnosis) {
+        tableName="patientData";
         dbHelper.updateField(tableName, "diagnosis", diagnosis, "id", patientId);
     }
 
@@ -436,6 +359,7 @@ public class Patient {
      * @param roomNumber the new room number
      */
     public void setRoomNumber(int roomNumber) {
+        tableName="patientData";
         dbHelper.updateField(tableName, "roomNum", roomNumber, "id", patientId);
     }
 
@@ -445,6 +369,7 @@ public class Patient {
      * @param roomNumber the new ward
      */
     public void setWard(String roomNumber) {
+        tableName="patientData";
         dbHelper.updateField(tableName, "ward", roomNumber, "id", patientId);
     }
 
@@ -454,6 +379,7 @@ public class Patient {
      * @param contactNumber the new emergency contact number
      */
     public void setContactNumber(String contactNumber) {
+        tableName="patientData";
         dbHelper.updateField(tableName, "emergencyContact", contactNumber, "id", patientId);
     }
 }
