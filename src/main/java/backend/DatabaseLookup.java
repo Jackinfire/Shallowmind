@@ -182,45 +182,43 @@ public class DatabaseLookup {
 
         try (Connection connection = connect()) {
             // Begin transaction
-            connection.setAutoCommit(false); // so that  can group multiple SQL statements into a single transaction,
+            connection.setAutoCommit(false); // Group multiple SQL statements into a single transaction
 
-            try {
-                // Delete from patientData
-                PreparedStatement patientStatement = connection.prepareStatement(deletePatientQuery);
-                patientStatement.setInt(1, patientId);
-
-                // Delete from procedureHistorySchedule
-                PreparedStatement procedureStatement = connection.prepareStatement(deleteProcedureHistoryQuery);
+            try (
+                    PreparedStatement patientStatement = connection.prepareStatement(deletePatientQuery);
+                    PreparedStatement procedureStatement = connection.prepareStatement(deleteProcedureHistoryQuery);
+                    PreparedStatement postureStatement = connection.prepareStatement(deletePostureHistoryQuery);
+                    PreparedStatement medicationStatement = connection.prepareStatement(deleteMedicationDataQuery);
+                    PreparedStatement interventionStatement = connection.prepareStatement(deleteInterventionHistoryQuery)
+            ) {
+                // Execute deletion in the correct order
                 procedureStatement.setInt(1, patientId);
                 procedureStatement.executeUpdate();
 
-                // Delete from postureHistory
-                PreparedStatement postureStatement = connection.prepareStatement(deletePostureHistoryQuery);
                 postureStatement.setInt(1, patientId);
                 postureStatement.executeUpdate();
 
-                // Delete from medicationData
-                PreparedStatement medicationStatement = connection.prepareStatement(deleteMedicationDataQuery);
                 medicationStatement.setInt(1, patientId);
                 medicationStatement.executeUpdate();
 
-                // Delete from interventionHistory
-                PreparedStatement interventionStatement = connection.prepareStatement(deleteInterventionHistoryQuery);
                 interventionStatement.setInt(1, patientId);
                 interventionStatement.executeUpdate();
 
+                patientStatement.setInt(1, patientId);
+                patientStatement.executeUpdate();
+
                 // Commit transaction
                 connection.commit();
+                return true;
 
             } catch (SQLException e) {
                 connection.rollback(); // Rollback transaction in case of error
                 System.err.println("Error deleting patient and related data: " + e.getMessage());
-                return false;
             }
         } catch (SQLException e) {
             System.err.println("Error connecting to the database: " + e.getMessage());
         }
-        return false;
+        return false; // Return false if an exception occurs
     }
 
 }
