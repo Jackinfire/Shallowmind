@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import view.details.PatientProfile;
 import view.utils.WindowDimensions;
 import java.io.ByteArrayInputStream;
 
@@ -28,9 +29,7 @@ public class PatientBox extends HBox {
         this.setPadding(new Insets(10,20,10,20));
         this.setSpacing(20);
 
-        HBox imageAndDetailsBox = new HBox(20);
-        // Add the patient image to the PatientBox
-        ImageView patientImage = addPatientImage(patient);
+//        ImageView patientImage = addPatientImage(patient);
 
         // Add label to display patient's name
         Label nameLabel = new Label(patient.getName());
@@ -44,12 +43,21 @@ public class PatientBox extends HBox {
         Label lastUpdatedLabel = new Label("Last updated: null");
         lastUpdatedLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 14; -fx-text-fill: black;");
 
-        // Add the image and the labels to the details box
-        detailsBox.getChildren().addAll(patientImage, nameLabel, locationLabel, lastUpdatedLabel);
 
-        imageAndDetailsBox.getChildren().addAll(patientImage, detailsBox);
-        // Add the details box to the PatientBox
-        this.getChildren().addAll(imageAndDetailsBox);
+
+        detailsBox.getChildren().addAll(nameLabel,locationLabel,lastUpdatedLabel);
+//        this.getChildren().addAll(patientImage,detailsBox);
+        this.getChildren().addAll(detailsBox);
+
+        // Add a click listener to the HBox
+        this.setOnMouseClicked(event -> {
+            System.out.println("HBox clicked!");
+            PatientProfile patientPopup = new PatientProfile(patient.getPatientId());
+            patientPopup.show();
+            // Perform any action, such as opening a pop-up or navigating
+        });
+
+
     }
 
     // Fetches patient image and returns
