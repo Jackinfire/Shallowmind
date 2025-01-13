@@ -102,7 +102,7 @@ public class EditHomeMenu extends Application {
     }
 
     private void openPatientAdder() {
-        PatientEditor patientAdder = new PatientEditor();
+        PatientAdder patientAdder = new PatientAdder();
         Stage patientAdderStage = new Stage();
         patientAdder.start(patientAdderStage);
     }
@@ -114,7 +114,7 @@ public class EditHomeMenu extends Application {
     }
 
     public void openPatientDeleter(){
-        PatientEditor patientDeleter = new PatientEditor();
+        PatientDeleter patientDeleter = new PatientDeleter();
         Stage patientDeleterStage = new Stage();
         patientDeleter.start(patientDeleterStage);
     }
