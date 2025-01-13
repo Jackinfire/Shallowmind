@@ -8,6 +8,7 @@ public class Main {
         // 2. Create the backend.AlertSystem object
         AlertSystem alertSystem = new AlertSystem(dbLookup);
 
+
         // Patient ID to fetch
         int patientId = 3;
 
@@ -24,6 +25,10 @@ public class Main {
             System.out.println("Patient with ID " + patientId + " not found.");
         }
 
+
+        System.out.println(patient.getPatientDetails());
+        exportToPdf pdfGenerator = new exportToPdf();
+        pdfGenerator.generatePatientDetailsPDF("patient_details.pdf", patient);
     }
 }
 
