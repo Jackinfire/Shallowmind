@@ -12,7 +12,7 @@ import view.utils.WindowDimensions;
 
 public class PatientsPanel extends ScrollPane {
 
-    public PatientsPanel(){
+    public PatientsPanel(StatusPanel statusPanel){
 
         this.setStyle("-fx-background: transparent; -fx-border-color: transparent;");
         this.setMinSize(WindowDimensions.windowWidth*0.8 + 20,WindowDimensions.windowHeight*0.7);
@@ -34,12 +34,12 @@ public class PatientsPanel extends ScrollPane {
 
             Patient patient1 = new Patient(i); // Create a new Patient with ID 'i'
             PatientBox patientBox1 = new PatientBox(patient1);
-            LiveMonitor monitor1 = new LiveMonitor(i,patientBox1);
+            LiveMonitor monitor1 = new LiveMonitor(i,patientBox1,statusPanel);
             monitor1.start();
 
             Patient patient2 = new Patient(i+1);
             PatientBox patientBox2 = new PatientBox(patient2);
-            LiveMonitor monitor2 = new LiveMonitor(i+1,patientBox2);
+            LiveMonitor monitor2 = new LiveMonitor(i+1,patientBox2,statusPanel);
             monitor2.start();
 
             HBox hBox1 = new HBox();

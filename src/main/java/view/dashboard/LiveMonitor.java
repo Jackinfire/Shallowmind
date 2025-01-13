@@ -9,7 +9,7 @@ import java.util.List;
 public class LiveMonitor extends Thread {
     private PatientBox patientBox;
     private int patientID;
-    public LiveMonitor(int patientID, PatientBox patientBox){
+    public LiveMonitor(int patientID, PatientBox patientBox, StatusPanel statusPanel){
 
         this.patientID = patientID;
         this.patientBox = patientBox;
