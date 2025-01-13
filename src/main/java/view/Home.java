@@ -20,6 +20,8 @@ import view.dashboard.PatientMonitorApp;
 import view.editMenu.EditHomeMenu;
 
 public class Home extends Application {
+    private Button healthcareProfessionalButton;
+    private Button hospitalAdminButton;
 
     @Override
     public void start(Stage primaryStage) {
@@ -27,8 +29,6 @@ public class Home extends Application {
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.setPrefSize(623, 423);
         anchorPane.setStyle("-fx-background-color: #051d40;");
-
-        // GridPane
         GridPane gridPane = new GridPane();
         gridPane.setPrefSize(623, 423);
         AnchorPane.setTopAnchor(gridPane, 5.0);
@@ -36,21 +36,21 @@ public class Home extends Application {
         AnchorPane.setLeftAnchor(gridPane, 10.0);
         AnchorPane.setRightAnchor(gridPane, 10.0);
 
-        // Column Constraints
+// Divide the pane into 4
         for (int i = 0; i < 2; i++) {
             ColumnConstraints colConstraints = new ColumnConstraints();
             colConstraints.setPercentWidth(50.0);
             gridPane.getColumnConstraints().add(colConstraints);
         }
 
-// Row Constraints (2 rows, each taking 50% of the height)
         for (int i = 0; i < 2; i++) {
             RowConstraints rowConstraints = new RowConstraints();
             rowConstraints.setPercentHeight(50.0);
             gridPane.getRowConstraints().add(rowConstraints);
         }
 
-        ImageView logoView = new ImageView(new Image("file:src/main/resources/logo.png")); //
+// Add shallowmind logo
+        ImageView logoView = new ImageView(new Image("file:src/main/resources/logo.png"));
         logoView.setPreserveRatio(true);
         logoView.setFitHeight(100);  // Adjust as needed
         GridPane.setColumnIndex(logoView, 0);
@@ -58,7 +58,7 @@ public class Home extends Application {
         GridPane.setHalignment(logoView, HPos.RIGHT);
         gridPane.getChildren().add(logoView);
 
-        // Label
+// Title
         Label titleLabel = new Label("Welcome to MOPPU \n Select your user:");
         titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 18));
         titleLabel.setTextFill(javafx.scene.paint.Color.WHITE);
@@ -66,37 +66,36 @@ public class Home extends Application {
         GridPane.setRowIndex(titleLabel, 0);
         gridPane.getChildren().add(titleLabel);
 
-        // Add Patient Button
-        Button addPatientButton = new Button("Healthcare Professional View");
-        addPatientButton.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 14));
-        addPatientButton.setMaxSize(230, 190);
-        GridPane.setHalignment(addPatientButton, HPos.CENTER);
-        GridPane.setValignment(addPatientButton, VPos.CENTER);
-        GridPane.setColumnIndex(addPatientButton, 0);
-        GridPane.setRowIndex(addPatientButton, 1);
-        gridPane.getChildren().add(addPatientButton);
-        addPatientButton.setOnAction(e -> {
+// Add healthcareProfessional Button
+        healthcareProfessionalButton = new Button("Healthcare Professional View");
+        healthcareProfessionalButton.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 14));
+        healthcareProfessionalButton.setMaxSize(230, 190);
+        GridPane.setHalignment(healthcareProfessionalButton, HPos.CENTER);
+        GridPane.setValignment(healthcareProfessionalButton, VPos.CENTER);
+        GridPane.setColumnIndex(healthcareProfessionalButton, 0);
+        GridPane.setRowIndex(healthcareProfessionalButton, 1);
+        gridPane.getChildren().add(healthcareProfessionalButton);
+        healthcareProfessionalButton.setOnAction(e -> {
             // Action to perform when the button is clicked
             System.out.println("Healthcare View Clicked");
-            openHealthcareView();
+            openHealthcareProfessionalView();
         });
 
 
-        // Delete Patient Button
-        Button deletePatientButton = new Button("Hospital Admin View");
-        deletePatientButton.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 14));
-        deletePatientButton.setMaxSize(230, 190);
-        GridPane.setHalignment(deletePatientButton, HPos.CENTER);
-        GridPane.setValignment(deletePatientButton, VPos.CENTER);
-        GridPane.setColumnIndex(deletePatientButton, 1);
-        GridPane.setRowIndex(deletePatientButton, 1);
-        gridPane.getChildren().add(deletePatientButton);
-        deletePatientButton.setOnAction(e -> {
+// add hospitalAdmin Button
+        hospitalAdminButton = new Button("Hospital Admin View");
+        hospitalAdminButton.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 14));
+        hospitalAdminButton.setMaxSize(230, 190);
+        GridPane.setHalignment(hospitalAdminButton, HPos.CENTER);
+        GridPane.setValignment(hospitalAdminButton, VPos.CENTER);
+        GridPane.setColumnIndex(hospitalAdminButton, 1);
+        GridPane.setRowIndex(hospitalAdminButton, 1);
+        gridPane.getChildren().add(hospitalAdminButton);
+        hospitalAdminButton.setOnAction(e -> {
             // Action to perform when the button is clicked
             System.out.println("Hospital Admin View Clicked");
             openAdminView();
         });
-
 
         // Adding GridPane to AnchorPane
         anchorPane.getChildren().add(gridPane);
@@ -108,16 +107,29 @@ public class Home extends Application {
         primaryStage.show();
     }
 
-    private void openHealthcareView() {
-        PatientMonitorApp healthcareView = new PatientMonitorApp();
-        Stage patientMonitorAppStage = new Stage();
-        healthcareView.start(patientMonitorAppStage);
+    private void openHealthcareProfessionalView() {
+        healthcareProfessionalButton.setDisable(true);
+        hospitalAdminButton.setDisable(true);
+        PatientMonitorApp healthcareProfessionalView = new PatientMonitorApp();
+        Stage healthcareProfessionalViewStage = new Stage();
+        healthcareProfessionalView.start(healthcareProfessionalViewStage);
+        healthcareProfessionalViewStage.setOnCloseRequest(event -> {
+            healthcareProfessionalButton.setDisable(false);
+            hospitalAdminButton.setDisable(false);
+        });
     }
 
+
     private void openAdminView() {
-        EditHomeMenu adminView = new EditHomeMenu();
-        Stage patientEditorStage = new Stage();
-        adminView.start(patientEditorStage);
+        healthcareProfessionalButton.setDisable(true);
+        hospitalAdminButton.setDisable(true);
+        EditHomeMenu hospitalAdminView = new EditHomeMenu();
+        Stage hospitalAdminViewStage = new Stage();
+        hospitalAdminView.start(hospitalAdminViewStage);
+        hospitalAdminViewStage.setOnCloseRequest(event -> {
+            healthcareProfessionalButton.setDisable(false);
+            hospitalAdminButton.setDisable(false);
+        });
     }
 
     public static void main(String[] args) {
