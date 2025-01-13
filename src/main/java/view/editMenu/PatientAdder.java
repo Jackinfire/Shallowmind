@@ -1,5 +1,7 @@
 package view.editMenu;
 
+import backend.DatabaseLookup;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -122,19 +124,60 @@ public class PatientAdder extends BasePatientForm {
         GridPane.setColumnSpan(diagnosisField, 4);
         gridPane.getChildren().add(diagnosisField);
 
+        Label diagnosisDateLabel = new Label("Diagnosis Date:");
+        diagnosisDateLabel.setFont(new Font(15));
+        GridPane.setColumnIndex(diagnosisDateLabel, 1);
+        GridPane.setRowIndex(diagnosisDateLabel, 10);
+        GridPane.setColumnSpan(diagnosisDateLabel, 4);
+        gridPane.getChildren().add(diagnosisDateLabel);
+
+        TextField diagnosisDateField = new TextField();
+        diagnosisDateField.setPromptText("Enter Diagnosis");
+        GridPane.setColumnIndex(diagnosisDateField, 5);
+        GridPane.setRowIndex(diagnosisDateField, 10);
+        GridPane.setColumnSpan(diagnosisDateField, 4);
+        gridPane.getChildren().add(diagnosisDateField);
+
         Label doctorLabel = new Label("Doctor in Charge:");
         doctorLabel.setFont(new Font(15));
         GridPane.setColumnIndex(doctorLabel, 1);
-        GridPane.setRowIndex(doctorLabel, 10);
+        GridPane.setRowIndex(doctorLabel, 11);
         GridPane.setColumnSpan(doctorLabel, 4);
         gridPane.getChildren().add(doctorLabel);
 
         TextField doctorField = new TextField();
         doctorField.setPromptText("Enter Doctor");
         GridPane.setColumnIndex(doctorField, 5);
-        GridPane.setRowIndex(doctorField, 10);
+        GridPane.setRowIndex(doctorField, 11);
         GridPane.setColumnSpan(doctorField, 4);
         gridPane.getChildren().add(doctorField);
+
+        Label genderLabel = new Label("Gender");
+        genderLabel.setFont(new Font(15));
+        GridPane.setColumnIndex(genderLabel, 1);
+        GridPane.setRowIndex(genderLabel, 12);
+        GridPane.setColumnSpan(genderLabel, 4);
+        gridPane.getChildren().add(genderLabel);
+
+        TextField genderField = new TextField();
+        genderField.setPromptText("Enter Gender");
+        GridPane.setColumnIndex(genderField, 5);
+        GridPane.setRowIndex(genderField, 12);
+        GridPane.setColumnSpan(genderField, 4);
+        gridPane.getChildren().add(genderField);
+        // Submit Button
+        Button submitButton = new Button("Save patient details");
+        GridPane.setColumnIndex(submitButton, 5);
+        GridPane.setRowIndex(submitButton, 13);
+        GridPane.setColumnSpan(submitButton,10);
+        gridPane.getChildren().add(submitButton);
+
+        submitButton.setOnAction(event -> {
+            DatabaseLookup dbhelper=new DatabaseLookup();
+            dbhelper.addNewPatient(nameField.getText(),Integer.valueOf(ageField.getText()),genderField.getText(),
+                    contactField.getText(), diagnosisDateField.getText(),diagnosisDateField.getText(),
+                    doctorField.getText(),wardField.getText(),Integer.valueOf(roomField.getText()));
+        });
 
     }
 

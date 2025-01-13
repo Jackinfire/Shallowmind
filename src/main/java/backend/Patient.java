@@ -240,6 +240,28 @@ public class Patient {
         return medicationDetailsList;
     }
 
+    /**
+     * Retrieves the patient's past and future procedure details.
+     *
+     * @return the procedure details as a string, or null if not found
+     */
+    public List<String> getProcedureDetails() {
+        tableName = "procedureHistorySchedule";
+        List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
+        List<String> procedureDetailsList = new ArrayList<>();
+
+        for (Map<String, Object> row : data) {
+            if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
+                String procedureDetail = row.get("time") + " - "
+                        + row.get("procedure");
+                procedureDetailsList.add(procedureDetail);
+            }
+        }
+
+        // Return the list, which will be empty if no medications are found
+        return procedureDetailsList;
+    }
+
 
     /**
      * Retrieves the patient's room number.

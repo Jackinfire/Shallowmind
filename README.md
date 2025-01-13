@@ -1,5 +1,8 @@
 # MOPPU: Managing Orientation for Preventing Pressure Ulcers
 
+![App Screenshot](HomePage.png)
+
+
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Features](#features)
@@ -37,7 +40,19 @@
 1. Clone this repository:
    ```bash
    git clone https://github.com/Jackinfire/Shallowmind.git
+   
+2. Compile the Application
 
+    ```bash
+    javac -d out src/main/java/view/Home.java
+
+ 3. Run the Application
+
+    ```bash
+    java -cp out view.Home
+
+---
+    
 ## Dependencies and Requirements
 
 ### Software Requirements

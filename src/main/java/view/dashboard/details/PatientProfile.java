@@ -153,9 +153,9 @@ public class PatientProfile extends Stage {
 
         VBox proceduresContent = new VBox();
         proceduresContent.setSpacing(5);
-        int lenProc = this.patient.getProcedureName().size();
+        int lenProc = this.patient.getProcedureDetails().size();
         for (int i = 0; i < lenProc; i++) {
-            proceduresContent.getChildren().add(createRoundedLabel(this.patient.getProcedureName().get(i)));
+            proceduresContent.getChildren().add(createRoundedLabel(this.patient.getProcedureDetails().get(i)));
         }
 
         proceduresSection.getChildren().addAll(proceduresLabel, proceduresContent);
