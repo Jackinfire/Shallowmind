@@ -1,7 +1,8 @@
 package view.dashboard;
 
+import backend.AlertSystem;
+import backend.DatabaseLookup;
 import backend.Patient;
-import backend.exportToPdf;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -11,6 +12,9 @@ import javafx.scene.layout.VBox;
 import view.details.PatientProfile;
 import view.utils.WindowDimensions;
 import java.io.ByteArrayInputStream;
+
+import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
 
 
 public class PatientBox extends HBox {
@@ -30,14 +34,12 @@ public class PatientBox extends HBox {
         this.setPadding(new Insets(10,20,10,20));
         this.setSpacing(20);
 
-        ImageView patientImage = addPatientImage(patient);
-
         // Add label to display patient's name
         Label nameLabel = new Label(patient.getName());
         nameLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 18; -fx-text-fill: black; -fx-font-weight: bold");
 
         // Add label to display patient's Location
-        Label locationLabel = new Label("Ward Null, "+ "Room " + patient.getRoomNumber());
+        Label locationLabel = new Label("Ward " + patient.getWard() + ", Room " + patient.getRoomNumber());
         locationLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 18; -fx-text-fill: black;");
 
         // Add label to display time since last update
@@ -47,8 +49,9 @@ public class PatientBox extends HBox {
 
 
         detailsBox.getChildren().addAll(nameLabel,locationLabel,lastUpdatedLabel);
+
+        ImageView patientImage = addPatientImage(patient);
         this.getChildren().addAll(patientImage,detailsBox);
-//        this.getChildren().addAll(detailsBox);
 
         // Add a click listener to the HBox
         this.setOnMouseClicked(event -> {
@@ -85,5 +88,10 @@ public class PatientBox extends HBox {
         imageView.setPreserveRatio(true); // Preserve the aspect ratio of the image
 
         return imageView;
+    }
+
+    public void setAlertColor(String alertColor){
+        this.alertColor = alertColor;
+        this.setStyle("-fx-background-color: " + alertColor + ";");
     }
 }

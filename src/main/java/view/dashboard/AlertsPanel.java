@@ -27,7 +27,7 @@ public class AlertsPanel extends UpperPanel {
         if (severity == "red")
             alert.setStyle("-fx-background-color: #C40003" + "; -fx-background-radius: 10");
         else
-            alert.setStyle("-fx-background-color: #FFBF00" + "; -fx-background-radius: 10");
+            alert.setStyle("-fx-background-color: #E67E22" + "; -fx-background-radius: 10");
         return alert;
 
 

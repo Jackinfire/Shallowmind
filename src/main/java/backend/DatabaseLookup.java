@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class DatabaseLookup {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(DB_URL);
-            System.out.println("Connection established successfully (SQLite).");
+
         } catch (SQLException e) {
             System.err.println("Failed to connect to the database: " + e.getMessage());
         }
@@ -128,4 +127,51 @@ public class DatabaseLookup {
 
         return totalPatients;
     }
+
+    /**
+     * Adds a new patient to the patientData table.
+     *
+     * @param name              Patient's name
+     * @param age               Patient's age
+     * @param gender            Patient's gender
+     * @param emergencyContact  Patient's emergency contact number
+     * @param diagnosis         Patient's diagnosis
+     * @param diagnosisDate     Date of diagnosis
+     * @param doctorInCharge    Doctor in charge
+     * @param ward              Patient's ward
+     * @param roomNum           Patient's room number
+     * @return True if the patient was added successfully; false otherwise
+     */
+    public boolean addNewPatient(String name, int age, String gender, String emergencyContact, String diagnosis,
+                                 String diagnosisDate, String doctorInCharge, String ward, int roomNum) {
+        String query = "INSERT INTO patientData (name, age, gender, emergencyContact, diagnosis, diagnosisDate, " +
+                "doctorInCharge, ward, roomNum, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection connection = connect();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, name);
+            statement.setInt(2, age);
+            statement.setString(3, gender);
+            statement.setString(4, emergencyContact);
+            statement.setString(5, diagnosis);
+            statement.setString(6, diagnosisDate);
+            statement.setString(7, doctorInCharge);
+            statement.setString(8, ward);
+            statement.setInt(9, roomNum);
+
+
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("New patient added successfully.");
+                return true;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error adding new patient: " + e.getMessage());
+        }
+
+        return false;
+    }
+
+
 }
