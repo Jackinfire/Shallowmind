@@ -54,7 +54,6 @@ public class StatusPanel extends UpperPanel {
         this.greenPatients = greenPatients;
         Label label = (Label) this.greenBox.getChildren().get(0); // Get the first (and only) child
         label.setText(Integer.toString(greenPatients));
-        System.out.println("green updated");
     }
 
     public void updateAmberCount(int amberPatients){

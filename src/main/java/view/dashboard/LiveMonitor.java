@@ -56,7 +56,6 @@ public class LiveMonitor extends Thread {
                     switch (alertColor) {
                         case "green":
                             patientBox.setAlertColor("#328D40");
-                            System.out.println("setting to green");
                             break;
                         case "amber":
                             patientBox.setAlertColor("#E67E22");
