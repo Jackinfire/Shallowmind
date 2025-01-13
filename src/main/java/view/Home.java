@@ -50,7 +50,7 @@ public class Home extends Application {
             gridPane.getRowConstraints().add(rowConstraints);
         }
 
-        ImageView logoView = new ImageView(new Image("file:/Users/yuichirominamikawa/Desktop/app756/Shallowmind/src/main/resources/logo.png")); // Update with your logo path
+        ImageView logoView = new ImageView(new Image("file:src/main/resources/logo.png")); //
         logoView.setPreserveRatio(true);
         logoView.setFitHeight(100);  // Adjust as needed
         GridPane.setColumnIndex(logoView, 0);
