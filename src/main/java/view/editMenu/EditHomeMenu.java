@@ -61,7 +61,7 @@ public class EditHomeMenu extends Application {
         gridPane.getChildren().add(addPatientButton);
         addPatientButton.setOnAction(e -> {
             // Action to perform when the button is clicked
-            System.out.println("Add patient button clicked");
+
             openPatientAdder();
         });
 
@@ -75,7 +75,6 @@ public class EditHomeMenu extends Application {
         gridPane.getChildren().add(deletePatientButton);
         deletePatientButton.setOnAction(e -> {
             // Action to perform when the button is clicked
-            System.out.println("Delete patient button clicked");
             openPatientDeleter();
         });
 
@@ -87,7 +86,6 @@ public class EditHomeMenu extends Application {
         gridPane.getChildren().add(editPatientButton);
         editPatientButton.setOnAction(e -> {
             // Action to perform when the button is clicked
-            System.out.println("Edit patient button clicked");
             openPatientEditor();
         });
 
