@@ -1,5 +1,7 @@
 package view.editMenu;
 
+import backend.DatabaseLookup;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -37,6 +39,17 @@ public class PatientDeleter extends BasePatientForm {
         GridPane.setColumnSpan(idField, 4);
         gridPane.getChildren().add(idField);
 
+        // Submit Button
+        Button submitButton = new Button("Delete patient details");
+        GridPane.setColumnIndex(submitButton, 4);
+        GridPane.setRowIndex(submitButton, 4);
+        GridPane.setColumnSpan(submitButton,10);
+        gridPane.getChildren().add(submitButton);
+
+        submitButton.setOnAction(event -> {
+            DatabaseLookup dbhelper=new DatabaseLookup();
+            dbhelper.deletePatientData(Integer.valueOf(idField.getText()));
+        });
     }
 
 }
