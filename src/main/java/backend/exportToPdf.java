@@ -8,15 +8,22 @@ import com.itextpdf.layout.element.Text;
 
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.io.File;
+import java.nio.file.Paths;
 
 public class exportToPdf {
 
     public void generatePatientDetailsPDF(String fileName, Patient patient) {
         try {
-            PdfWriter writer = new PdfWriter(fileName);
+            String userHome = System.getProperty("user.home");
+            File downloadsFolder = new File(userHome, "Downloads");
+
+            // Create the file path to the Downloads folder
+            File outputFile = new File(downloadsFolder, fileName);
+
+            PdfWriter writer = new PdfWriter(outputFile);
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
-
             addPersonalDetails(document, patient);
             addInterventionHistory(document, patient);
 
