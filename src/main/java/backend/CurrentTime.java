@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 
 public class CurrentTime {
 
-    private static final String DEFAULT_TIME_FORMAT = "dd-MM-yyyy HH:mm:ss";
+    private static final String DEFAULT_TIME_FORMAT = "dd-MM-yyyy HH:mm";
     private static final String DEFAULT_TIME_ZONE = "GMT";
     private static Timer timer;
 
