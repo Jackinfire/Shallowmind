@@ -35,7 +35,7 @@ public class AlertsPanel extends UpperPanel {
         scrollPane.setContent(alertsContainer);
     }
 
-    public void createAlert(String severity, Patient patient){
+    public void createAlert(String alertColor, Patient patient){
         VBox alert = new VBox();
 
         alert.setAlignment(Pos.CENTER);
@@ -47,16 +47,21 @@ public class AlertsPanel extends UpperPanel {
         label.setStyle("-fx-text-fill: black"); // Make text black
         alert.getChildren().add(label);
 
-        if (severity.equals("red")) {
-            alert.setStyle("-fx-background-color: #C40003" + "; -fx-background-radius: 10;" +
-                    "-fx-font-family: Arial;" + "-fx-font-size: 15;" + "-fx-font-weight: bold");
-            alertsContainer.getChildren().add(0, alert); // Insert at index 0
-        }
-        else if (severity.equals("amber"))
-            alert.setStyle("-fx-background-color: #E67E22" + "; -fx-background-radius: 10;" +
-                    "-fx-font-family: Arial;" + "-fx-font-size: 15;" + "-fx-font-weight: bold") ;
 
-        alertsContainer.getChildren().add(alert);
+        switch (alertColor) {
+            case "amber":
+                alert.setStyle("-fx-background-color: #E67E22" + "; -fx-background-radius: 10;" +
+                        "-fx-font-family: Arial;" + "-fx-font-size: 15;" + "-fx-font-weight: bold") ;
+                alertsContainer.getChildren().add(alert);
+                break;
+            case "red":
+                alert.setStyle("-fx-background-color: #C40003" + "; -fx-background-radius: 10;" +
+                        "-fx-font-family: Arial;" + "-fx-font-size: 15;" + "-fx-font-weight: bold");
+                alertsContainer.getChildren().add(0, alert); // Insert at index 0
+                break;
+            default:
+                System.err.println("Unknown alert color: " + alertColor);
+        }
 
     }
 
