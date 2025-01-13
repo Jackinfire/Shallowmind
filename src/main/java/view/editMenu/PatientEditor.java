@@ -16,7 +16,7 @@ public class PatientEditor extends BasePatientForm {
     public String getTitle() {
         return "Patient Editor";
     }
-    private DatabaseLookup dbhelper;
+    private DatabaseLookup dbhelper=new DatabaseLookup();
     private Patient patient;
 
     @Override
@@ -170,9 +170,9 @@ public class PatientEditor extends BasePatientForm {
                 contactField.setText(patient.getContactNumber());
                 wardField.setDisable(false);
                 wardField.setText(patient.getWard());
-            } catch (NumberFormatException e) {
-                idField.setText("Invalid ID: Please enter a valid numeric ID from 1 to "+
-                        String.valueOf(dbhelper.getNumberOfPatients()));
+            } catch (Exception e) {
+                String numOfPatients=String.valueOf(dbhelper.getNumberOfPatients());
+                idField.setText("Invalid ID: Enter from 1 to "+numOfPatients);
             }
         });
 
