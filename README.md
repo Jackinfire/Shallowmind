@@ -4,6 +4,7 @@
 1. [Introduction](#introduction)
 2. [Features](#features)
 3. [Installation](#installation)
+4. [Dependencies and Requirements](#dependencies-and-requirements)
 
 ---
 
@@ -36,3 +37,42 @@
 1. Clone this repository:
    ```bash
    git clone https://github.com/Jackinfire/Shallowmind.git
+
+## Dependencies and Requirements
+
+### Software Requirements
+- **Java Development Kit (JDK):**
+   - Version 11 or higher.
+- **Gradle Build Tool:**
+   - Required to build and run the project (or use the Gradle Wrapper provided in the project).
+- **SQLite Database Management Tool (Optional):**
+   - For managing and inspecting SQLite databases (e.g., DB Browser for SQLite).
+
+### System Requirements
+- **Operating System:**
+   - Windows, macOS, or Linux (supports JavaFX and Java).
+- **Internet Access:**
+   - Required for the initial build to download dependencies from Maven Central Repository.
+
+### Dependencies
+The project uses the following dependencies, which are managed via Gradle:
+
+1. **JavaFX Controls**:
+   - Version: `21`
+   - Used for building the graphical user interface.
+2. **SQLite JDBC Driver**:
+   - Version: `3.42.0.0`
+   - Enables interaction with SQLite databases.
+3. **iText7 Core**:
+   - Version: `7.2.5`
+   - Used for generating and handling PDF documents.
+
+### Gradle Plugins
+- **Application Plugin**:
+   - Used to package and run the application.
+- **JavaFX Plugin**:
+   - Version: `0.1.0`
+   - Used for configuring JavaFX modules and dependencies.
+
+---
+
