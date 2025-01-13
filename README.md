@@ -42,11 +42,10 @@
 
 ### Software Requirements
 - **Java Development Kit (JDK):**
-   - Version 11 or higher.
+   - Version 21. 
 - **Gradle Build Tool:**
    - Required to build and run the project (or use the Gradle Wrapper provided in the project).
-- **SQLite Database Management Tool (Optional):**
-   - For managing and inspecting SQLite databases (e.g., DB Browser for SQLite).
+
 
 ### System Requirements
 - **Operating System:**
