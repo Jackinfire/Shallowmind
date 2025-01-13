@@ -42,10 +42,10 @@ public class StatusPanel extends UpperPanel {
         VBox box = new VBox();
         box.setStyle("-fx-background-color: " + color + "; -fx-background-radius: 10");
         Label label = new Label(Integer.toString(number));
-        label.setStyle("-fx-font-family: Arial; -fx-font-size: 20; -fx-text-fill: black; -fx-font-weight: bold");
+        label.setStyle("-fx-font-family: Arial; -fx-font-size: 30; -fx-text-fill: black; -fx-font-weight: bold");
         box.getChildren().addAll(label);
-        box.setMaxSize(50,50);
-        box.setPrefSize(50,50);
+        box.setMaxSize(65,65);
+        box.setPrefSize(65,65);
         box.setAlignment(Pos.CENTER);
         return box;
     }
