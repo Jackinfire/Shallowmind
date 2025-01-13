@@ -13,12 +13,14 @@ public class LiveMonitor extends Thread {
     private List<PatientBox> patientBoxes;
     private List<Patient> patients;
     private StatusPanel statusPanel;
+    private AlertsPanel alertsPanel;
 
-    public LiveMonitor(StatusPanel statusPanel, List<PatientBox> patientBoxes, List<Patient> patients){
+    public LiveMonitor(StatusPanel statusPanel, AlertsPanel alertsPanel, List<PatientBox> patientBoxes, List<Patient> patients){
 
         this.patientBoxes = patientBoxes;
         this.patients = patients;
         this.statusPanel = statusPanel;
+        this.alertsPanel = alertsPanel;
 
     }
 
@@ -37,6 +39,9 @@ public class LiveMonitor extends Thread {
         int numPatients = patients.size();
 
         for (int minute = 0; minute < numMinutes; minute++) {
+
+            // Clear alerts on the alert panel on the JavaFX Application Thread
+            Platform.runLater(() -> alertsPanel.clearAlerts());
 
             int greenCount = 0;
             int amberCount = 0;
@@ -59,9 +64,11 @@ public class LiveMonitor extends Thread {
                             break;
                         case "amber":
                             patientBox.setAlertColor("#E67E22");
+                            alertsPanel.createAlert("amber",patient);
                             break;
                         case "red":
                             patientBox.setAlertColor("#C0392B");
+                            alertsPanel.createAlert("red",patient);
                             break;
                         default:
                             System.err.println("Unknown alert color: " + alertColor);
@@ -99,7 +106,7 @@ public class LiveMonitor extends Thread {
 
             // Wait for 10 seconds before the next update
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 System.err.println("LiveMonitor interrupted.");
                 break; // Exit the loop if the thread is interrupted

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class PatientsPanel extends ScrollPane {
 
-    public PatientsPanel(StatusPanel statusPanel){
+    public PatientsPanel(StatusPanel statusPanel, AlertsPanel alertsPanel){
 
         // Make the background and borders of the scrolling pane transparent
         this.setStyle("-fx-background: #081c44; -fx-border-color: #081c44;");
@@ -55,7 +55,7 @@ public class PatientsPanel extends ScrollPane {
         }
 
         // Start monitor for all patients
-        LiveMonitor monitor = new LiveMonitor(statusPanel,patientBoxList,patientList);
+        LiveMonitor monitor = new LiveMonitor(statusPanel,alertsPanel,patientBoxList,patientList);
         monitor.start();
 
         for (int i = 0; i < numberOfPatients; i = i+2) {
