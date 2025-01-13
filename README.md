@@ -41,6 +41,17 @@
    ```bash
    git clone https://github.com/Jackinfire/Shallowmind.git
 
+2. Compile the Application
+
+    ```bash
+    javac -d out src/main/java/view/view/*.java
+
+
+ 3. Run the Application
+
+    ```bash
+    java -cp out view.Home
+    
 ## Dependencies and Requirements
 
 ### Software Requirements
