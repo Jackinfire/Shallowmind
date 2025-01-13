@@ -1,9 +1,5 @@
 package backend;
 
-import backend.DatabaseLookup;
-import java.awt.Image;
-import javax.imageio.ImageIO;
-import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
