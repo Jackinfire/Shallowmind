@@ -62,7 +62,6 @@ public class PatientBox extends HBox {
 
         // Add a click listener to the HBox
         this.setOnMouseClicked(event -> {
-            System.out.println("HBox clicked!");
             PatientProfile patientPopup = new PatientProfile(patient.getPatientId());
             patientPopup.show();
             // Perform any action, such as opening a pop-up or navigating
