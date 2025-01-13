@@ -17,22 +17,30 @@ public class PatientsPanel extends ScrollPane {
 
     public PatientsPanel(StatusPanel statusPanel){
 
-        this.setStyle("-fx-background: transparent; -fx-border-color: transparent;");
+        // Make the background and borders of the scrolling pane transparent
+        this.setStyle("-fx-background: #081c44; -fx-border-color: #081c44;");
+
+        // Set size of the scrolling pane
         this.setMinSize(WindowDimensions.windowWidth*0.8 + 20,WindowDimensions.windowHeight*0.7);
         this.setMaxSize(WindowDimensions.windowWidth*0.8 + 20,WindowDimensions.windowHeight*0.7);
-
-        VBox panel = new VBox();
-        panel.setMinSize(WindowDimensions.windowWidth*0.8 + 20,WindowDimensions.windowHeight*0.7);
-        panel.setMaxSize(WindowDimensions.windowWidth*0.8 + 20,WindowDimensions.windowHeight*0.7);
-        panel.setSpacing(10); // Set spacing between patient boxes
-        panel.setStyle("-fx-background-color: #33516d;" +
-                "-fx-background-radius: 15;");
-
-        panel.setAlignment(Pos.CENTER);
 
         // Create a DatabaseLookup instance to get total number of patients
         DatabaseLookup databaseLookup = new DatabaseLookup();
         int numberOfPatients = databaseLookup.getNumberOfPatients();
+
+        // Create panel that will hold the patient boxes
+        VBox panel = new VBox();
+
+        int numberOfRows = Math.round(numberOfPatients/2);
+        panel.setMinSize(WindowDimensions.windowWidth*0.8,numberOfRows * ((WindowDimensions.windowHeight * 0.125)+10)+30);
+        panel.setMaxSize(WindowDimensions.windowWidth*0.8,numberOfRows * ((WindowDimensions.windowHeight * 0.125)+10)+30);
+        panel.setSpacing(10); // Set spacing between patient boxes
+        panel.setStyle("-fx-background-color: #33516d;" +
+                "-fx-background-radius: 15;");
+
+        panel.setAlignment(Pos.TOP_CENTER);
+
+
 
         List<PatientBox> patientBoxList = new ArrayList<>();
         List<Patient> patientList = new ArrayList<>();

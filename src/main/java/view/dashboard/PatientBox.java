@@ -29,8 +29,8 @@ public class PatientBox extends HBox {
         this.setStyle("-fx-background-color:" + alertColor +
                 "; -fx-background-radius: 15;");
 
-        this.setMinSize(WindowDimensions.windowWidth* 0.4 -10,WindowDimensions.windowHeight * 0.125);
-        this.setMaxSize(WindowDimensions.windowWidth* 0.4 - 10,WindowDimensions.windowHeight * 0.125);
+        this.setMinSize(WindowDimensions.windowWidth* 0.4 - 20,WindowDimensions.windowHeight * 0.125);
+        this.setMaxSize(WindowDimensions.windowWidth* 0.4 - 20,WindowDimensions.windowHeight * 0.125);
         this.setPadding(new Insets(10,20,10,20));
         this.setSpacing(20);
 
@@ -92,6 +92,6 @@ public class PatientBox extends HBox {
 
     public void setAlertColor(String alertColor){
         this.alertColor = alertColor;
-        this.setStyle("-fx-background-color: " + alertColor + ";");
+        this.setStyle("-fx-background-color: " + alertColor + ";-fx-background-radius: 15;");
     }
 }
