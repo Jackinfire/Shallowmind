@@ -5,23 +5,22 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
-public class PatientEditor extends BasePatientForm {
+public class PatientAdder extends BasePatientForm {
 
     @Override
     public String getTitle() {
-        return "Patient Editor";
+        return "Patient Adder";
     }
 
     @Override
     public void addComponents(GridPane gridPane) {
-        // Title
-        Label title = new Label("Patient Editor");
+        Label title = new Label("Patient Adder");
         title.setFont(new Font(25));
         GridPane.setColumnIndex(title, 7);
         GridPane.setColumnSpan(title, 6);
         gridPane.getChildren().add(title);
 
-        Label idLabel = new Label("Enter Patient ID:");
+        Label idLabel = new Label("Patient ID:");
         idLabel.setFont(new Font(15));
         GridPane.setColumnIndex(idLabel, 1);
         GridPane.setRowIndex(idLabel, 2);
