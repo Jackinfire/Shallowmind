@@ -8,40 +8,54 @@ import com.itextpdf.layout.element.Text;
 
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.io.File;
 
 public class exportToPdf {
+    private Patient patient;
 
-    public void generatePatientDetailsPDF(String fileName, Patient patient) {
+    public exportToPdf(Patient patient){
+        this.patient = patient;
+    }
+
+    public void generatePatientDetailsPDF(String fileName) {
         try {
-            PdfWriter writer = new PdfWriter(fileName);
+            String homeDirectory = System.getProperty("user.home");
+            File downloadsFolder = new File(homeDirectory, "Downloads");
+
+            if (!downloadsFolder.exists()) {
+                System.out.println("Downloads folder doesn't exist and instead will export to current directory");
+                downloadsFolder = new File("."); // Current directory
+            }
+
+            File outputFile = new File(downloadsFolder, fileName);
+            PdfWriter writer = new PdfWriter(outputFile);
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
-
-            addPersonalDetails(document, patient);
-            addInterventionHistory(document, patient);
-
+            addPersonalDetails(document);
+            addInterventionHistory(document);
             document.close();
-            System.out.println("PDF created successfully.");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    private void addPersonalDetails(Document document, Patient patient) {
-        Text boldText = new Text("Patient Details:").setBold();
-        document.add(new Paragraph(boldText));
-        document.add(new Paragraph("ID: " + patient.getPatientId()));
+
+    private void addPersonalDetails(Document document) {
+        Text Header = new Text("Patient Report").setBold().setFontSize(20);
+        document.add(new Paragraph(Header));
+        Text patientHeader = new Text("Patient Details:").setBold();
+        document.add(new Paragraph(patientHeader));
+        document.add(new Paragraph("Patient ID: " + patient.getPatientId()));
         document.add(new Paragraph("Name: " + patient.getName()));
         document.add(new Paragraph("Age: " + patient.getAge()));
         document.add(new Paragraph("Gender: " + patient.getGender()));
         document.add(new Paragraph("Diagnosis: " + patient.getDiagnosis()));
-        document.add(new Paragraph("Doctor in Charge: " + patient.getDocInCharge()));
+        document.add(new Paragraph("Doctor in Charge: Dr " + patient.getDocInCharge()));
     }
 
-    private void addInterventionHistory(Document document, Patient patient) {
-        Text boldText = new Text("Intervention History:").setBold();
-        document.add(new Paragraph(boldText));
-
+    private void addInterventionHistory(Document document) {
+        Text interventionHeader = new Text("Intervention History:").setBold();
+        document.add(new Paragraph(interventionHeader));
         List<String> interventionTimes = patient.getInterventionTime();
         List<String> handledByList = patient.getInterventionHandledBy();
         List<String> positionList = patient.getInterventionPosition();
@@ -54,12 +68,10 @@ public class exportToPdf {
                 String handledBy = handledByList.get(i);
                 String position = positionList.get(i);
                 int length = lengthList.get(i);
-
-                // Combine the Intervention Time and Handled By into one line
-                document.add(new Paragraph( time + "    Handled By: " + handledBy + " -- Stuck in " + position + " posture for " + length + " minutes"));
+                document.add(new Paragraph( time + " -- Stuck in " + position + " posture for " + length + " minutes (Handled By: " + handledBy + ")"));
             }
         } else {
-            document.add(new Paragraph("No intervention history available."));
+            document.add(new Paragraph("No intervention history available or intervention history fault. Please check database."));
         }
     }
 
