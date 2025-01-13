@@ -44,7 +44,7 @@
 2. Compile the Application
 
     ```bash
-    javac -d out src/main/java/view/*.java
+    javac -d out src/main/java/view/Home.java
 
  3. Run the Application
 
