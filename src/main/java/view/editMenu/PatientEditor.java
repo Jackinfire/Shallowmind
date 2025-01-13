@@ -1,47 +1,20 @@
 package view.editMenu;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
-public class PatientEditor extends Application {
+public class PatientEditor extends BasePatientForm {
 
     @Override
-    public void start(Stage primaryStage) {
-        // AnchorPane as root
-        AnchorPane anchorPane = new AnchorPane();
-        anchorPane.setPrefSize(623, 423);
+    public String getTitle() {
+        return "Patient Editor";
+    }
 
-        // GridPane
-        GridPane gridPane = new GridPane();
-        gridPane.setPrefSize(623, 423);
-        AnchorPane.setTopAnchor(gridPane, 5.0);
-        AnchorPane.setBottomAnchor(gridPane, 5.0);
-        AnchorPane.setLeftAnchor(gridPane, 10.0);
-        AnchorPane.setRightAnchor(gridPane, 10.0);
-
-        // Column Constraints
-        for (int i = 0; i < 18; i++) {
-            ColumnConstraints colConstraints = new ColumnConstraints();
-            colConstraints.setPrefWidth(100);
-            gridPane.getColumnConstraints().add(colConstraints);
-        }
-
-        // Row Constraints
-        for (int i = 0; i < 14; i++) {
-            RowConstraints rowConstraints = new RowConstraints();
-            rowConstraints.setPrefHeight(30);
-            gridPane.getRowConstraints().add(rowConstraints);
-        }
-
-        // Adding children to GridPane
+    @Override
+    public void addComponents(GridPane gridPane) {
+        // Title
         Label title = new Label("Patient Editor");
         title.setFont(new Font(25));
         GridPane.setColumnIndex(title, 7);
@@ -164,14 +137,6 @@ public class PatientEditor extends Application {
         GridPane.setColumnSpan(doctorField, 4);
         gridPane.getChildren().add(doctorField);
 
-        // Add GridPane to AnchorPane
-        anchorPane.getChildren().add(gridPane);
-
-        // Set Scene
-        Scene scene = new Scene(anchorPane);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Patient Editor");
-        primaryStage.show();
     }
 
 }
