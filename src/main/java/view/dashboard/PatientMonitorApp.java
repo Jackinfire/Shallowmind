@@ -23,7 +23,7 @@ public class PatientMonitorApp extends Application {
         VBox root = new VBox(20);
 
         // Set Padding
-        root.setPadding(new Insets(30,100,30,100));
+        root.setPadding(new Insets(30, 100, 30, 100));
 
         // Set background color
         root.setStyle("-fx-background-color: #081c44;");
@@ -33,7 +33,7 @@ public class PatientMonitorApp extends Application {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         WindowDimensions.windowWidth = screenBounds.getWidth() * 0.9;
         WindowDimensions.windowHeight = screenBounds.getHeight() * 0.9;
-        Scene scene = new Scene(root,WindowDimensions.windowWidth,WindowDimensions.windowHeight); // Creates scene
+        Scene scene = new Scene(root, WindowDimensions.windowWidth, WindowDimensions.windowHeight); // Creates scene
 
         // Display screen
         primaryStage.setTitle("Patient Monitor");
@@ -59,6 +59,7 @@ public class PatientMonitorApp extends Application {
 
 
     }
+
     public static void main(String[] args) {
         launch(args);
     }
