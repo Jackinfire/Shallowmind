@@ -70,6 +70,7 @@ public class Patient {
                 handledByList.add((String) row.get("handled_by"));
             }
         }
+
         return handledByList;
     }
 
@@ -141,6 +142,11 @@ public class Patient {
                 procedureName.add((String) row.get("procedure"));
             }
         }
+        // If no procedures are found, return "Not Available" in the list
+        if (procedureName.isEmpty()) {
+            procedureName.add("Not Available");
+        }
+
         return procedureName;
     }
 
@@ -247,6 +253,10 @@ public class Patient {
             if (row.get("patient_id") != null && row.get("patient_id").equals(patientId)) {
                 posturePositions.add((String) row.get("posture_position"));
             }
+        }
+
+        if (posturePositions.isEmpty()) {
+            posturePositions.add("Not Available");
         }
         return posturePositions;
     }
