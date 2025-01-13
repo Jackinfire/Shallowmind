@@ -6,13 +6,15 @@ import javafx.scene.layout.HBox;
 
 public class UpperBox extends HBox {
 
+    private StatusPanel statusPanel;
+
     public UpperBox(){
 
         this.setAlignment(Pos.TOP_CENTER);
         this.setSpacing(20);
 
         // Add Status panel to top region
-        StatusPanel statusPanel = new StatusPanel();
+        this.statusPanel = new StatusPanel();
         statusPanel.setAlignment(Pos.TOP_CENTER);
         this.setMargin(statusPanel, new Insets(20, 0, 0, 0)); // Margin: top, right, bottom, left
 
@@ -23,5 +25,10 @@ public class UpperBox extends HBox {
 
         this.getChildren().addAll(statusPanel, alertsPanel);
 
+    }
+
+    // Getter for statusPanel, used by LiveMonitor
+    public StatusPanel getStatusPanel(){
+        return this.statusPanel;
     }
 }
