@@ -52,10 +52,6 @@ public class PatientBox extends HBox {
         detailsBox.getChildren().addAll(nameLabel,locationLabel,lastUpdatedLabel);
         this.getChildren().addAll(detailsBox);
 
-        DatabaseLookup databaseLookup = new DatabaseLookup();
-        AlertSystem alertSystem = new AlertSystem(databaseLookup);
-        System.out.println(alertSystem.monitorPatientPosture(patient.getPatientId()));
-
     }
 
     // Fetches patient image and returns
@@ -91,10 +87,6 @@ public class PatientBox extends HBox {
         this.setStyle("-fx-background-color: " + alertColor + ";");
     }
 
-    public void runStatusUpdates(int patientID){
-        List<String> statuses = new List<String>() {
-        }
-    }
 
 
 

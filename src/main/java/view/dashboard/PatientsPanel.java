@@ -31,11 +31,16 @@ public class PatientsPanel extends ScrollPane {
 
         int numberOfPatients = databaseLookup.getNumberOfPatients();
         for (int i = 1; i <= numberOfPatients; i = i+2) {
+
             Patient patient1 = new Patient(i); // Create a new Patient with ID 'i'
             PatientBox patientBox1 = new PatientBox(patient1);
+            LiveMonitor monitor1 = new LiveMonitor(i,patientBox1);
+            monitor1.start();
+
             Patient patient2 = new Patient(i+1);
             PatientBox patientBox2 = new PatientBox(patient2);
-
+            LiveMonitor monitor2 = new LiveMonitor(i+1,patientBox2);
+            monitor2.start();
 
             HBox hBox1 = new HBox();
             hBox1.getChildren().addAll(patientBox1,patientBox2);
