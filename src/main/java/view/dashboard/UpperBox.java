@@ -7,6 +7,7 @@ import javafx.scene.layout.HBox;
 public class UpperBox extends HBox {
 
     private StatusPanel statusPanel;
+    private AlertsPanel alertsPanel;
 
     public UpperBox(){
 
@@ -19,7 +20,7 @@ public class UpperBox extends HBox {
         this.setMargin(statusPanel, new Insets(20, 0, 0, 0)); // Margin: top, right, bottom, left
 
         // Add Alerts panel to top region
-        AlertsPanel alertsPanel = new AlertsPanel();
+        alertsPanel = new AlertsPanel();
         alertsPanel.setAlignment(Pos.TOP_CENTER);
         this.setMargin(alertsPanel, new Insets(20, 0, 0, 0)); // Margin: top, right, bottom, left
 
@@ -31,4 +32,9 @@ public class UpperBox extends HBox {
     public StatusPanel getStatusPanel(){
         return this.statusPanel;
     }
+
+    public AlertsPanel getAlertsPanel(){
+        return this.alertsPanel;
+    }
+
 }
