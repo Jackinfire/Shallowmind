@@ -173,5 +173,54 @@ public class DatabaseLookup {
         return false;
     }
 
+    public boolean deletePatientData(int patientId) {
+        String deletePatientQuery = "DELETE FROM patientData WHERE id = ?";
+        String deleteProcedureHistoryQuery = "DELETE FROM procedureHistorySchedule WHERE patient_id = ?";
+        String deletePostureHistoryQuery = "DELETE FROM postureHistory WHERE patient_id = ?";
+        String deleteMedicationDataQuery = "DELETE FROM medicationData WHERE patient_id = ?";
+        String deleteInterventionHistoryQuery = "DELETE FROM interventionHistory WHERE patient_id = ?";
+
+        try (Connection connection = connect()) {
+            // Begin transaction
+            connection.setAutoCommit(false); // so that  can group multiple SQL statements into a single transaction,
+
+            try {
+                // Delete from patientData
+                PreparedStatement patientStatement = connection.prepareStatement(deletePatientQuery);
+                patientStatement.setInt(1, patientId);
+
+                // Delete from procedureHistorySchedule
+                PreparedStatement procedureStatement = connection.prepareStatement(deleteProcedureHistoryQuery);
+                procedureStatement.setInt(1, patientId);
+                procedureStatement.executeUpdate();
+
+                // Delete from postureHistory
+                PreparedStatement postureStatement = connection.prepareStatement(deletePostureHistoryQuery);
+                postureStatement.setInt(1, patientId);
+                postureStatement.executeUpdate();
+
+                // Delete from medicationData
+                PreparedStatement medicationStatement = connection.prepareStatement(deleteMedicationDataQuery);
+                medicationStatement.setInt(1, patientId);
+                medicationStatement.executeUpdate();
+
+                // Delete from interventionHistory
+                PreparedStatement interventionStatement = connection.prepareStatement(deleteInterventionHistoryQuery);
+                interventionStatement.setInt(1, patientId);
+                interventionStatement.executeUpdate();
+
+                // Commit transaction
+                connection.commit();
+
+            } catch (SQLException e) {
+                connection.rollback(); // Rollback transaction in case of error
+                System.err.println("Error deleting patient and related data: " + e.getMessage());
+                return false;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error connecting to the database: " + e.getMessage());
+        }
+        return false;
+    }
 
 }
