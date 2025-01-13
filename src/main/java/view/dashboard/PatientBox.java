@@ -1,8 +1,6 @@
 package view.dashboard;
 
-import backend.AlertSystem;
 import backend.CurrentTime;
-import backend.DatabaseLookup;
 import backend.Patient;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -10,12 +8,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import view.details.PatientProfile;
+import view.dashboard.details.PatientProfile;
 import view.utils.WindowDimensions;
 import java.io.ByteArrayInputStream;
-
-import java.util.List;
-import java.util.concurrent.ScheduledExecutorService;
 
 
 public class PatientBox extends HBox {

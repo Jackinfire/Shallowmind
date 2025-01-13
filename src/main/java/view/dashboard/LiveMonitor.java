@@ -14,6 +14,7 @@ public class LiveMonitor extends Thread {
     private List<Patient> patients;
     private StatusPanel statusPanel;
     private AlertsPanel alertsPanel;
+    private volatile boolean running = true; // Flag to control thread execution
 
     public LiveMonitor(StatusPanel statusPanel, AlertsPanel alertsPanel, List<PatientBox> patientBoxes, List<Patient> patients){
 
@@ -22,6 +23,12 @@ public class LiveMonitor extends Thread {
         this.statusPanel = statusPanel;
         this.alertsPanel = alertsPanel;
 
+    }
+
+    // Method to stop the thread
+    public void stopMonitor() {
+        this.running = false; // Set the flag to false
+        this.interrupt(); // Interrupt if the thread is sleeping
     }
 
 
@@ -39,6 +46,8 @@ public class LiveMonitor extends Thread {
         int numPatients = patients.size();
 
         for (int minute = 0; minute < numMinutes; minute++) {
+            if (!running) break; // Exit the loop if the thread is stopped
+
 
             // Clear alerts on the alert panel on the JavaFX Application Thread
             Platform.runLater(() -> alertsPanel.clearAlerts());
@@ -106,12 +115,19 @@ public class LiveMonitor extends Thread {
 
             // Wait for 10 seconds before the next update
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
-                System.err.println("LiveMonitor interrupted.");
+                // Thread interrupted intentionally, stop gracefully
                 break; // Exit the loop if the thread is interrupted
             }
         }
     }
+
+    // Method to stop the thread
+    public void stopMonitoring() {
+        running = false;
+        System.out.println("STOPPINGGGGGGGGGGGGGGGGGGGGG");
+    }
+
 
 }

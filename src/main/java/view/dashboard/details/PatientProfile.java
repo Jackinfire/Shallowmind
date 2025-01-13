@@ -1,10 +1,9 @@
-package view.details;
+package view.dashboard.details;
 
 import backend.Patient;
 import backend.exportToPdf;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,8 +17,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class PatientProfile extends Stage {
