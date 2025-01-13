@@ -23,6 +23,11 @@ public class exportToPdf {
             String userHome = System.getProperty("user.home");
             File downloadsFolder = new File(userHome, "Downloads");
 
+            if (!downloadsFolder.exists()) {
+                System.out.println("Downloads folder does not exist. Saving to current directory.");
+                downloadsFolder = new File("."); // Use the current directory
+            }
+
             // Create the file path to the Downloads folder
             File outputFile = new File(downloadsFolder, fileName);
 
