@@ -86,21 +86,6 @@ public class PatientProfile extends Stage {
         GridPane.setRowSpan(patientDetails, 4);
         gridPane.getChildren().add(patientDetails);
 
-        // Good Posture Section
-        StackPane goodPosturePane = new StackPane();
-        Rectangle postureRectangle = new Rectangle(150, 75, Color.web("#4cbb17"));
-        postureRectangle.setArcHeight(20);
-        postureRectangle.setArcWidth(20);
-        postureRectangle.setStroke(Color.WHITE);
-        Label postureLabel = new Label("Good Posture");
-        postureLabel.setTextFill(Color.WHITE);
-        postureLabel.setFont(new javafx.scene.text.Font(20));
-        goodPosturePane.getChildren().addAll(postureRectangle, postureLabel);
-        GridPane.setColumnIndex(goodPosturePane, 3);
-        GridPane.setRowIndex(goodPosturePane, 1);
-        GridPane.setRowSpan(goodPosturePane, 1);
-        gridPane.getChildren().add(goodPosturePane);
-
         // Details Section
         VBox detailsSection = new VBox();
         Label detailsLabel = new Label("Details");
