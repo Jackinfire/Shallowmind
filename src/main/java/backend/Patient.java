@@ -324,6 +324,17 @@ public class Patient {
     }
 
     /**
+     * Updates the doctor in charge of the patient.
+     *
+     * @param docInCharge the new doctor in charge of the patient
+     */
+
+    public void setDocInCharge(String docInCharge){
+        tableName="patientData";
+        dbHelper.updateField(tableName, "gender", docInCharge , "id", patientId);
+    }
+
+    /**
      * Updates the patient's gender.
      *
      * @param gender the new gender of the patient
@@ -348,7 +359,7 @@ public class Patient {
      *
      * @param posture the new posture position
      */
-    public void setPosture(String posture) {
+    public void setDiagnosisDate(String posture) {
         tableName = "postureHistory";
         dbHelper.updateField(tableName, "posture_position", posture, "id", patientId);
     }
@@ -366,11 +377,11 @@ public class Patient {
     /**
      * Updates the patient's ward.
      *
-     * @param roomNumber the new ward
+     * @param wardNum the new ward
      */
-    public void setWard(String roomNumber) {
+    public void setWard(String wardNum) {
         tableName="patientData";
-        dbHelper.updateField(tableName, "ward", roomNumber, "id", patientId);
+        dbHelper.updateField(tableName, "ward", wardNum, "id", patientId);
     }
 
     /**
@@ -380,6 +391,6 @@ public class Patient {
      */
     public void setContactNumber(String contactNumber) {
         tableName="patientData";
-        dbHelper.updateField(tableName, "emergencyContact", contactNumber, "id", patientId);
+        dbHelper.updateField(tableName, "emergencyContact", Integer.valueOf(contactNumber), "id", patientId);
     }
 }
