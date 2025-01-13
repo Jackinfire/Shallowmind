@@ -1,6 +1,7 @@
 package view.dashboard;
 
 import backend.Patient;
+import backend.exportToPdf;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -29,7 +30,7 @@ public class PatientBox extends HBox {
         this.setPadding(new Insets(10,20,10,20));
         this.setSpacing(20);
 
-//        ImageView patientImage = addPatientImage(patient);
+        ImageView patientImage = addPatientImage(patient);
 
         // Add label to display patient's name
         Label nameLabel = new Label(patient.getName());
@@ -46,8 +47,8 @@ public class PatientBox extends HBox {
 
 
         detailsBox.getChildren().addAll(nameLabel,locationLabel,lastUpdatedLabel);
-//        this.getChildren().addAll(patientImage,detailsBox);
-        this.getChildren().addAll(detailsBox);
+        this.getChildren().addAll(patientImage,detailsBox);
+//        this.getChildren().addAll(detailsBox);
 
         // Add a click listener to the HBox
         this.setOnMouseClicked(event -> {

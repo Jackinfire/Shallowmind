@@ -16,7 +16,7 @@ import java.util.Map;
 public class Patient {
     private int patientId;
     private DatabaseLookup dbHelper;
-    private String tableName = "patientData";
+    private String tableName;
 
     /**
      * Constructs a Patient instance with the given patient ID.
@@ -150,6 +150,7 @@ public class Patient {
      * @return the patient's name, or null if not found
      */
     public String getName() {
+        tableName = "patientData";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         for (Map<String, Object> row : data) {
             if (row.get("id") != null && row.get("id").equals(patientId)) {
@@ -165,6 +166,7 @@ public class Patient {
      * @return the patient's image as a byte array, or null if not found
      */
     public byte[] getImageAsBytes() {
+        tableName = "patientData";
         String query = "SELECT image FROM " + tableName + " WHERE id = ?";
         try (
                 Connection connection = dbHelper.connect();
@@ -188,6 +190,7 @@ public class Patient {
      * @return the patient's age, or null if not found
      */
     public Integer getAge() {
+        tableName = "patientData";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         for (Map<String, Object> row : data) {
             if (row.get("id") != null && row.get("id").equals(patientId)) {
@@ -203,6 +206,7 @@ public class Patient {
      * @return the patient's gender, or null if not found
      */
     public String getGender() {
+        tableName = "patientData";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         for (Map<String, Object> row : data) {
             if (row.get("id") != null && row.get("id").equals(patientId)) {
@@ -218,6 +222,7 @@ public class Patient {
      * @return the patient's diagnosis, or null if not found
      */
     public String getDiagnosis() {
+        tableName = "patientData";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         for (Map<String, Object> row : data) {
             if (row.get("id") != null && row.get("id").equals(patientId)) {
@@ -277,6 +282,7 @@ public class Patient {
      * @return the room number, or 0 if not found
      */
     public int getRoomNumber() {
+        tableName = "patientData";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         for (Map<String, Object> row : data) {
             if (row.get("id") != null && row.get("id").equals(patientId)) {
@@ -292,6 +298,7 @@ public class Patient {
      * @return the ward, or null if not found
      */
     public String getWard() {
+        tableName = "patientData";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         for (Map<String, Object> row : data) {
             if (row.get("id") != null && row.get("id").equals(patientId)) {
@@ -307,6 +314,7 @@ public class Patient {
      * @return the emergency contact number as a string, or null if not found
      */
     public String getContactNumber() {
+        tableName = "patientData";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         for (Map<String, Object> row : data) {
             if (row.get("id") != null && row.get("id").equals(patientId)) {
@@ -325,6 +333,7 @@ public class Patient {
      * @return the doctor's name, or null if not found
      */
     public String getDocInCharge() {
+        tableName = "patientData";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         for (Map<String, Object> row : data) {
             if (row.get("id") != null && row.get("id").equals(patientId)) {
@@ -340,6 +349,7 @@ public class Patient {
      * @return the diagnosis date, or null if not found
      */
     public String getDiagnosisDate() {
+        tableName = "patientData";
         List<Map<String, Object>> data = dbHelper.retrieveData(tableName);
         for (Map<String, Object> row : data) {
             if (row.get("id") != null && row.get("id").equals(patientId)) {

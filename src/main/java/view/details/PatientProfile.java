@@ -1,6 +1,7 @@
 package view.details;
 
 import backend.Patient;
+import backend.exportToPdf;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -130,6 +131,8 @@ public class PatientProfile extends Stage {
         viewHistoryButton.setOnAction(e -> {
             // Action to perform when the button is clicked
             System.out.println("Posture intervention history button clicked!");
+            exportToPdf PdfExporter = new exportToPdf(patient);
+            PdfExporter.generatePatientDetailsPDF("patient_" + patient.getPatientId() + "_details.pdf");
         });
 
 // Center the button horizontally
