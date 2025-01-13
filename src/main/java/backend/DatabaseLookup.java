@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class DatabaseLookup {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(DB_URL);
-            System.out.println("Connection established successfully (SQLite).");
+
         } catch (SQLException e) {
             System.err.println("Failed to connect to the database: " + e.getMessage());
         }
@@ -129,17 +128,6 @@ public class DatabaseLookup {
         return totalPatients;
     }
 
-    /**
-     * Adds a new patient to the patientData table.
-     *
-     * @param name          Patient's name
-     * @param age           Patient's age
-     * @param gender        Patient's gender
-     * @param diagnosis     Patient's diagnosis
-     * @param contactNumber Emergency contact number
-     * @param ward          Patient's ward
-     * @return True if the patient was added successfully; false otherwise
-     */
     /**
      * Adds a new patient to the patientData table.
      *
