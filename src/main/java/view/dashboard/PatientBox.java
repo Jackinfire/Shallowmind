@@ -12,99 +12,117 @@ import view.dashboard.details.PatientProfile;
 import view.utils.WindowDimensions;
 import java.io.ByteArrayInputStream;
 
-
+/**
+ * The PatientBox class represents a UI component that displays a patient's
+ * information, including name, location, last updated time, image, and posture image.
+ * It extends HBox to align its components horizontally.
+ */
 public class PatientBox extends HBox {
 
-    private String alertColor = "#328D40"; // Class-level variable to store the color, default is green
-    ImageView postureImageView;
+    private String alertColor = "#328D40"; // Default alert color is green
+    ImageView postureImageView; // ImageView to display the patient's posture
 
-    public PatientBox(Patient patient){
+    /**
+     * Constructor for PatientBox.
+     *
+     * @param patient The patient object containing the patient's information.
+     */
+    public PatientBox(Patient patient) {
 
-        // Create a VBox for details
+        // Create a VBox for patient details
         VBox detailsBox = new VBox();
 
-        this.setStyle("-fx-background-color:" + alertColor +
-                "; -fx-background-radius: 15;");
-
-        this.setMinSize(WindowDimensions.windowWidth* 0.4 - 20,WindowDimensions.windowHeight * 0.125);
-        this.setMaxSize(WindowDimensions.windowWidth* 0.4 - 20,WindowDimensions.windowHeight * 0.125);
-        this.setPadding(new Insets(10,20,10,20));
+        // Set the style and layout properties of the PatientBox
+        this.setStyle("-fx-background-color:" + alertColor + "; -fx-background-radius: 15;");
+        this.setMinSize(WindowDimensions.windowWidth * 0.4 - 20, WindowDimensions.windowHeight * 0.125);
+        this.setMaxSize(WindowDimensions.windowWidth * 0.4 - 20, WindowDimensions.windowHeight * 0.125);
+        this.setPadding(new Insets(10, 20, 10, 20));
         this.setSpacing(20);
 
-        // Add label to display patient's name
+        // Add label to display the patient's name
         Label nameLabel = new Label(patient.getName());
         nameLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 18; -fx-text-fill: black; -fx-font-weight: bold");
 
-        // Add label to display patient's Location
+        // Add label to display the patient's location
         Label locationLabel = new Label("Ward " + patient.getWard() + ", Room " + patient.getRoomNumber());
         locationLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 18; -fx-text-fill: black;");
 
-        // Add label to display time since last update
-
-        Label lastUpdatedLabel = new Label("Last updated:"+ CurrentTime.getCurrentTime());
+        // Add label to display the last updated time
+        Label lastUpdatedLabel = new Label("Last updated:" + CurrentTime.getCurrentTime());
         lastUpdatedLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 14; -fx-text-fill: black;");
 
+        // Update the label dynamically with the current time
         CurrentTime.updateLabel(lastUpdatedLabel);
 
+        // Add all labels to the details box and set padding for spacing
+        detailsBox.getChildren().addAll(nameLabel, locationLabel, lastUpdatedLabel);
+        detailsBox.setPadding(new Insets(0, 60, 0, 0)); // Add padding on the right
 
-
-        detailsBox.getChildren().addAll(nameLabel,locationLabel,lastUpdatedLabel);
-        detailsBox.setPadding(new Insets(0, 60, 0, 0)); // Add 20px padding on the right
-
-
+        // Add the patient's profile image
         ImageView patientImage = addPatientImage(patient);
 
-
+        // Initialize the posture image with the default posture
         this.postureImageView = new ImageView("straight_posture.png");
-
-
         postureImageView.setFitWidth(65);  // Set the desired width
         postureImageView.setFitHeight(65); // Set the desired height
         postureImageView.setPreserveRatio(true); // Preserve the aspect ratio of the image
 
-        this.getChildren().addAll(patientImage,detailsBox,postureImageView);
+        // Add all components to the PatientBox (HBox)
+        this.getChildren().addAll(patientImage, detailsBox, postureImageView);
 
-        // Add a click listener to the HBox
+        // Add a click listener to the PatientBox to open a detailed PatientProfile
         this.setOnMouseClicked(event -> {
             PatientProfile patientPopup = new PatientProfile(patient.getPatientId());
             patientPopup.show();
-            // Perform any action, such as opening a pop-up or navigating
         });
-
-
     }
 
-    // Fetches patient image and returns
-    private ImageView addPatientImage(Patient patient){
+    /**
+     * Fetches the patient's profile image from the database and returns an ImageView.
+     *
+     * @param patient The patient object containing the profile image data.
+     * @return An ImageView containing the patient's image.
+     */
+    private ImageView addPatientImage(Patient patient) {
         ImageView imageView = new ImageView();
         try {
-            byte[] imageBytes = patient.getImageAsBytes(); // Get the image as bytes from database from Patients class
+            byte[] imageBytes = patient.getImageAsBytes(); // Get the image as bytes from the database
             if (imageBytes != null) {
-                // Convert byte[] to Image
+                // Convert byte array to an Image
                 ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
                 Image image = new Image(byteArrayInputStream);
                 imageView.setImage(image);
             } else {
-                // No image if you can't get
+                // Handle case where no image is available
             }
         } catch (Exception e) {
             System.out.println("Failed to load patient image: " + e.getMessage());
-            // Load no image if any error occurs
+            // Handle error loading the image
         }
 
-
-        imageView.setFitWidth(65);  // Set the desired width
-        imageView.setFitHeight(65); // Set the desired height
-        imageView.setPreserveRatio(true); // Preserve the aspect ratio of the image
+        // Set dimensions and aspect ratio for the image view
+        imageView.setFitWidth(65);
+        imageView.setFitHeight(65);
+        imageView.setPreserveRatio(true);
 
         return imageView;
     }
 
-    public void setAlertColor(String alertColor){
+    /**
+     * Updates the alert color of the PatientBox and applies the new style.
+     *
+     * @param alertColor The new alert color to be applied (e.g., green, amber, red).
+     */
+    public void setAlertColor(String alertColor) {
         this.alertColor = alertColor;
         this.setStyle("-fx-background-color: " + alertColor + ";-fx-background-radius: 15;");
     }
 
+    /**
+     * Updates the posture image of the patient based on the given posture.
+     *
+     * @param posture The posture to be displayed ("left", "right", "straight").
+     */
     public void setPostureImage(String posture) {
         String imagePath; // Define the image path based on the posture
 
