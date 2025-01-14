@@ -86,7 +86,6 @@ public class Home extends Application {
         gridPane.getChildren().add(healthcareProfessionalButton);
         healthcareProfessionalButton.setOnAction(e -> {
             // Action to perform when the button is clicked
-            System.out.println("Healthcare View Clicked");
             openHealthcareProfessionalView();
         });
 
@@ -102,7 +101,6 @@ public class Home extends Application {
         gridPane.getChildren().add(hospitalAdminButton);
         hospitalAdminButton.setOnAction(e -> {
             // Action to perform when the button is clicked
-            System.out.println("Hospital Admin View Clicked");
             openAdminView();
         });
 

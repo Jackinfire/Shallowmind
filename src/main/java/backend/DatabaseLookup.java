@@ -95,10 +95,6 @@ public class DatabaseLookup {
             statement.setObject(1, newValue);
             statement.setObject(2, conditionValue);
 
-            int rowsUpdated = statement.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("Field updated successfully in table: " + tableName);
-            }
         } catch (SQLException e) {
             System.err.println("Error while updating field: " + e.getMessage());
         }
@@ -161,11 +157,6 @@ public class DatabaseLookup {
             statement.setInt(9, roomNum);
 
 
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("New patient added successfully.");
-                return true;
-            }
         } catch (SQLException e) {
             System.err.println("Error adding new patient: " + e.getMessage());
         }
