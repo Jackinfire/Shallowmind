@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/* Reference --10 taken from GitHub Copilot */
 public class StatusPanelTest {
 
     private StatusPanel statusPanel;
@@ -56,3 +57,4 @@ public class StatusPanelTest {
         assertEquals("2", label.getText());
     }
 }
+/* end of reference --10 */

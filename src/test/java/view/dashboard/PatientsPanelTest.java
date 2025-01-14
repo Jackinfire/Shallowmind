@@ -18,6 +18,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/* Reference --9 taken from GitHub Copilot */
 public class PatientsPanelTest {
 
     private PatientsPanel patientsPanel;
@@ -70,3 +71,4 @@ public class PatientsPanelTest {
         assertEquals(mockPatients, liveMonitor.getPatients());
     }
 }
+/* end of reference --9 */

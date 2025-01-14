@@ -13,6 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/* Reference --7 taken from GitHub Copilot */
 public class LiveMonitorTest {
 
     private StatusPanel mockStatusPanel;
@@ -61,3 +62,4 @@ public class LiveMonitorTest {
         }
     }
 }
+/* end of reference --7 */

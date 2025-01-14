@@ -20,6 +20,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
+/* Reference --4 taken from GitHub Copilot */
 public class ExportToPdfTest {
 
     private Patient mockPatient;
@@ -68,7 +69,6 @@ public class ExportToPdfTest {
         tempFile.delete();
     }
 
-    /* Reference taken from GitHub Copilot */
     public String convertInputStreamToString(InputStream inputStream) throws Exception {
         final int bufferSize = 1024;
         final char[] buffer = new char[bufferSize];
@@ -82,5 +82,5 @@ public class ExportToPdfTest {
         }
         return out.toString();
     }
-    /* end of reference */
+    /* end of reference --4 */
 }

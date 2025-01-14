@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 
+/* Reference --11 taken from GitHub Copilot */
 public class UpperBoxTest {
 
     private UpperBox upperBox;
@@ -38,3 +39,4 @@ public class UpperBoxTest {
         Mockito.verify(mockAlertsPanel, Mockito.times(1)).clearAlerts();
     }
 }
+/* end of reference --11 */

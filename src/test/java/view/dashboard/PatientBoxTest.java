@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/* Reference --8 taken from GitHub Copilot */
 public class PatientBoxTest {
 
     private PatientBox patientBox;
@@ -48,3 +49,4 @@ public class PatientBoxTest {
         assertEquals("left_posture.png", postureImageView.getImage().getUrl());
     }
 }
+/* end of reference --8 */

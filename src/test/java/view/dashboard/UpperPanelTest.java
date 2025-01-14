@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/* Reference --12 taken from GitHub Copilot */
 public class UpperPanelTest {
 
     private UpperPanel upperPanel;
@@ -48,3 +49,4 @@ public class UpperPanelTest {
         assertEquals(mockAlertsPanel, upperPanel.getChildren().get(2));
     }
 }
+/* end of reference --12 */

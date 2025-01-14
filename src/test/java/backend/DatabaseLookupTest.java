@@ -16,6 +16,7 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/* Reference --3 taken from GitHub Copilot */
 public class DatabaseLookupTest {
 
     private DatabaseLookup databaseLookup;
@@ -107,7 +108,6 @@ public class DatabaseLookupTest {
         assertTrue(result);
     }
 
-    /* Reference taken from GitHub Copilot */
     public String convertInputStreamToString(InputStream inputStream) throws Exception {
         final int bufferSize = 1024;
         final char[] buffer = new char[bufferSize];
@@ -121,5 +121,5 @@ public class DatabaseLookupTest {
         }
         return out.toString();
     }
-    /* end of reference */
+    /* end of reference --3 */
 }

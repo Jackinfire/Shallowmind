@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/* Reference --6 taken from GitHub Copilot */
 public class AlertsPanelTest {
 
     private AlertsPanel alertsPanel;
@@ -64,3 +65,4 @@ public class AlertsPanelTest {
         assertEquals(0, alertsContainer.getChildren().size());
     }
 }
+/* end of reference --6 */

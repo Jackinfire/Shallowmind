@@ -14,7 +14,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+/* Reference --2 taken from GitHub Copilot */
 public class CurrentTimeTest {
 
     @BeforeAll
@@ -86,7 +86,6 @@ public class CurrentTimeTest {
         assertEquals(labelTextBeforeStop, labelTextAfterStop);
     }
 
-    /* Reference taken from GitHub Copilot */
     public String convertInputStreamToString(InputStream inputStream) throws Exception {
         final int bufferSize = 1024;
         final char[] buffer = new char[bufferSize];
@@ -100,5 +99,5 @@ public class CurrentTimeTest {
         }
         return out.toString();
     }
-    /* end of reference */
+    /* end of reference --2 */
 }

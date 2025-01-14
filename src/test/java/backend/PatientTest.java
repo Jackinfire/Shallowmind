@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-
+/* Reference --5 taken from GitHub Copilot */
 public class PatientTest {
 
     private DatabaseLookup mockDatabaseLookup;
@@ -118,7 +118,6 @@ public class PatientTest {
         return record;
     }
 
-    /* Reference taken from GitHub Copilot */
     public String convertInputStreamToString(InputStream inputStream) throws Exception {
         final int bufferSize = 1024;
         final char[] buffer = new char[bufferSize];
@@ -132,5 +131,5 @@ public class PatientTest {
         }
         return out.toString();
     }
-    /* end of reference */
+    /* end of reference --5 */
 }
