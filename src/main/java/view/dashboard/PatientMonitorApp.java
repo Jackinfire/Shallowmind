@@ -1,39 +1,54 @@
 package view.dashboard;
 
+import backend.Patient;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import view.utils.*;
 
+import java.util.List;
 
+/**
+ * The PatientMonitorApp class serves as the main entry point for the patient monitoring dashboard.
+ * It initializes the JavaFX application window, sets up the layout, and creates panels for monitoring
+ * patients' posture, displaying alerts, and tracking patient statuses.
+ */
 public class PatientMonitorApp extends Application {
+
+    private LiveMonitor liveMonitor; // Keep a reference to the LiveMonitor thread
+
+    /**
+     * The start method sets up the primary stage and initializes the user interface components.
+     *
+     * @param primaryStage The primary stage for the application.
+     */
     @Override
     public void start(Stage primaryStage) {
 
 
-        // Create VBox root
-        VBox root = new VBox(20);
+        // Create VBox root as the main layout container
+        VBox root = new VBox(20); // Spacing of 20 pixels between children
 
-        // Set Padding
+        // Set padding for the root container
         root.setPadding(new Insets(30, 100, 30, 100));
 
-        // Set background color
+        // Set background color for window
         root.setStyle("-fx-background-color: #081c44;");
 
-
-        // Get screen bounds and set screen size
+        // Get screen bounds and set application window dimensions
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        WindowDimensions.windowWidth = screenBounds.getWidth() * 0.9;
+        WindowDimensions.windowWidth = screenBounds.getWidth() * 0.9; // Set size to 90% of the screen bounds
         WindowDimensions.windowHeight = screenBounds.getHeight() * 0.9;
-        Scene scene = new Scene(root, WindowDimensions.windowWidth, WindowDimensions.windowHeight); // Creates scene
+
+        // Create a scene with the specified root layout and dimensions
+        Scene scene = new Scene(root, WindowDimensions.windowWidth, WindowDimensions.windowHeight);
 
         // Display screen
         primaryStage.setTitle("Patient Monitor");
@@ -58,9 +73,19 @@ public class PatientMonitorApp extends Application {
         VBox.setVgrow(patientsPanel, Priority.ALWAYS);
 
 
-    }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+        liveMonitor = patientsPanel.getLiveMonitor();
+
+        // Add close request listener
+        primaryStage.setOnCloseRequest(event -> {
+            if (liveMonitor != null) {
+                liveMonitor.stopMonitor(); // Stop the thread
+            }
+
+        });
+
+        primaryStage.show();
+        }
+
+
 }

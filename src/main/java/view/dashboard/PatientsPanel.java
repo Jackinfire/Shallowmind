@@ -15,7 +15,10 @@ import java.util.List;
 
 public class PatientsPanel extends ScrollPane {
 
+    LiveMonitor liveMonitor;
+
     public PatientsPanel(StatusPanel statusPanel, AlertsPanel alertsPanel){
+
 
         // Make the background and borders of the scrolling pane transparent
         this.setStyle("-fx-background: #081c44; -fx-border-color: #081c44;");
@@ -55,8 +58,8 @@ public class PatientsPanel extends ScrollPane {
         }
 
         // Start monitor for all patients
-        LiveMonitor monitor = new LiveMonitor(statusPanel,alertsPanel,patientBoxList,patientList);
-        monitor.start();
+        this.liveMonitor = new LiveMonitor(statusPanel,alertsPanel,patientBoxList,patientList);
+        liveMonitor.start();
 
         for (int i = 0; i < numberOfPatients; i = i+2) {
 
@@ -85,8 +88,10 @@ public class PatientsPanel extends ScrollPane {
         this.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // Remove horizontal scroll bar
 
 
+    }
 
-
+    public LiveMonitor getLiveMonitor(){
+        return this.liveMonitor;
     }
 
 }

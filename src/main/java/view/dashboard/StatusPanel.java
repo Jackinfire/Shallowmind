@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 
 public class StatusPanel extends UpperPanel {
 
-    int greenPatients = 10;
+    int greenPatients = 0;
     int amberPatients = 0;
     int redPatients = 0;
     VBox greenBox;

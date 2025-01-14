@@ -14,6 +14,7 @@ public class LiveMonitor extends Thread {
     private List<Patient> patients;
     private StatusPanel statusPanel;
     private AlertsPanel alertsPanel;
+    private volatile boolean running = true; // Flag to control thread execution
 
     public LiveMonitor(StatusPanel statusPanel, AlertsPanel alertsPanel, List<PatientBox> patientBoxes, List<Patient> patients){
 
@@ -22,6 +23,12 @@ public class LiveMonitor extends Thread {
         this.statusPanel = statusPanel;
         this.alertsPanel = alertsPanel;
 
+    }
+
+    // Method to stop the thread
+    public void stopMonitor() {
+        this.running = false; // Set the flag to false
+        this.interrupt(); // Interrupt if the thread is sleeping
     }
 
 
@@ -35,10 +42,17 @@ public class LiveMonitor extends Thread {
             allPatientAlerts.add(alertSystem.monitorPatientPosture(patient.getPatientId()));
         }
 
+        List<List<String>> allPatientPostures = new ArrayList<>();
+        for (Patient patient : patients){
+            allPatientPostures.add(patient.getPosture());
+        }
+
         int numMinutes = allPatientAlerts.get(0).size(); // Assuming all patients have the same number of alerts
         int numPatients = patients.size();
 
         for (int minute = 0; minute < numMinutes; minute++) {
+            if (!running) break; // Exit the loop if the thread is stopped
+
 
             // Clear alerts on the alert panel on the JavaFX Application Thread
             Platform.runLater(() -> alertsPanel.clearAlerts());
@@ -52,6 +66,7 @@ public class LiveMonitor extends Thread {
                 PatientBox patientBox = patientBoxes.get(i);
 
                 String alertColor = allPatientAlerts.get(i).get(minute);
+                String posture = allPatientPostures.get(i).get(minute);
 
 
                 // Update the PatientBox UI on the JavaFX Application Thread
@@ -72,6 +87,22 @@ public class LiveMonitor extends Thread {
                             break;
                         default:
                             System.err.println("Unknown alert color: " + alertColor);
+                    }
+                });
+
+                Platform.runLater(() -> {
+                    switch (posture) {
+                        case "left":
+                            patientBox.setPostureImage("left");
+                            break;
+                        case "right":
+                            patientBox.setPostureImage("right");
+                            break;
+                        case "middle":
+                            patientBox.setPostureImage("straight");
+                            break;
+                        default:
+                            System.err.println("Unknown posture color: " + posture);
                     }
                 });
 
@@ -106,12 +137,18 @@ public class LiveMonitor extends Thread {
 
             // Wait for 10 seconds before the next update
             try {
-                Thread.sleep(2000);
+                Thread.sleep(4000);
             } catch (InterruptedException e) {
-                System.err.println("LiveMonitor interrupted.");
+                // Thread interrupted intentionally, stop gracefully
                 break; // Exit the loop if the thread is interrupted
             }
         }
     }
+
+    // Method to stop the thread
+    public void stopMonitoring() {
+        running = false;
+    }
+
 
 }

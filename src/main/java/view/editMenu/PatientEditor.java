@@ -10,15 +10,26 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
+
+/**
+ * The PatientEditor class extends BasePatientForm and provides the UI components
+ * and functionality for editing existing patient data.
+ */
 public class PatientEditor extends BasePatientForm {
+
 
     @Override
     public String getTitle() {
         return "Patient Editor";
     }
-    private DatabaseLookup dbhelper;
+    private DatabaseLookup dbhelper=new DatabaseLookup();
     private Patient patient;
 
+    /**
+     * Adds UI components to the GridPane for fetching and editing patient details.
+     *
+     * @param gridPane the GridPane to which components will be added.
+     */
     @Override
     public void addComponents(GridPane gridPane) {
         // Title
@@ -44,7 +55,7 @@ public class PatientEditor extends BasePatientForm {
         gridPane.getChildren().add(idField);
 
         //Submit button to fetch patient data
-        Button fetchButton = new Button("Submit Patient details");
+        Button fetchButton = new Button("Search for patient");
         GridPane.setColumnIndex(fetchButton, 11);
         GridPane.setRowIndex(fetchButton, 3);
         GridPane.setColumnSpan(fetchButton,10);
@@ -170,9 +181,9 @@ public class PatientEditor extends BasePatientForm {
                 contactField.setText(patient.getContactNumber());
                 wardField.setDisable(false);
                 wardField.setText(patient.getWard());
-            } catch (NumberFormatException e) {
-                idField.setText("Invalid ID: Please enter a valid numeric ID from 1 to "+
-                        String.valueOf(dbhelper.getNumberOfPatients()));
+            } catch (Exception e) {
+                String numOfPatients=String.valueOf(dbhelper.getNumberOfPatients());
+                idField.setText("Invalid ID: Enter from 1 to "+numOfPatients);
             }
         });
 

@@ -12,8 +12,17 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+/**
+ * The EditHomeMenu class provides a JavaFX-based GUI for managing patient data.
+ * It includes options to add, edit, and delete patient records.
+ */
 public class EditHomeMenu extends Application {
 
+    /**
+     * Starts the application and sets up the primary stage and layout.
+     *
+     * @param primaryStage the primary stage for this JavaFX application.
+     */
     @Override
     public void start(Stage primaryStage) {
         // Root AnchorPane
@@ -44,7 +53,6 @@ public class EditHomeMenu extends Application {
 
         // Adding children to GridPane
 
-        // Label
         Label titleLabel = new Label("Patient Editor");
         titleLabel.setPrefSize(144, 30);
         titleLabel.setFont(new Font(25));
@@ -52,6 +60,23 @@ public class EditHomeMenu extends Application {
         GridPane.setColumnSpan(titleLabel, 6);
         gridPane.getChildren().add(titleLabel);
 
+        // Add Patient Button
+        Button addPatientButton = new Button("Add Patient");
+        addPatientButton.setPrefSize(111, 29);
+        addPatientButton.setFont(new Font(15));
+        GridPane.setRowIndex(addPatientButton, 1);
+        GridPane.setColumnSpan(addPatientButton, 3);
+        gridPane.getChildren().add(addPatientButton);
+        addPatientButton.setOnAction(e -> openPatientAdder());
+
+        // Delete Patient Button
+        Button deletePatientButton = new Button("Delete Patient");
+        deletePatientButton.setPrefSize(115, 29);
+        deletePatientButton.setFont(new Font(15));
+        GridPane.setRowIndex(deletePatientButton, 2);
+        GridPane.setColumnSpan(deletePatientButton, 4);
+        gridPane.getChildren().add(deletePatientButton);
+        deletePatientButton.setOnAction(e -> openPatientDeleter());
 
         // Edit Patient Button
         Button editPatientButton = new Button("Edit Patient");
@@ -59,11 +84,7 @@ public class EditHomeMenu extends Application {
         GridPane.setRowIndex(editPatientButton, 3);
         GridPane.setColumnSpan(editPatientButton, 4);
         gridPane.getChildren().add(editPatientButton);
-        editPatientButton.setOnAction(e -> {
-            // Action to perform when the button is clicked
-            System.out.println("Edit patient button clicked");
-            openPatientEditor();
-        });
+        editPatientButton.setOnAction(e -> openPatientEditor());
 
         // Adding GridPane to AnchorPane
         anchorPane.getChildren().add(gridPane);
@@ -75,14 +96,32 @@ public class EditHomeMenu extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Opens the PatientAdder window for adding a new patient.
+     */
+    private void openPatientAdder() {
+        PatientAdder patientAdder = new PatientAdder();
+        Stage patientAdderStage = new Stage();
+        patientAdder.start(patientAdderStage);
+    }
 
+    /**
+     * Opens the PatientEditor window for editing an existing patient.
+     */
     private void openPatientEditor() {
         PatientEditor patientEditor = new PatientEditor();
         Stage patientEditorStage = new Stage();
         patientEditor.start(patientEditorStage);
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    /**
+     * Opens the PatientDeleter window for deleting a patient.
+     */
+    public void openPatientDeleter() {
+        PatientDeleter patientDeleter = new PatientDeleter();
+        Stage patientDeleterStage = new Stage();
+        patientDeleter.start(patientDeleterStage);
     }
+
+
 }
