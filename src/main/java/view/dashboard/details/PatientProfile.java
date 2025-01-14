@@ -18,11 +18,18 @@ import javafx.util.Duration;
 
 import java.io.ByteArrayInputStream;
 
-
+/**
+ * Represent the patient profile UI that displayed patients detailed information
+ */
 public class PatientProfile extends Stage {
     private  Patient patient;
 
 
+    /**
+     * Constructs the PatientProfile UI for the given patient ID.
+    ****
+     * @param patientID The ID of the patient whose profile is displayed.
+    */
     public PatientProfile(int patientID){
         this.patient = new Patient (patientID);
 
