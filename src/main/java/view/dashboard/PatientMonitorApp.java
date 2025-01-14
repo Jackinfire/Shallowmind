@@ -34,7 +34,7 @@ public class PatientMonitorApp extends Application {
         root.setPadding(new Insets(30, 100, 30, 100));
 
         // Set background color of the application window.
-        root.setStyle("-fx-background-color: #081c44;");
+        root.setStyle("-fx-background-color: linear-gradient(to right, #081c44, #1b294b);;");
 
         // Get dimensions of the device screen.
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
