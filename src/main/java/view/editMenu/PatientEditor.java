@@ -209,7 +209,7 @@ public class PatientEditor extends BasePatientForm {
         submitButton.setOnAction(event -> {
             notificationLabel.setText("");
             if (patient != null) {
-                try {
+                try { // catching errors due to wrong types of data being inputted
                     String name = nameField.getText();
                     if (name.isEmpty()) throw new IllegalArgumentException("Name cannot be empty.");
                     String ward = wardField.getText();
@@ -236,19 +236,19 @@ public class PatientEditor extends BasePatientForm {
                     notificationLabel.setText("Patient data saved successfully.");
                     notificationLabel.setStyle("-fx-text-fill: green;");
 
-                    }catch (NumberFormatException e) {
+                    }catch (NumberFormatException e) { // when the input is not an int
                     notificationLabel.setText("Room, phone number and/or age must be a number");
-                    }catch(IllegalArgumentException e){
+                    }catch(IllegalArgumentException e){ // when the input is empty or if its not a positive int
                         notificationLabel.setText(e.getMessage());
                     }
                 } else {
                 notificationLabel.setText("No patient data to save. Fetch the patient first.");
             }
-                if (!gridPane.getChildren().contains(notificationLabel)) {
+                if (!gridPane.getChildren().contains(notificationLabel)) { // add a notification
                     gridPane.add(notificationLabel, 5, 12);
                     GridPane.setColumnSpan(notificationLabel, 10);// Add the label at a new row
                 }
-
+                // notification lasts for 5 seconds
                 Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), e -> {
                     gridPane.getChildren().remove(notificationLabel); // Remove the notification label
                 }));
