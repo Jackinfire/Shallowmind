@@ -90,3 +90,11 @@ The project uses the following dependencies, which are managed via Gradle:
 
 ---
 
+## Contributors
+
+- **[Om Jitendra Mahajan](https://github.com/Jackinfire)**: Fullstack Developer
+- **[Divij Vidhi Handa](https://github.com/divijvhanda)**: Fullstack Developer
+- **[Yuichiro Minamikawa](https://github.com/yucheerio)**: Fullstack Developer
+- **[Miles Caskey](https://github.com/micaskey)**: Fullstack Developer
+- **[Joe Martin](https://github.com/joemavs)**: Fullstack Developer
+
