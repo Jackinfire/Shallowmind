@@ -16,6 +16,7 @@ import java.io.ByteArrayInputStream;
 public class PatientBox extends HBox {
 
     private String alertColor = "#328D40"; // Class-level variable to store the color, default is green
+    ImageView postureImageView;
 
     public PatientBox(Patient patient){
 
@@ -47,13 +48,21 @@ public class PatientBox extends HBox {
 
 
 
-
-
-
         detailsBox.getChildren().addAll(nameLabel,locationLabel,lastUpdatedLabel);
+        detailsBox.setPadding(new Insets(0, 60, 0, 0)); // Add 20px padding on the right
+
 
         ImageView patientImage = addPatientImage(patient);
-        this.getChildren().addAll(patientImage,detailsBox);
+
+
+        this.postureImageView = new ImageView("straight_posture.png");
+
+
+        postureImageView.setFitWidth(65);  // Set the desired width
+        postureImageView.setFitHeight(65); // Set the desired height
+        postureImageView.setPreserveRatio(true); // Preserve the aspect ratio of the image
+
+        this.getChildren().addAll(patientImage,detailsBox,postureImageView);
 
         // Add a click listener to the HBox
         this.setOnMouseClicked(event -> {
@@ -94,5 +103,27 @@ public class PatientBox extends HBox {
     public void setAlertColor(String alertColor){
         this.alertColor = alertColor;
         this.setStyle("-fx-background-color: " + alertColor + ";-fx-background-radius: 15;");
+    }
+
+    public void setPostureImage(String posture) {
+        String imagePath; // Define the image path based on the posture
+
+        switch (posture) {
+            case "left":
+                imagePath = "left_posture.png";
+                break;
+            case "right":
+                imagePath = "right_posture.png";
+                break;
+            case "straight":
+                imagePath = "straight_posture.png";
+                break;
+            default:
+                System.err.println("Unknown posture: " + posture);
+                return; // Exit the method if posture is unknown
+        }
+
+        // Update the existing ImageView with the new image
+        this.postureImageView.setImage(new Image(imagePath));
     }
 }

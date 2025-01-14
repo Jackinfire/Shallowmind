@@ -42,6 +42,11 @@ public class LiveMonitor extends Thread {
             allPatientAlerts.add(alertSystem.monitorPatientPosture(patient.getPatientId()));
         }
 
+        List<List<String>> allPatientPostures = new ArrayList<>();
+        for (Patient patient : patients){
+            allPatientPostures.add(patient.getPosture());
+        }
+
         int numMinutes = allPatientAlerts.get(0).size(); // Assuming all patients have the same number of alerts
         int numPatients = patients.size();
 
@@ -61,6 +66,7 @@ public class LiveMonitor extends Thread {
                 PatientBox patientBox = patientBoxes.get(i);
 
                 String alertColor = allPatientAlerts.get(i).get(minute);
+                String posture = allPatientPostures.get(i).get(minute);
 
 
                 // Update the PatientBox UI on the JavaFX Application Thread
@@ -81,6 +87,22 @@ public class LiveMonitor extends Thread {
                             break;
                         default:
                             System.err.println("Unknown alert color: " + alertColor);
+                    }
+                });
+
+                Platform.runLater(() -> {
+                    switch (posture) {
+                        case "left":
+                            patientBox.setPostureImage("left");
+                            break;
+                        case "right":
+                            patientBox.setPostureImage("right");
+                            break;
+                        case "middle":
+                            patientBox.setPostureImage("straight");
+                            break;
+                        default:
+                            System.err.println("Unknown posture color: " + posture);
                     }
                 });
 
@@ -115,7 +137,7 @@ public class LiveMonitor extends Thread {
 
             // Wait for 10 seconds before the next update
             try {
-                Thread.sleep(1000);
+                Thread.sleep(4000);
             } catch (InterruptedException e) {
                 // Thread interrupted intentionally, stop gracefully
                 break; // Exit the loop if the thread is interrupted
@@ -126,7 +148,6 @@ public class LiveMonitor extends Thread {
     // Method to stop the thread
     public void stopMonitoring() {
         running = false;
-        System.out.println("STOPPINGGGGGGGGGGGGGGGGGGGGG");
     }
 
 
