@@ -4,6 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +14,7 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-
+/* Reference --5 taken from GitHub Copilot */
 public class PatientTest {
 
     private DatabaseLookup mockDatabaseLookup;
@@ -72,6 +75,17 @@ public class PatientTest {
         verify(mockDatabaseLookup).updateField("patientData", "emergencyContact", 9876543210L, "id", 1);
     }
 
+    @Test
+    public void testGetProcedureDetails() {
+        when(mockDatabaseLookup.retrieveData("procedureHistorySchedule")).thenReturn(Arrays.asList(
+                createProcedureRecord(1, "2023-09-01 10:00:00", "Procedure A")
+        ));
+
+        List<String> procedureDetails = patient.getProcedureDetails();
+
+        assertEquals(Arrays.asList("2023-09-01 10:00:00 - Procedure A"), procedureDetails);
+    }
+
     private Map<String, Object> createPatientRecord(int patientId, String name, int age, String gender, String diagnosis, String diagnosisDate, String doctorInCharge, String ward, int roomNum) {
         Map<String, Object> record = new HashMap<>();
         record.put("id", patientId);
@@ -95,4 +109,27 @@ public class PatientTest {
         record.put("timeMinutes", length);
         return record;
     }
+
+    private Map<String, Object> createProcedureRecord(int patientId, String time, String procedure) {
+        Map<String, Object> record = new HashMap<>();
+        record.put("patient_id", patientId);
+        record.put("time", time);
+        record.put("procedure", procedure);
+        return record;
+    }
+
+    public String convertInputStreamToString(InputStream inputStream) throws Exception {
+        final int bufferSize = 1024;
+        final char[] buffer = new char[bufferSize];
+        final StringBuilder out = new StringBuilder();
+        Reader in = new InputStreamReader(inputStream, "UTF-8");
+        for (; ; ) {
+            int rsz = in.read(buffer, 0, buffer.length);
+            if (rsz < 0)
+                break;
+            out.append(buffer, 0, rsz);
+        }
+        return out.toString();
+    }
+    /* end of reference --5 */
 }

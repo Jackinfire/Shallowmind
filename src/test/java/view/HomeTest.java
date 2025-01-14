@@ -11,6 +11,7 @@ import view.editMenu.PatientEditor;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
+/* Reference --14 taken from GitHub Copilot */
 public class HomeTest {
 
     private Home home;
@@ -36,3 +37,4 @@ public class HomeTest {
 
 
 }
+/* end of reference --14 */
