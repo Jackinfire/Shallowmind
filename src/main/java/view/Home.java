@@ -1,6 +1,7 @@
 package view;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
@@ -112,7 +113,12 @@ public class Home extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Patient Editor");
         primaryStage.show();
-    }
+
+        primaryStage.setOnCloseRequest(event -> {
+            Platform.exit(); // Shut down JavaFX runtime
+            System.exit(0); // Force JVM shutdown to ensure all threads have stopped
+                    });
+                }
 
     /**
      * Opens the Healthcare Processional View by opening the Patient Monitor App
@@ -143,6 +149,7 @@ public class Home extends Application {
             hospitalAdminButton.setDisable(false);
         });
     }
+
 
     public static void main(String[] args) {
         launch(args);

@@ -107,7 +107,7 @@ The project uses the following dependencies, which are managed via Gradle:
 
 - The app is simulating 1hr of data and updating every minute
 - As per user requirements, amber alert only switches on after 5min and red after 20min of consecutive posture
-- Hence to see the full App workings, one would need to wait a minimal of 20min
+- Hence to see the full App workings, one would need to wait a minimal of 20min (or change thread.sleep in LiveMonitor.java)
 - THANK YOU!!
 
 

@@ -49,7 +49,7 @@ public class PatientBox extends HBox {
 
         // Add label to display the last updated time
         Label lastUpdatedLabel = new Label("Last updated:" + CurrentTime.getCurrentTime());
-        lastUpdatedLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 14; -fx-text-fill: black;");
+        lastUpdatedLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: black;");
 
         // Update the label dynamically with the current time
         CurrentTime.updateLabel(lastUpdatedLabel);

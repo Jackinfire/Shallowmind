@@ -76,9 +76,7 @@ public class PatientMonitorApp extends Application {
 
         // Add a close request listener to terminate LiveMonitor thread when the application is closed.
         primaryStage.setOnCloseRequest(event -> {
-            System.out.println("closed");
             if (liveMonitor != null) {
-                System.out.println("still running thread");
                 liveMonitor.stopMonitor(); // Stop the LiveMonitor thread.
             }
         });
