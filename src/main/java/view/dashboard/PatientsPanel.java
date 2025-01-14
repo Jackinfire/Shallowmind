@@ -29,7 +29,7 @@ public class PatientsPanel extends ScrollPane {
      */
     public PatientsPanel(StatusPanel statusPanel, AlertsPanel alertsPanel) {
 
-        // Make the background and borders of the scrolling pane transparent.
+        // Make the background and borders of the scrolling pane the same colour as the background.
         this.setStyle("-fx-background: #081c44; -fx-border-color: #081c44;");
 
         // Set size of the scrolling pane.
