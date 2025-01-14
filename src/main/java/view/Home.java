@@ -18,6 +18,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import view.dashboard.PatientMonitorApp;
 import view.editMenu.EditHomeMenu;
+import view.editMenu.PatientEditor;
 
 public class Home extends Application {
     private Button healthcareProfessionalButton;
@@ -123,10 +124,10 @@ public class Home extends Application {
     private void openAdminView() {
         healthcareProfessionalButton.setDisable(true);
         hospitalAdminButton.setDisable(true);
-        EditHomeMenu hospitalAdminView = new EditHomeMenu();
-        Stage hospitalAdminViewStage = new Stage();
-        hospitalAdminView.start(hospitalAdminViewStage);
-        hospitalAdminViewStage.setOnCloseRequest(event -> {
+        PatientEditor patientEditor = new PatientEditor();
+        Stage patientEditorStage = new Stage();
+        patientEditor.start(patientEditorStage);
+        patientEditorStage.setOnCloseRequest(event -> {
             healthcareProfessionalButton.setDisable(false);
             hospitalAdminButton.setDisable(false);
         });
@@ -135,4 +136,4 @@ public class Home extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-}
+    }

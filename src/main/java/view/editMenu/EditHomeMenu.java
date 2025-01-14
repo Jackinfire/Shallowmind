@@ -52,32 +52,6 @@ public class EditHomeMenu extends Application {
         GridPane.setColumnSpan(titleLabel, 6);
         gridPane.getChildren().add(titleLabel);
 
-        // Add Patient Button
-        Button addPatientButton = new Button("Add Patient");
-        addPatientButton.setPrefSize(111, 29);
-        addPatientButton.setFont(new Font(15));
-        GridPane.setRowIndex(addPatientButton, 1);
-        GridPane.setColumnSpan(addPatientButton, 3);
-        gridPane.getChildren().add(addPatientButton);
-        addPatientButton.setOnAction(e -> {
-            // Action to perform when the button is clicked
-            System.out.println("Add patient button clicked");
-            openPatientAdder();
-        });
-
-
-        // Delete Patient Button
-        Button deletePatientButton = new Button("Delete Patient");
-        deletePatientButton.setPrefSize(115, 29);
-        deletePatientButton.setFont(new Font(15));
-        GridPane.setRowIndex(deletePatientButton, 2);
-        GridPane.setColumnSpan(deletePatientButton, 4);
-        gridPane.getChildren().add(deletePatientButton);
-        deletePatientButton.setOnAction(e -> {
-            // Action to perform when the button is clicked
-            System.out.println("Delete patient button clicked");
-            openPatientDeleter();
-        });
 
         // Edit Patient Button
         Button editPatientButton = new Button("Edit Patient");
@@ -101,11 +75,6 @@ public class EditHomeMenu extends Application {
         primaryStage.show();
     }
 
-    private void openPatientAdder() {
-        PatientAdder patientAdder = new PatientAdder();
-        Stage patientAdderStage = new Stage();
-        patientAdder.start(patientAdderStage);
-    }
 
     private void openPatientEditor() {
         PatientEditor patientEditor = new PatientEditor();
@@ -113,11 +82,6 @@ public class EditHomeMenu extends Application {
         patientEditor.start(patientEditorStage);
     }
 
-    public void openPatientDeleter(){
-        PatientDeleter patientDeleter = new PatientDeleter();
-        Stage patientDeleterStage = new Stage();
-        patientDeleter.start(patientDeleterStage);
-    }
     public static void main(String[] args) {
         launch(args);
     }
