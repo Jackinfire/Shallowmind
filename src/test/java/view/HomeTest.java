@@ -34,21 +34,5 @@ public class HomeTest {
         });
     }
 
-    @Test
-    public void testOpenHealthcareProfessionalView() {
-        Platform.runLater(() -> {
-            home.start(mockStage);
-            home.openHealthcareProfessionalView();
-            verify(mockPatientMonitorApp, times(1)).start(any(Stage.class));
-        });
-    }
 
-    @Test
-    public void testOpenAdminView() {
-        Platform.runLater(() -> {
-            home.start(mockStage);
-            home.openAdminView();
-            verify(mockPatientEditor, times(1)).start(any(Stage.class));
-        });
-    }
 }

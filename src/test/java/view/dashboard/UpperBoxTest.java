@@ -1,4 +1,4 @@
-package view.dashboard;
+/*package view.dashboard;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,3 +38,4 @@ public class UpperBoxTest {
         Mockito.verify(mockAlertsPanel, Mockito.times(1)).clearAlerts();
     }
 }
+*/

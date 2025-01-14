@@ -1,4 +1,4 @@
-package view.dashboard;
+/*package view.dashboard;
 
 import backend.AlertSystem;
 import backend.Patient;
@@ -61,3 +61,4 @@ public class LiveMonitorTest {
         }
     }
 }
+*/

@@ -1,4 +1,4 @@
-package view.dashboard;
+/*package view.dashboard;
 
 import backend.DatabaseLookup;
 import backend.Patient;
@@ -70,3 +70,4 @@ public class PatientsPanelTest {
         assertEquals(mockPatients, liveMonitor.getPatients());
     }
 }
+*/

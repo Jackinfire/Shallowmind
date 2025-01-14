@@ -6,6 +6,8 @@ import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -67,7 +69,7 @@ public class PatientTest {
         verify(mockDatabaseLookup).updateField("patientData", "doctorInCharge", "Dr. Johnson", "id", 1);
         verify(mockDatabaseLookup).updateField("patientData", "ward", "Ward B", "id", 1);
         verify(mockDatabaseLookup).updateField("patientData", "roomNum", 102, "id", 1);
-        verify(mockDatabaseLookup).updateField("patientData", "emergencyContact", 9876543210, "id", 1);
+        verify(mockDatabaseLookup).updateField("patientData", "emergencyContact", 9876543210L, "id", 1);
     }
 
     private Map<String, Object> createPatientRecord(int patientId, String name, int age, String gender, String diagnosis, String diagnosisDate, String doctorInCharge, String ward, int roomNum) {
