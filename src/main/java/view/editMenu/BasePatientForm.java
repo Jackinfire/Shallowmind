@@ -8,10 +8,20 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
+/**
+ * BasePatientForm is an abstract class for creating patient forms
+ *  provides a structured layout using a GridPane within an AnchorPane
+ */
 public abstract class BasePatientForm extends Application implements PatientForm {
 
     protected GridPane gridPane;
 
+
+    /**
+     * Starts the application and sets up the stage and layout.
+     *
+     * @param primaryStage the main stage.
+     */
     @Override
     public void start(Stage primaryStage) {
         // AnchorPane as root
@@ -32,6 +42,10 @@ public abstract class BasePatientForm extends Application implements PatientForm
         primaryStage.show();
     }
 
+
+    /**
+     * Sets up the GridPane layout with columns and rows.
+     */
     private void setupGridPane() {
         gridPane = new GridPane();
         gridPane.setPrefSize(623, 423);

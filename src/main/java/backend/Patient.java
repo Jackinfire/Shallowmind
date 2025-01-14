@@ -1,9 +1,5 @@
 package backend;
 
-import backend.DatabaseLookup;
-import java.awt.Image;
-import javax.imageio.ImageIO;
-import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,15 +39,15 @@ public class Patient {
         boolean patientFound = false;
         for (Map<String, Object> row : data) {
             if (row.get("patient_id") != null && row.get("patient_id").equals(this.patientId)) {
-                patientFound = true; // Patient ID exists
+                patientFound = true;
                 Object value = row.get(dataName);
                 if (value != null) {
                     // Check if the value matches the desired type
                     if (type.isInstance(value)) {
-                        resultList.add(type.cast(value)); // Safely cast and add to the list
+                        resultList.add(type.cast(value));
                     }
                     else if (type == String.class) {
-                        // Convert to String if requested
+
                         resultList.add(type.cast(value.toString()));
                     }
                 }
