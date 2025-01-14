@@ -80,6 +80,7 @@ public class Home extends Application {
         healthcareProfessionalButton = new Button("Healthcare Professional View");
         healthcareProfessionalButton.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 14));
         healthcareProfessionalButton.setMaxSize(230, 190);
+        healthcareProfessionalButton.setStyle("-fx-background-radius: 15;");
         GridPane.setHalignment(healthcareProfessionalButton, HPos.CENTER);
         GridPane.setValignment(healthcareProfessionalButton, VPos.CENTER);
         GridPane.setColumnIndex(healthcareProfessionalButton, 0);
@@ -95,6 +96,7 @@ public class Home extends Application {
         hospitalAdminButton = new Button("Hospital Admin View");
         hospitalAdminButton.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 14));
         hospitalAdminButton.setMaxSize(230, 190);
+        hospitalAdminButton.setStyle("-fx-background-radius: 15;");
         GridPane.setHalignment(hospitalAdminButton, HPos.CENTER);
         GridPane.setValignment(hospitalAdminButton, VPos.CENTER);
         GridPane.setColumnIndex(hospitalAdminButton, 1);
