@@ -1,0 +1,72 @@
+package backend;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+import java.time.LocalDateTime;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
+public class AlertSystemTest {
+
+    private DatabaseLookup mockDatabaseLookup;
+    private AlertSystem alertSystem;
+
+    @BeforeEach
+    public void setUp() {
+        mockDatabaseLookup = Mockito.mock(DatabaseLookup.class);
+        alertSystem = new AlertSystem(mockDatabaseLookup);
+    }
+
+    @Test
+    public void testMonitorPatientPosture_GreenToAmber() {
+        List<Map<String, Object>> mockData = new ArrayList<>();
+        mockData.add(createPostureRecord(1, "2023-09-01 10:00:00", "left"));
+        mockData.add(createPostureRecord(1, "2023-09-01 10:05:00", "left"));
+
+        when(mockDatabaseLookup.retrieveData("postureHistory")).thenReturn(mockData);
+
+        List<String> alertStatuses = alertSystem.monitorPatientPosture(1);
+
+        assertEquals(Arrays.asList("green", "amber"), alertStatuses);
+    }
+
+    @Test
+    public void testMonitorPatientPosture_AmberToRed() {
+        List<Map<String, Object>> mockData = new ArrayList<>();
+        mockData.add(createPostureRecord(1, "2023-09-01 10:00:00", "left"));
+        mockData.add(createPostureRecord(1, "2023-09-01 10:05:00", "left"));
+        mockData.add(createPostureRecord(1, "2023-09-01 10:20:00", "left"));
+
+        when(mockDatabaseLookup.retrieveData("postureHistory")).thenReturn(mockData);
+
+        List<String> alertStatuses = alertSystem.monitorPatientPosture(1);
+
+        assertEquals(Arrays.asList("green", "amber", "red"), alertStatuses);
+    }
+
+    @Test
+    public void testMonitorPatientPosture_PostureChangeResetsToGreen() {
+        List<Map<String, Object>> mockData = new ArrayList<>();
+        mockData.add(createPostureRecord(1, "2023-09-01 10:00:00", "left"));
+        mockData.add(createPostureRecord(1, "2023-09-01 10:05:00", "left"));
+        mockData.add(createPostureRecord(1, "2023-09-01 10:10:00", "right"));
+
+        when(mockDatabaseLookup.retrieveData("postureHistory")).thenReturn(mockData);
+
+        List<String> alertStatuses = alertSystem.monitorPatientPosture(1);
+
+        assertEquals(Arrays.asList("green", "amber", "green"), alertStatuses);
+    }
+
+    private Map<String, Object> createPostureRecord(int patientId, String time, String posture) {
+        Map<String, Object> record = new HashMap<>();
+        record.put("patient_id", patientId);
+        record.put("time", time);
+        record.put("posture_position", posture);
+        return record;
+    }
+}
