@@ -17,7 +17,6 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import view.dashboard.PatientMonitorApp;
-import view.editMenu.EditHomeMenu;
 import view.editMenu.PatientEditor;
 
 public class Home extends Application {
