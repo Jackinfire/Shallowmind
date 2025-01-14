@@ -17,12 +17,21 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import view.dashboard.PatientMonitorApp;
-import view.editMenu.EditHomeMenu;
+import view.editMenu.PatientEditor;
 
+/**
+ * The Home class extends Application and provides the UI components
+ * and functionality for choosing which view to use the app.
+ */
 public class Home extends Application {
     private Button healthcareProfessionalButton;
     private Button hospitalAdminButton;
 
+    /**
+     * The start method sets up the primary stage and initializes the user interface components.
+     *
+     * @param primaryStage The primary stage for the application.
+     */
     @Override
     public void start(Stage primaryStage) {
         // Root AnchorPane
@@ -107,6 +116,9 @@ public class Home extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Opens the Healthcare Processional View by opening the Patient Monitor App
+     */
     private void openHealthcareProfessionalView() {
         healthcareProfessionalButton.setDisable(true);
         hospitalAdminButton.setDisable(true);
@@ -119,14 +131,16 @@ public class Home extends Application {
         });
     }
 
-
+    /**
+     * Opens the Healthcare Processional View by opening the Editor
+     */
     private void openAdminView() {
         healthcareProfessionalButton.setDisable(true);
         hospitalAdminButton.setDisable(true);
-        EditHomeMenu hospitalAdminView = new EditHomeMenu();
-        Stage hospitalAdminViewStage = new Stage();
-        hospitalAdminView.start(hospitalAdminViewStage);
-        hospitalAdminViewStage.setOnCloseRequest(event -> {
+        PatientEditor patientEditor = new PatientEditor();
+        Stage patientEditorStage = new Stage();
+        patientEditor.start(patientEditorStage);
+        patientEditorStage.setOnCloseRequest(event -> {
             healthcareProfessionalButton.setDisable(false);
             hospitalAdminButton.setDisable(false);
         });
@@ -135,4 +149,4 @@ public class Home extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-}
+    }
