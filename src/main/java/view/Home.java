@@ -19,10 +19,19 @@ import javafx.stage.Stage;
 import view.dashboard.PatientMonitorApp;
 import view.editMenu.PatientEditor;
 
+/**
+ * The Home class extends Application and provides the UI components
+ * and functionality for choosing which view to use the app.
+ */
 public class Home extends Application {
     private Button healthcareProfessionalButton;
     private Button hospitalAdminButton;
 
+    /**
+     * The start method sets up the primary stage and initializes the user interface components.
+     *
+     * @param primaryStage The primary stage for the application.
+     */
     @Override
     public void start(Stage primaryStage) {
         // Root AnchorPane
@@ -107,6 +116,9 @@ public class Home extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Opens the Healthcare Processional View by opening the Patient Monitor App
+     */
     private void openHealthcareProfessionalView() {
         healthcareProfessionalButton.setDisable(true);
         hospitalAdminButton.setDisable(true);
@@ -119,7 +131,9 @@ public class Home extends Application {
         });
     }
 
-
+    /**
+     * Opens the Healthcare Processional View by opening the Editor
+     */
     private void openAdminView() {
         healthcareProfessionalButton.setDisable(true);
         hospitalAdminButton.setDisable(true);
