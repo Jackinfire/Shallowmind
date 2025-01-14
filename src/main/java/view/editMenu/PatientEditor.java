@@ -10,7 +10,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
+
+/**
+ * The PatientEditor class extends BasePatientForm and provides the UI components
+ * and functionality for editing existing patient data.
+ */
 public class PatientEditor extends BasePatientForm {
+
 
     @Override
     public String getTitle() {
@@ -19,6 +25,11 @@ public class PatientEditor extends BasePatientForm {
     private DatabaseLookup dbhelper=new DatabaseLookup();
     private Patient patient;
 
+    /**
+     * Adds UI components to the GridPane for fetching and editing patient details.
+     *
+     * @param gridPane the GridPane to which components will be added.
+     */
     @Override
     public void addComponents(GridPane gridPane) {
         // Title

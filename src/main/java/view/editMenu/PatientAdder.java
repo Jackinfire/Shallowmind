@@ -7,13 +7,31 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
+
+/**
+ * The PatientAdder class extends BasePatientForm and provides the UI components
+ * and functionality for adding a new patient to the system.
+ */
 public class PatientAdder extends BasePatientForm {
 
+
+    /**
+     * Returns the title of the form.
+     *
+     * @return the title of the form.
+     */
     @Override
     public String getTitle() {
         return "Patient Adder";
     }
 
+
+
+    /**
+     * Adds User interface components to the GridPane for capturing patient details.
+     *
+     * @param gridPane the GridPane to which components will be added.
+     */
     @Override
     public void addComponents(GridPane gridPane) {
         Label title = new Label("Patient Adder");
