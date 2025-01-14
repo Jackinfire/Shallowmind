@@ -12,9 +12,23 @@ javafx {
     modules = [ 'javafx.controls' ]
 }
 
-
 dependencies {
-
     implementation 'org.xerial:sqlite-jdbc:3.42.0.0'
     implementation 'com.itextpdf:itext7-core:7.2.5'
+    implementation 'org.openjfx:javafx-controls:11'
+    implementation 'org.openjfx:javafx-fxml:11'
+    implementation 'org.openjfx:javafx-base:11'
+    implementation 'org.openjfx:javafx-graphics:11'
+    implementation 'org.openjfx:javafx-swing:11'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0' // JUnit 5
+    testImplementation 'org.mockito:mockito-core:4.0.0'
+}
+
+application {
+    // Set the main class of your application
+    mainClass = 'view.Home'
+}
+
+test {
+    useJUnit()
 }
