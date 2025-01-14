@@ -46,7 +46,8 @@ public class PatientMonitorApp extends Application {
         // Create the main scene with the specified root layout and dimensions.
         Scene scene = new Scene(root, WindowDimensions.windowWidth, WindowDimensions.windowHeight);
 
-        // Set the title of the application window and display the scene.        primaryStage.setTitle("Patient Monitor");
+        // Set the title of the application window and display the scene.
+        primaryStage.setTitle("Patient Monitor");
         primaryStage.setScene(scene);
         primaryStage.show();
 

@@ -46,7 +46,7 @@ public class Home extends Application {
         AnchorPane.setLeftAnchor(gridPane, 10.0);
         AnchorPane.setRightAnchor(gridPane, 10.0);
 
-// Divide the pane into 4
+        // Divide the pane into 4
         for (int i = 0; i < 2; i++) {
             ColumnConstraints colConstraints = new ColumnConstraints();
             colConstraints.setPercentWidth(50.0);
@@ -59,7 +59,7 @@ public class Home extends Application {
             gridPane.getRowConstraints().add(rowConstraints);
         }
 
-// Add shallowmind logo
+        // Add shallowmind logo
         ImageView logoView = new ImageView(new Image("file:src/main/resources/logo.png"));
         logoView.setPreserveRatio(true);
         logoView.setFitHeight(100);  // Adjust as needed
@@ -68,7 +68,7 @@ public class Home extends Application {
         GridPane.setHalignment(logoView, HPos.RIGHT);
         gridPane.getChildren().add(logoView);
 
-// Title
+        // Title
         Label titleLabel = new Label("Welcome to MOPPU \n Select your user:");
         titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 18));
         titleLabel.setTextFill(javafx.scene.paint.Color.WHITE);
@@ -76,7 +76,7 @@ public class Home extends Application {
         GridPane.setRowIndex(titleLabel, 0);
         gridPane.getChildren().add(titleLabel);
 
-// Add healthcareProfessional Button
+        // Add healthcareProfessional Button
         healthcareProfessionalButton = new Button("Healthcare Professional View");
         healthcareProfessionalButton.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 14));
         healthcareProfessionalButton.setMaxSize(230, 190);
@@ -92,7 +92,7 @@ public class Home extends Application {
         });
 
 
-// add hospitalAdmin Button
+        // add hospitalAdmin Button
         hospitalAdminButton = new Button("Hospital Admin View");
         hospitalAdminButton.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 14));
         hospitalAdminButton.setMaxSize(230, 190);
@@ -126,13 +126,13 @@ public class Home extends Application {
      * Opens the Healthcare Processional View by opening the Patient Monitor App
      */
     private void openHealthcareProfessionalView() {
-        healthcareProfessionalButton.setDisable(true);
+        healthcareProfessionalButton.setDisable(true); // buttons get disabled so that you can only be in one view
         hospitalAdminButton.setDisable(true);
         PatientMonitorApp healthcareProfessionalView = new PatientMonitorApp();
         Stage healthcareProfessionalViewStage = new Stage();
         healthcareProfessionalView.start(healthcareProfessionalViewStage);
         healthcareProfessionalViewStage.setOnCloseRequest(event -> {
-            healthcareProfessionalButton.setDisable(false);
+            healthcareProfessionalButton.setDisable(false); // buttons get enabled once it is closed
             hospitalAdminButton.setDisable(false);
         });
     }
@@ -141,13 +141,13 @@ public class Home extends Application {
      * Opens the Healthcare Processional View by opening the Editor
      */
     private void openAdminView() {
-        healthcareProfessionalButton.setDisable(true);
+        healthcareProfessionalButton.setDisable(true); // buttons get disabled so that you can only be in one view
         hospitalAdminButton.setDisable(true);
         PatientEditor patientEditor = new PatientEditor();
         Stage patientEditorStage = new Stage();
         patientEditor.start(patientEditorStage);
         patientEditorStage.setOnCloseRequest(event -> {
-            healthcareProfessionalButton.setDisable(false);
+            healthcareProfessionalButton.setDisable(false); // buttons get enabled once it is closed
             hospitalAdminButton.setDisable(false);
         });
     }
