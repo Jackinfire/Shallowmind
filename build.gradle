@@ -12,13 +12,10 @@ javafx {
     modules = [ 'javafx.controls' ]
 }
 
+mainClassName = 'view.Home'
+
 dependencies {
+
     implementation 'org.xerial:sqlite-jdbc:3.42.0.0'
     implementation 'com.itextpdf:itext7-core:7.2.5'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0' // JUnit 5
-}
-
-application {
-    // Set the main class of your application
-    mainClass = 'view.Home'
 }

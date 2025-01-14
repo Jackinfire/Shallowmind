@@ -11,6 +11,7 @@
 2. [Features](#features)
 3. [Installation](#installation)
 4. [Dependencies and Requirements](#dependencies-and-requirements)
+5. [Running the Application](#running-the-application)
 
 ---
 
@@ -93,6 +94,18 @@ The project uses the following dependencies, which are managed via Gradle:
 
 ---
 
+## Running the Application
+
+To run the application using Gradle, follow these steps:
+
+1. Open a terminal and navigate to the project directory.
+2. Use the following command to run the application:
+   ```bash
+   ./gradlew run
+   ```
+
+---
+
 ## Contributors
 
 - **[Om Jitendra Mahajan](https://github.com/Jackinfire)**: Fullstack Developer
@@ -109,6 +122,4 @@ The project uses the following dependencies, which are managed via Gradle:
 - As per user requirements, amber alert only switches on after 5min and red after 20min of consecutive posture
 - Hence to see the full App workings, one would need to wait a minimal of 20min (or change thread.sleep in LiveMonitor.java)
 - THANK YOU!!
-
-
 
