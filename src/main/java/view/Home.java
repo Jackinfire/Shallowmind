@@ -111,7 +111,7 @@ public class Home extends Application {
         // Setting up the Scene
         Scene scene = new Scene(anchorPane);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Patient Editor");
+        primaryStage.setTitle("MOPPU");
         primaryStage.show();
 
         primaryStage.setOnCloseRequest(event -> {
